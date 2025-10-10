@@ -14,9 +14,6 @@ export default function Page() {
             </div>
             <h1 className="text-xl font-bold text-white">GeoGold AI</h1>
           </div>
-          <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800">
-            Sign In
-          </Button>
         </div>
       </header>
 
@@ -33,9 +30,6 @@ export default function Page() {
           <div className="flex gap-4 justify-center">
             <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-slate-900 font-semibold">
               Start Exploration
-            </Button>
-            <Button size="lg" variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800">
-              View Demo
             </Button>
           </div>
         </div>
