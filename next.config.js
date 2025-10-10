@@ -8,8 +8,8 @@ const nextConfig = {
         domains: ['images.unsplash.com'],
     },
     // GitHub Pages deployment configuration
-    basePath: process.env.NODE_ENV === 'production' ? '/GeoAuPredict' : '',
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/GeoAuPredict/' : '',
+    basePath: process.env.NODE_ENV === 'production' ? '/geoaupredict' : '',
+    assetPrefix: process.env.NODE_ENV === 'production' ? '/geoaupredict/' : '',
 };
 
 module.exports = nextConfig;

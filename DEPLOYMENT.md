@@ -15,27 +15,23 @@ This project is configured for automatic deployment to GitHub Pages using GitHub
 The deployment is configured to:
 - Build on every push to the `main` branch
 - Deploy the static export to GitHub Pages
-- Use the repository name as the base path (`/GeoAuPredict/`)
+- Use the repository name as the base path (`/geoaupredict/`)
 
 ## Configuration
 
 ### Next.js Configuration (`next.config.js`)
 
 ```javascript
-const nextConfig = {
     output: 'export',
     trailingSlash: true,
     images: {
         unoptimized: true,
     },
-    basePath: process.env.NODE_ENV === 'production' ? '/GeoAuPredict' : '',
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/GeoAuPredict/' : '',
+    basePath: process.env.NODE_ENV === 'production' ? '/geoaupredict' : '',
+    assetPrefix: process.env.NODE_ENV === 'production' ? '/geoaupredict/' : '',
 };
-```
 
 ### GitHub Actions Workflow
-
-The deployment workflow (`.github/workflows/deploy.yml`) handles:
 - Node.js setup
 - Dependencies installation
 - Static export generation
@@ -83,7 +79,7 @@ npm run build
 
 3. **Images**: Images are unoptimized for static export compatibility
 
-4. **Base Path**: The app uses `/GeoAuPredict` as the base path. Update this in `next.config.js` if your repository name is different.
+4. **Base Path**: The app uses `/geoaupredict` as the base path. Update this in `next.config.js` if your base path is different.
 
 ## Troubleshooting
 
@@ -107,13 +103,12 @@ If deployment fails:
 
 To use a custom domain:
 
-1. Update the `cname` field in `.github/workflows/deploy.yml`
 2. Add a `CNAME` file to your repository with your domain name
 3. Configure your domain's DNS settings to point to GitHub Pages
 
 ## Live URL
 
 After successful deployment, your site will be available at:
-`https://yourusername.github.io/GeoAuPredict/`
+`https://yourusername.github.io/geoaupredict/`
 
 Replace `yourusername` with your actual GitHub username.
