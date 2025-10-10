@@ -1,0 +1,28 @@
+name: geogold
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - pandas
+  - scikit-learn
+  - xgboost
+  - tensorflow
+  - pytorch
+  - geopandas
+  - rasterio
+  - gdal
+  - pyproj
+  - matplotlib
+  - seaborn
+  - plotly
+  - jupyter
+  - notebook
+  - pip
+  - pip:
+    - deck.gl
+    - pydeck
+    - fastapi
+    - uvicorn
+    - pydantic

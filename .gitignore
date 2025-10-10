@@ -1,0 +1,79 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Production
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Data files (large files should use pointers)
+data_raw/*.csv
+data_raw/*.parquet
+data_raw/*.tif
+data_raw/*.geotiff
+data_processed/*.csv
+data_processed/*.parquet
+
+# Keep .gitkeep files
+!**/.gitkeep
+
+# Models
+*.pkl
+*.h5
+*.pt
+*.pth
+models/*.pkl
+models/*.h5
+
+# Experiments
+experiments/results/
+experiments/logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tempo
+**/tempobook/dynamic/
+**/tempobook/storyboards/
