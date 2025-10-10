@@ -1,13 +1,14 @@
 # GeoAuPredict - Gold Prediction Dataset
 
 A comprehensive geospatial dataset and ingestion pipeline for gold deposit prediction in Colombia, integrating multiple data sources including geochemical sampling, geological features, satellite imagery, and known mineral deposits.
-
 ## 🚀 Deployment
 
 This project is configured for automatic deployment to GitHub Pages.
 
 ### Live Demo
-[View Live Site](https://edwardcalderon.github.io/geoaupredict/) 
+[View Live Site](https://edcalderon.github.io/GeoAuPredict/) (original repository)
+
+> **Note for Forked Repositories**: When you fork this repository, your deployment URL will be `https://yourusername.github.io/GeoAuPredict/` 
 
 ### Deployment Setup
 
