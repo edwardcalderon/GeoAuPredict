@@ -37,4 +37,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./out
-        cname: geoaupredict.github.io  # Optional: set custom domain
+        cname: edwardcalderon.github.io/geoaupredict
