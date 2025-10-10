@@ -6,7 +6,7 @@ A comprehensive geospatial dataset and ingestion pipeline for gold deposit predi
 This project is configured for automatic deployment to GitHub Pages.
 
 ### Live Demo
-[View Live Site](https://edcalderon.github.io/GeoAuPredict/) (original repository)
+[View Live Site](https://edwardcalderon.github.io/GeoAuPredict/) (original repository)
 
 > **Note for Forked Repositories**: When you fork this repository, your deployment URL will be `https://yourusername.github.io/GeoAuPredict/` 
 
