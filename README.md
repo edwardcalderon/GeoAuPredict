@@ -2,6 +2,29 @@
 
 A comprehensive geospatial dataset and ingestion pipeline for gold deposit prediction in Colombia, integrating multiple data sources including geochemical sampling, geological features, satellite imagery, and known mineral deposits.
 
+## 🚀 Deployment
+
+This project is configured for automatic deployment to GitHub Pages.
+
+### Live Demo
+[View Live Site](geoaupredict.github.io) 
+
+### Deployment Setup
+
+1. **Enable GitHub Pages**:
+   - Go to repository settings → Pages
+   - Set source to "GitHub Actions"
+
+2. **Automatic Deployment**:
+   - Pushes to `main` branch trigger automatic builds
+   - Static export is generated and deployed
+
+3. **Manual Deployment**:
+   ```bash
+   npm run export    # Build static export
+   npm run deploy    # Deploy to GitHub Pages
+   ```
+
 ## 📋 Overview
 
 This project creates a machine learning-ready dataset for gold prediction by combining:
