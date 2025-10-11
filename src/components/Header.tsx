@@ -23,11 +23,11 @@ export default function Header({ logoText = "G", title, logoHref, navigation = [
         <div className="flex items-center space-x-2">
           {logoHref ? (
             <a href={logoHref} className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center hover:opacity-80 transition-opacity">
-              <span className="text-slate-900 font-bold text-xs leading-none">{logoText}</span>
+              <img src="/logo.png" alt="Logo" className="w-9 h-9" />
             </a>
           ) : (
             <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-              <span className="text-slate-900 font-bold text-xs leading-none">{logoText}</span>
+              <img src="/logo.png" alt="Logo" className="w-9 h-9" />
             </div>
           )}
           {logoHref ? (
