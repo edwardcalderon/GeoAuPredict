@@ -2,9 +2,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import React, { ReactNode } from 'react';
+import React  from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Download, FileText } from 'lucide-react';
+import { Download } from 'lucide-react';
+import { getNavUrl } from '@/lib/navigation';
+
 export default async function WhitePaperPage() {
   // Read the markdown whitepaper content
   const whitepaperPath = join(process.cwd(), 'docs', 'whitepaper.md');
@@ -15,14 +17,15 @@ export default async function WhitePaperPage() {
   const versionsData = await fs.readFile(versionsPath, 'utf8');
   const versions = JSON.parse(versionsData);
 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
       <Header
         logoText="GAP"
         title="Geo Au Predict"
         navigation={[
-          { label: 'Home', href: '/', isActive: false },
-          { label: 'White Paper', href: '/whitepaper', isActive: true },
+          { label: 'Home', href: getNavUrl('/'), isActive: false },
+          { label: 'White Paper', href: getNavUrl('/whitepaper'), isActive: true },
           { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false, target: '_blank' }
         ]}
       />
