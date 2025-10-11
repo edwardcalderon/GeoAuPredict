@@ -1,0 +1,129 @@
+# GeoAuPredict Phase 3: Predictive Modeling Configuration
+# Sample configuration file for the Phase 3 machine learning pipeline
+
+# Output configuration
+output_dir: "phase3_output"
+random_state: 42
+test_size: 0.2
+spatial_split: true  # Use geographic blocks for train/test split
+scaler_type: "standard"  # Options: "standard", "minmax", "robust"
+
+# Cross-validation configuration
+cv_method: "geographic_blocks"  # Options: "geographic_blocks", "kmeans_clusters", "distance_based"
+n_splits: 5
+block_size: 1.0  # Degrees for geographic blocks
+distance_threshold: 1000  # Meters for distance-based CV
+
+# Interpolation method for probability mapping
+interpolation_method: "kriging"  # Options: "idw", "kriging", "spline", "nearest"
+pixel_size: 1000  # Meters for output raster resolution
+uncertainty_estimation: true
+
+# Data configuration
+data:
+  # Path to integrated dataset from Phase 2 (leave null for demo mode)
+  training_data_path: null
+  # Expected columns in training data:
+  # - lat, lon: coordinates
+  # - label_gold: binary target (0/1)
+  # - Feature columns: elevation, slope, ndvi, nbr, clay_index, iron_index, etc.
+
+# Model configuration
+models:
+  # Which models to train
+  random_forest: true
+  xgboost: true
+  lightgbm: true
+
+  # Random Forest hyperparameters
+  rf_n_estimators: 100
+  rf_max_depth: 10
+  rf_min_samples_split: 2
+  rf_min_samples_leaf: 1
+
+  # XGBoost hyperparameters
+  xgb_n_estimators: 100
+  xgb_max_depth: 6
+  xgb_learning_rate: 0.1
+  xgb_subsample: 0.8
+  xgb_colsample_bytree: 0.8
+
+  # LightGBM hyperparameters
+  lgb_n_estimators: 100
+  lgb_max_depth: 6
+  lgb_learning_rate: 0.1
+  lgb_subsample: 0.8
+  lgb_colsample_bytree: 0.8
+
+# Mapping configuration
+mapping:
+  # Geographic bounds for probability mapping (min_lon, min_lat, max_lon, max_lat)
+  # Leave null to use data bounds
+  bounds: null
+
+  # Create uncertainty maps
+  create_uncertainty_map: true
+
+  # Probability thresholds for categorization
+  probability_thresholds: [0.3, 0.5, 0.7, 0.9]
+
+# Advanced configuration
+advanced:
+  # Feature selection
+  feature_selection:
+    method: "mutual_info"  # Options: "mutual_info", "f_classif", "correlation"
+    k_features: null  # Number of features to select (null = all)
+
+  # Hyperparameter tuning
+  hyperparameter_tuning:
+    enabled: false
+    method: "random"  # Options: "random", "grid"
+    n_trials: 50
+
+  # Ensemble configuration
+  ensemble:
+    enabled: false
+    base_models: ["random_forest", "xgboost", "lightgbm"]
+    voting: "soft"  # Options: "hard", "soft"
+
+# Evaluation configuration
+evaluation:
+  # Geographic performance analysis
+  geographic_analysis:
+    enabled: true
+    grid_resolution: 1.0  # Degrees
+
+  # Exploration metrics
+  exploration_metrics:
+    enabled: true
+    area_thresholds: [0.1, 0.25, 0.5]  # Percentages for precision@k
+
+  # Spatial autocorrelation analysis
+  spatial_autocorrelation:
+    enabled: true
+    max_distance: 10000  # Meters
+
+# Logging configuration
+logging:
+  level: "INFO"
+  file_path: "phase3_predictive_modeling.log"
+  save_model_details: true
+
+# Example data structure for training dataset:
+# lat,lon,elevation,slope_degrees,ndvi,nbr,clay_index,iron_index,twi,flow_accumulation,
+# dist_to_faults,Au_ppm,As_ppm,Cu_ppm,Pb_ppm,Zn_ppm,Fe_pct,dist_to_nearest_sample,
+# Au_As_ratio,alteration_index,spatial_cluster,region_north,region_south,region_east,
+# region_west,elevation_category,label_gold
+#
+# 6.234,-74.123,450.2,12.3,0.35,0.18,1.45,0.85,8.2,1250.5,1500.2,0.08,4.2,28.5,
+# 12.3,85.4,3.2,250.1,0.019,1.23,2,1,0,1,0,medium,1
+
+# Expected model performance metrics:
+# - ROC-AUC: > 0.8 (good), > 0.9 (excellent)
+# - Precision@50: Target > 0.6 for exploration efficiency
+# - Spatial autocorrelation: < 0.1 (no significant spatial bias)
+
+# Usage notes:
+# 1. For demo mode: python phase3_predictive_modeling.py --demo
+# 2. For custom data: Update training_data_path and run
+# 3. For production: Enable hyperparameter tuning and ensemble methods
