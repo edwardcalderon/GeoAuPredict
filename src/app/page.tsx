@@ -12,7 +12,6 @@ export default function Page() {
         logoText="GAP"
         title="Geo Au Predict"
         navigation={[
-          { label: 'Home', href: getNavUrl('/'), isActive: true },
           { label: 'White Paper', href: getNavUrl('/whitepaper'), isActive: false },
           { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false }
         ]}
