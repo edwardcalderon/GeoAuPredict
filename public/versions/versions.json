@@ -1,5 +1,5 @@
 {
-  "currentVersion": "v1.3.2",
+  "currentVersion": "v1.3.3",
   "versions": [
     {
       "version": "v1.3.1",
@@ -60,7 +60,17 @@
       "author": "Unknown",
       "email": "edwardca12@hotmail.com",
       "commit_hash": "dc7cbbf8ba32119bcfd61491f10b08e6196bfd45"
+    },
+    {
+      "version": "v1.3.3",
+      "filename": "whitepaper-v1.3.3.pdf",
+      "date": "2025-10-11",
+      "timestamp": "2025-10-11 05:09:45",
+      "changes": "Final bibliography corrections with proper academic citations",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "77451e4882c986795b5a0a6efe2e361db26665bd"
     }
   ],
-  "downloadUrl": "/versions/whitepaper-v1.3.2.pdf"
+  "downloadUrl": "/versions/whitepaper-v1.3.3.pdf"
 }
