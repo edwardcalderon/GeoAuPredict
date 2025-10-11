@@ -1,0 +1,21 @@
+created_at: '2025-10-10T20:15:20.275344'
+description: GeoAuPredict Geospatial Data Lake
+structure:
+  external:
+    dem: Digital Elevation Models
+    geological: Geological maps and data
+    satellite: Satellite imagery data
+  processed:
+    cache: Cached data and temporary files
+    datasets: Final processed datasets for ML
+    interim: Intermediate processing results
+  raw:
+    gravity: Gravity anomaly data
+    lithology: Lithological/geological maps
+    magnetic: Magnetic anomaly data
+    perforaciones: Drilling/perforation data
+    sentinel: Sentinel-2 satellite imagery
+    sgc: "Servicio Geol\xF3gico Colombiano geochemical data"
+    srtm: SRTM Digital Elevation Model
+    usgs: USGS Mineral Resource Data System
+version: 1.0.0

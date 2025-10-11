@@ -20,17 +20,15 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Tuple
-from datetime import datetime
+from typing import Dict, List, Tuple, Optional
 import seaborn as sns
 import matplotlib.pyplot as plt
 from shapely.geometry import Point
 
 # Add src to path for imports
-import sys
-sys.path.append(str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from scripts.data_ingestion.data_utils import DataStandardizer
+from src.ingest.data_ingest import GoldDataIngester
 
 
 class DataValidator:

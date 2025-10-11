@@ -27,9 +27,9 @@ import shutil
 from datetime import datetime
 
 # Add src to path for imports
-sys.path.append(str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from ingest.data_ingest import GoldDataIngester
+from src.ingest.data_ingest import GoldDataIngester
 
 
 class DataLakeManager:

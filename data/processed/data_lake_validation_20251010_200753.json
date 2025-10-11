@@ -1,0 +1,222 @@
+{
+  "validation_date": "2025-10-10T20:07:53.906357",
+  "data_lake_version": "1.0.0",
+  "datasets": {
+    ".ipynb_checkpoints": {
+      "files_validated": 1,
+      "validation_results": {
+        "geoquimica_sgc-checkpoint.csv": {
+          "file_info": {
+            "path": "data/raw/.ipynb_checkpoints/geoquimica_sgc-checkpoint.csv",
+            "size_bytes": 158998,
+            "modified_date": "2025-10-10T16:38:43.692022"
+          },
+          "validation_date": "2025-10-10T20:07:53.907406",
+          "results": {
+            "total_rows": 1000,
+            "total_columns": 10,
+            "column_names": [
+              "ID_MUESTRA",
+              "LATITUD",
+              "LONGITUD",
+              "AU_PPM",
+              "AS_PPM",
+              "CU_PPM",
+              "FE_PPM",
+              "SB_PPM",
+              "PROYECTO",
+              "FECHA_MUESTREO"
+            ],
+            "data_types": {
+              "ID_MUESTRA": "int64",
+              "LATITUD": "float64",
+              "LONGITUD": "float64",
+              "AU_PPM": "float64",
+              "AS_PPM": "float64",
+              "CU_PPM": "float64",
+              "FE_PPM": "float64",
+              "SB_PPM": "float64",
+              "PROYECTO": "object",
+              "FECHA_MUESTREO": "object"
+            },
+            "memory_usage": "182132",
+            "missing_data": {
+              "count": {
+                "ID_MUESTRA": 0,
+                "LATITUD": 0,
+                "LONGITUD": 0,
+                "AU_PPM": 0,
+                "AS_PPM": 0,
+                "CU_PPM": 0,
+                "FE_PPM": 0,
+                "SB_PPM": 0,
+                "PROYECTO": 0,
+                "FECHA_MUESTREO": 0
+              },
+              "percentage": {
+                "ID_MUESTRA": 0.0,
+                "LATITUD": 0.0,
+                "LONGITUD": 0.0,
+                "AU_PPM": 0.0,
+                "AS_PPM": 0.0,
+                "CU_PPM": 0.0,
+                "FE_PPM": 0.0,
+                "SB_PPM": 0.0,
+                "PROYECTO": 0.0,
+                "FECHA_MUESTREO": 0.0
+              }
+            },
+            "duplicates": {
+              "total_duplicates": "0",
+              "duplicate_percentage": 0.0
+            },
+            "spatial": {
+              "coordinate_validity": {
+                "valid_latitude": "1000",
+                "valid_longitude": "1000",
+                "invalid_coordinates": "0"
+              },
+              "colombia_bounds": {
+                "points_in_colombia": "1000",
+                "points_outside_colombia": "0"
+              },
+              "spatial_stats": {
+                "lat_range": [
+                  1.003900406538578,
+                  11.991075740628837
+                ],
+                "lon_range": [
+                  -78.9975908888412,
+                  -67.00554770895246
+                ],
+                "lat_mean": 6.367623174115424,
+                "lon_mean": -73.09184279877445
+              }
+            },
+            "statistics": {
+              "ID_MUESTRA": {
+                "mean": 500.5,
+                "std": 288.8194360957494,
+                "min": "1",
+                "max": "1000",
+                "median": 500.5,
+                "q25": 250.75,
+                "q75": 750.25,
+                "skewness": 0.0,
+                "kurtosis": -1.2
+              },
+              "LATITUD": {
+                "mean": 6.367623174115424,
+                "std": 3.1344700882388694,
+                "min": 1.003900406538578,
+                "max": 11.991075740628837,
+                "median": 6.393885277478578,
+                "q25": 3.6260487163043313,
+                "q75": 9.015628696942878,
+                "skewness": 0.03689178348882106,
+                "kurtosis": -1.1715674825805593
+              },
+              "LONGITUD": {
+                "mean": -73.09184279877445,
+                "std": 3.3077009157642383,
+                "min": -78.9975908888412,
+                "max": -67.00554770895246,
+                "median": -73.1723342398624,
+                "q25": -75.83134394056158,
+                "q75": -70.23841793741123,
+                "skewness": 0.05477796818893365,
+                "kurtosis": -1.1282590741121206
+              },
+              "AU_PPM": {
+                "mean": 0.05066714291493837,
+                "std": 0.05025685098021559,
+                "min": 0.000104849853831,
+                "max": 0.3166601953938915,
+                "median": 0.03531530197638615,
+                "q25": 0.01436951307071665,
+                "q75": 0.0689635353721161,
+                "skewness": 1.7437902842172959,
+                "kurtosis": 3.792048767471132
+              },
+              "AS_PPM": {
+                "mean": 0.9638853700260104,
+                "std": 0.9676144020210313,
+                "min": 0.0001523367109483,
+                "max": 5.73356172957459,
+                "median": 0.6955880962259464,
+                "q25": 0.2656231424060511,
+                "q75": 1.31937535914455,
+                "skewness": 1.9149029126747457,
+                "kurtosis": 4.4125600320729355
+              },
+              "CU_PPM": {
+                "mean": 4.877603799618577,
+                "std": 4.922325812860995,
+                "min": 0.0032429438618075,
+                "max": 39.87113226194983,
+                "median": 3.4404621318791997,
+                "q25": 1.5052893194252612,
+                "q75": 6.751762199055165,
+                "skewness": 2.3876311931682483,
+                "kurtosis": 9.064329088001529
+              },
+              "FE_PPM": {
+                "mean": 1003.7205231222297,
+                "std": 1009.2801568920344,
+                "min": 0.0663599263588387,
+                "max": 7134.905379857985,
+                "median": 677.3941990994465,
+                "q25": 273.9309110290852,
+                "q75": 1382.6242594622113,
+                "skewness": 1.9708005458450855,
+                "kurtosis": 5.696226977847131
+              },
+              "SB_PPM": {
+                "mean": 0.48840841608937197,
+                "std": 0.5018811303957446,
+                "min": 0.000501161283676,
+                "max": 3.16819944635988,
+                "median": 0.328363241432492,
+                "q25": 0.12998962333685862,
+                "q75": 0.6761233716377907,
+                "skewness": 1.9666197800859255,
+                "kurtosis": 4.957233087025214
+              },
+              "PROYECTO": {
+                "unique_values": 3,
+                "most_common": {
+                  "Proyecto_3": 355,
+                  "Proyecto_2": 323,
+                  "Proyecto_1": 322
+                }
+              },
+              "FECHA_MUESTREO": {
+                "unique_values": 1000,
+                "most_common": "Too many unique values"
+              }
+            },
+            "schema": {
+              "expected_columns": [
+                "AU_PPM",
+                "LATITUD",
+                "LONGITUD",
+                "AS_PPM",
+                "CU_PPM"
+              ],
+              "missing_columns": [],
+              "unexpected_columns": [
+                "FE_PPM",
+                "ID_MUESTRA",
+                "FECHA_MUESTREO",
+                "SB_PPM",
+                "PROYECTO"
+              ],
+              "data_type_issues": [],
+              "detected_type": "sgc_geochemistry"
+            }
+          }
+        }
+      }
+    }
+  }
+}

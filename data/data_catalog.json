@@ -1,0 +1,15 @@
+data_lake_version: 1.0.0
+datasets:
+  .ipynb_checkpoints:
+    file_count: 1
+    files:
+    - geoquimica_sgc-checkpoint.csv
+    last_updated: '2025-10-10T20:15:20.869185'
+    path: data/raw/.ipynb_checkpoints
+  sgc:
+    file_count: 1
+    files:
+    - geoquimica_sgc_20251010_201520.csv
+    last_updated: '2025-10-10T20:15:20.868785'
+    path: data/raw/sgc
+generated_at: '2025-10-10T20:15:20.867894'

@@ -1,0 +1,151 @@
+site_name,latitude,longitude,country,state,commodity,orebody_type,development_status
+Gold_Deposit_1,5.119941307320987,-68.10080936840015,Colombia,Caldas,Gold,Disseminated,Prospect
+Gold_Deposit_2,11.457857370509078,-76.12525731199634,Colombia,Nariño,Gold,Vein,Producer
+Gold_Deposit_3,9.051933359925457,-77.26126153490532,Colombia,Tolima,Gold,Vein,Producer
+Gold_Deposit_4,7.585243326167403,-73.12656687666924,Colombia,Cauca,Gold,Disseminated,Prospect
+Gold_Deposit_5,2.716205044866802,-67.1721945506728,Colombia,Nariño,Gold,Replacement,Past Producer
+Gold_Deposit_6,2.715939723698229,-76.095336741862,Colombia,Caldas,Gold,Replacement,Producer
+Gold_Deposit_7,1.638919733850194,-70.93437343112946,Colombia,Chocó,Gold,Vein,Prospect
+Gold_Deposit_8,10.527937603524286,-69.86056461605538,Colombia,Nariño,Gold,Disseminated,Prospect
+Gold_Deposit_9,7.612265129175297,-76.1483494720912,Colombia,Chocó,Gold,Vein,Past Producer
+Gold_Deposit_10,8.788798355756501,-70.26140381665769,Colombia,Tolima,Gold,Stockwork,Producer
+Gold_Deposit_11,1.226429437253827,-74.58660240736896,Colombia,Cauca,Gold,Stockwork,Producer
+Gold_Deposit_12,11.669008373781937,-71.41233003287705,Colombia,Antioquia,Gold,Vein,Prospect
+Gold_Deposit_13,10.156869048804639,-71.39764347086927,Colombia,Cauca,Gold,Replacement,Prospect
+Gold_Deposit_14,3.3357302174610375,-72.5707037911029,Colombia,Nariño,Gold,Replacement,Past Producer
+Gold_Deposit_15,3.0000746392781066,-77.9165227593471,Colombia,Chocó,Gold,Vein,Past Producer
+Gold_Deposit_16,3.017449608387772,-68.97637005292914,Colombia,Chocó,Gold,Vein,Producer
+Gold_Deposit_17,4.346664672554915,-75.15063922033917,Colombia,Caldas,Gold,Stockwork,Producer
+Gold_Deposit_18,6.772320747954616,-76.76177787520174,Colombia,Chocó,Gold,Replacement,Prospect
+Gold_Deposit_19,5.7513952050632735,-78.51069830134283,Colombia,Caldas,Gold,Vein,Producer
+Gold_Deposit_20,4.203520542178461,-71.9092846817411,Colombia,Tolima,Gold,Stockwork,Past Producer
+Gold_Deposit_21,7.7303818419461745,-70.86922765789261,Colombia,Antioquia,Gold,Replacement,Past Producer
+Gold_Deposit_22,2.53443246717246,-78.80094605286573,Colombia,Nariño,Gold,Disseminated,Prospect
+Gold_Deposit_23,4.2135911338874,-72.85488330040863,Colombia,Caldas,Gold,Stockwork,Past Producer
+Gold_Deposit_24,5.029980276230608,-76.28205069762474,Colombia,Antioquia,Gold,Replacement,Past Producer
+Gold_Deposit_25,6.016769826387395,-71.25792651508661,Colombia,Chocó,Gold,Replacement,Past Producer
+Gold_Deposit_26,9.63693557532315,-76.9076028519401,Colombia,Chocó,Gold,Stockwork,Past Producer
+Gold_Deposit_27,3.196411603741957,-70.7087471427704,Colombia,Antioquia,Gold,Disseminated,Prospect
+Gold_Deposit_28,6.6565788225497275,-74.35917584439355,Colombia,Chocó,Gold,Stockwork,Prospect
+Gold_Deposit_29,7.5165602574824675,-67.75924013515919,Colombia,Tolima,Gold,Replacement,Producer
+Gold_Deposit_30,1.5109545399199749,-77.34974867024808,Colombia,Tolima,Gold,Vein,Past Producer
+Gold_Deposit_31,7.682993370915822,-74.9072037873969,Colombia,Antioquia,Gold,Vein,Producer
+Gold_Deposit_32,2.875765360560207,-77.63831774511293,Colombia,Caldas,Gold,Stockwork,Prospect
+Gold_Deposit_33,1.7155675228380747,-67.90367658065725,Colombia,Caldas,Gold,Replacement,Prospect
+Gold_Deposit_34,11.437740909786665,-68.47192775942823,Colombia,Antioquia,Gold,Vein,Prospect
+Gold_Deposit_35,11.621952363820153,-75.90470046741814,Colombia,Caldas,Gold,Replacement,Prospect
+Gold_Deposit_36,9.892370829281072,-71.08019144758985,Colombia,Caldas,Gold,Stockwork,Prospect
+Gold_Deposit_37,4.350751460907078,-69.19333359758541,Colombia,Tolima,Gold,Vein,Prospect
+Gold_Deposit_38,2.0743932540702223,-72.33759026080645,Colombia,Caldas,Gold,Replacement,Prospect
+Gold_Deposit_39,8.526563291633725,-72.64419305972793,Colombia,Cauca,Gold,Vein,Past Producer
+Gold_Deposit_40,5.841677431135614,-76.09777250919458,Colombia,Nariño,Gold,Stockwork,Producer
+Gold_Deposit_41,2.342420583292567,-77.88276678632921,Colombia,Chocó,Gold,Replacement,Prospect
+Gold_Deposit_42,6.446946011223972,-68.23341090456007,Colombia,Cauca,Gold,Vein,Past Producer
+Gold_Deposit_43,1.3782737322674024,-68.19498331404003,Colombia,Caldas,Gold,Stockwork,Past Producer
+Gold_Deposit_44,11.002524422866603,-71.40278251272079,Colombia,Tolima,Gold,Vein,Producer
+Gold_Deposit_45,3.846579797600186,-74.93164250741559,Colombia,Antioquia,Gold,Vein,Prospect
+Gold_Deposit_46,8.287745127893801,-74.80948510464808,Colombia,Caldas,Gold,Disseminated,Producer
+Gold_Deposit_47,4.42882183698352,-70.28853185355713,Colombia,Tolima,Gold,Disseminated,Prospect
+Gold_Deposit_48,6.720748232955919,-68.23467688056908,Colombia,Nariño,Gold,Stockwork,Past Producer
+Gold_Deposit_49,7.013813072776076,-68.35496290881859,Colombia,Caldas,Gold,Disseminated,Past Producer
+Gold_Deposit_50,3.0333990107807973,-69.64149344970852,Colombia,Antioquia,Gold,Stockwork,Past Producer
+Gold_Deposit_51,11.665430905410144,-71.29562024614854,Colombia,Tolima,Gold,Disseminated,Past Producer
+Gold_Deposit_52,9.52646105697226,-77.99032042005942,Colombia,Tolima,Gold,Vein,Producer
+Gold_Deposit_53,11.33448835720608,-77.06045543086464,Colombia,Tolima,Gold,Stockwork,Prospect
+Gold_Deposit_54,10.843100854704137,-68.21734973767505,Colombia,Nariño,Gold,Stockwork,Prospect
+Gold_Deposit_55,7.576899766921937,-71.72285128408492,Colombia,Caldas,Gold,Vein,Producer
+Gold_Deposit_56,11.140616585254286,-78.88963538060044,Colombia,Nariño,Gold,Stockwork,Prospect
+Gold_Deposit_57,1.9734175225711144,-77.78234148560762,Colombia,Chocó,Gold,Stockwork,Past Producer
+Gold_Deposit_58,3.155811486610597,-71.03797877070333,Colombia,Chocó,Gold,Disseminated,Prospect
+Gold_Deposit_59,1.4975001780159187,-78.93926099384538,Colombia,Caldas,Gold,Stockwork,Past Producer
+Gold_Deposit_60,4.578633638395908,-77.07030338299002,Colombia,Nariño,Gold,Replacement,Producer
+Gold_Deposit_61,5.275450186584302,-72.41519452760096,Colombia,Antioquia,Gold,Vein,Prospect
+Gold_Deposit_62,3.984839349512855,-70.69725762768768,Colombia,Tolima,Gold,Disseminated,Producer
+Gold_Deposit_63,10.116112600671222,-71.1764648859688,Colombia,Tolima,Gold,Disseminated,Prospect
+Gold_Deposit_64,4.924286593629482,-76.30876828647328,Colombia,Caldas,Gold,Replacement,Past Producer
+Gold_Deposit_65,4.090279606561189,-70.45384934382957,Colombia,Chocó,Gold,Vein,Producer
+Gold_Deposit_66,6.9696569147407335,-76.1530109500384,Colombia,Chocó,Gold,Vein,Prospect
+Gold_Deposit_67,2.5501664747223893,-75.09520362208879,Colombia,Tolima,Gold,Disseminated,Past Producer
+Gold_Deposit_68,9.824166788294436,-70.04210313858371,Colombia,Caldas,Gold,Stockwork,Producer
+Gold_Deposit_69,1.8200570804774792,-71.20440521143342,Colombia,Nariño,Gold,Disseminated,Producer
+Gold_Deposit_70,11.855756302605691,-68.80931907406986,Colombia,Chocó,Gold,Vein,Prospect
+Gold_Deposit_71,9.494692462263231,-71.10864529239588,Colombia,Nariño,Gold,Replacement,Prospect
+Gold_Deposit_72,3.1858724968758967,-72.18029675997434,Colombia,Chocó,Gold,Disseminated,Prospect
+Gold_Deposit_73,1.0607432883596264,-77.8759027860629,Colombia,Chocó,Gold,Vein,Past Producer
+Gold_Deposit_74,9.970075713003176,-74.58741036328679,Colombia,Cauca,Gold,Disseminated,Prospect
+Gold_Deposit_75,8.775430782323788,-75.81757158781929,Colombia,Chocó,Gold,Stockwork,Producer
+Gold_Deposit_76,9.01907884845086,-76.072124279451,Colombia,Antioquia,Gold,Disseminated,Producer
+Gold_Deposit_77,9.483973813545402,-67.32387334297066,Colombia,Caldas,Gold,Disseminated,Prospect
+Gold_Deposit_78,1.8144911690749939,-74.28282730399887,Colombia,Caldas,Gold,Vein,Prospect
+Gold_Deposit_79,4.943123013986998,-68.29544133787464,Colombia,Nariño,Gold,Vein,Producer
+Gold_Deposit_80,2.274559654776427,-71.42633648803285,Colombia,Chocó,Gold,Vein,Past Producer
+Gold_Deposit_81,10.494137684631529,-69.46226435750022,Colombia,Antioquia,Gold,Disseminated,Prospect
+Gold_Deposit_82,7.856279395103137,-72.9683548827377,Colombia,Nariño,Gold,Stockwork,Prospect
+Gold_Deposit_83,4.639878273379141,-72.0771533844837,Colombia,Cauca,Gold,Replacement,Producer
+Gold_Deposit_84,1.6991418531462599,-73.08978767417364,Colombia,Nariño,Gold,Replacement,Prospect
+Gold_Deposit_85,4.420805538872284,-76.65708414642347,Colombia,Nariño,Gold,Vein,Past Producer
+Gold_Deposit_86,4.577016542294217,-70.33057461686194,Colombia,Chocó,Gold,Vein,Producer
+Gold_Deposit_87,9.025667961718705,-75.63073165070973,Colombia,Cauca,Gold,Disseminated,Prospect
+Gold_Deposit_88,8.013132184907345,-78.70820840282255,Colombia,Nariño,Gold,Replacement,Producer
+Gold_Deposit_89,10.759340168339591,-71.25433244911399,Colombia,Antioquia,Gold,Vein,Prospect
+Gold_Deposit_90,6.194364176781442,-76.87467184711541,Colombia,Antioquia,Gold,Stockwork,Prospect
+Gold_Deposit_91,2.3155367053213185,-67.71449698776503,Colombia,Caldas,Gold,Stockwork,Prospect
+Gold_Deposit_92,8.845692659452945,-67.55285707596894,Colombia,Cauca,Gold,Vein,Past Producer
+Gold_Deposit_93,9.368635534785872,-68.02162731735461,Colombia,Cauca,Gold,Vein,Past Producer
+Gold_Deposit_94,7.174049173264459,-74.55809559693466,Colombia,Caldas,Gold,Replacement,Producer
+Gold_Deposit_95,9.48063897950017,-78.81452060165358,Colombia,Nariño,Gold,Replacement,Prospect
+Gold_Deposit_96,6.431751560008298,-67.8601772489473,Colombia,Cauca,Gold,Disseminated,Prospect
+Gold_Deposit_97,6.7500611232019345,-73.86179022019223,Colombia,Antioquia,Gold,Replacement,Past Producer
+Gold_Deposit_98,5.702951201944046,-67.40014217147596,Colombia,Antioquia,Gold,Stockwork,Prospect
+Gold_Deposit_99,1.2796103941850472,-67.43656027492896,Colombia,Chocó,Gold,Stockwork,Past Producer
+Gold_Deposit_100,2.186805696926349,-68.76388653439167,Colombia,Cauca,Gold,Vein,Prospect
+Gold_Deposit_101,1.3457210425540769,-75.46661329516498,Colombia,Nariño,Gold,Replacement,Producer
+Gold_Deposit_102,8.000514523901584,-74.3788272567769,Colombia,Caldas,Gold,Disseminated,Prospect
+Gold_Deposit_103,4.457915791839593,-68.78635994179771,Colombia,Caldas,Gold,Stockwork,Prospect
+Gold_Deposit_104,6.59427760281173,-75.19693593812467,Colombia,Nariño,Gold,Stockwork,Past Producer
+Gold_Deposit_105,10.983231213187024,-76.96608703976689,Colombia,Tolima,Gold,Disseminated,Prospect
+Gold_Deposit_106,3.7422145206376243,-72.3183848504998,Colombia,Chocó,Gold,Disseminated,Prospect
+Gold_Deposit_107,5.514212153391927,-67.76614271007062,Colombia,Caldas,Gold,Stockwork,Past Producer
+Gold_Deposit_108,9.311062523973536,-70.64764243990032,Colombia,Cauca,Gold,Stockwork,Producer
+Gold_Deposit_109,3.516779820407847,-72.15926595892762,Colombia,Chocó,Gold,Disseminated,Producer
+Gold_Deposit_110,1.846779008116723,-77.83388207475078,Colombia,Cauca,Gold,Stockwork,Past Producer
+Gold_Deposit_111,4.187265982051448,-71.61991327960996,Colombia,Antioquia,Gold,Vein,Past Producer
+Gold_Deposit_112,2.7734341597940486,-67.11935379874885,Colombia,Chocó,Gold,Vein,Past Producer
+Gold_Deposit_113,11.226674175768304,-77.31899181716172,Colombia,Caldas,Gold,Disseminated,Past Producer
+Gold_Deposit_114,9.889324175208586,-72.78004417163515,Colombia,Chocó,Gold,Replacement,Past Producer
+Gold_Deposit_115,7.9674413216146585,-68.47152313686453,Colombia,Chocó,Gold,Disseminated,Producer
+Gold_Deposit_116,10.586066492064894,-70.11077658694954,Colombia,Chocó,Gold,Disseminated,Producer
+Gold_Deposit_117,9.840392845890259,-70.63581110805679,Colombia,Tolima,Gold,Replacement,Past Producer
+Gold_Deposit_118,3.0522706477463943,-70.57019099215469,Colombia,Chocó,Gold,Replacement,Prospect
+Gold_Deposit_119,10.818148983389756,-74.68610618536295,Colombia,Cauca,Gold,Replacement,Past Producer
+Gold_Deposit_120,6.932764661072158,-75.47689786882609,Colombia,Antioquia,Gold,Vein,Prospect
+Gold_Deposit_121,9.881841706804687,-69.28766613425783,Colombia,Nariño,Gold,Stockwork,Past Producer
+Gold_Deposit_122,10.857004299158426,-69.27863926384983,Colombia,Chocó,Gold,Vein,Past Producer
+Gold_Deposit_123,4.498038224690503,-68.59513217703875,Colombia,Caldas,Gold,Stockwork,Producer
+Gold_Deposit_124,2.210571169804444,-68.04111336932235,Colombia,Chocó,Gold,Vein,Prospect
+Gold_Deposit_125,3.5072867879613585,-72.86389121366875,Colombia,Caldas,Gold,Stockwork,Prospect
+Gold_Deposit_126,5.698185674888819,-72.9818044637536,Colombia,Cauca,Gold,Vein,Producer
+Gold_Deposit_127,9.998162425147424,-69.4204578523987,Colombia,Caldas,Gold,Replacement,Producer
+Gold_Deposit_128,10.468036415819778,-71.20043283066681,Colombia,Nariño,Gold,Disseminated,Producer
+Gold_Deposit_129,1.0764734358430976,-70.57639747290756,Colombia,Antioquia,Gold,Vein,Producer
+Gold_Deposit_130,6.618220328353223,-69.45048796676679,Colombia,Caldas,Gold,Stockwork,Prospect
+Gold_Deposit_131,5.591521034636569,-68.3199358981892,Colombia,Caldas,Gold,Replacement,Prospect
+Gold_Deposit_132,3.4431859151780326,-74.94405811778157,Colombia,Antioquia,Gold,Vein,Past Producer
+Gold_Deposit_133,2.3185190406705107,-74.49300456832067,Colombia,Nariño,Gold,Vein,Past Producer
+Gold_Deposit_134,4.713766885439908,-77.87221672190957,Colombia,Chocó,Gold,Replacement,Producer
+Gold_Deposit_135,11.37200674303771,-72.06063830804591,Colombia,Caldas,Gold,Vein,Producer
+Gold_Deposit_136,4.555232252228308,-78.5686927144391,Colombia,Antioquia,Gold,Disseminated,Producer
+Gold_Deposit_137,6.706696839177027,-73.41282378241048,Colombia,Cauca,Gold,Vein,Past Producer
+Gold_Deposit_138,8.733208547846957,-72.48826438350908,Colombia,Antioquia,Gold,Disseminated,Past Producer
+Gold_Deposit_139,4.999925626172233,-75.56150497446059,Colombia,Cauca,Gold,Disseminated,Past Producer
+Gold_Deposit_140,11.689602909930567,-71.91000087317187,Colombia,Nariño,Gold,Replacement,Past Producer
+Gold_Deposit_141,11.586920244363224,-78.63399700073141,Colombia,Chocó,Gold,Vein,Past Producer
+Gold_Deposit_142,3.7696052540790057,-78.55182173500943,Colombia,Antioquia,Gold,Replacement,Past Producer
+Gold_Deposit_143,6.46973356481624,-69.1287932720841,Colombia,Tolima,Gold,Vein,Past Producer
+Gold_Deposit_144,4.309661407984466,-74.67771230306485,Colombia,Caldas,Gold,Vein,Producer
+Gold_Deposit_145,4.1332454381521435,-77.47527384817738,Colombia,Nariño,Gold,Stockwork,Producer
+Gold_Deposit_146,1.4057564208998607,-72.73308087934235,Colombia,Antioquia,Gold,Vein,Producer
+Gold_Deposit_147,7.705207673778865,-69.76007736281667,Colombia,Caldas,Gold,Replacement,Producer
+Gold_Deposit_148,6.529469255517476,-76.41014767003789,Colombia,Antioquia,Gold,Disseminated,Past Producer
+Gold_Deposit_149,1.566266263749883,-71.52531429017199,Colombia,Cauca,Gold,Vein,Prospect
+Gold_Deposit_150,4.065111106602726,-77.97583042007479,Colombia,Antioquia,Gold,Stockwork,Past Producer

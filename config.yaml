@@ -44,33 +44,126 @@ sources:
       separator: ";"  # Common separators: ",", ";", "|"
       encoding: "utf-8"  # Common encodings: "utf-8", "latin-1"
 
-  # SRTM Elevation Data
-  srtm:
-    # Path to SRTM DEM file (download from USGS EarthExplorer)
-    dem_path: "data/external/srtm_colombia.tif"
+  # Borehole Data Integration (Caucasia Ground Truth - ITM-UdeA-UNAL 2025)
+  borehole_data:
+    # Colombian ground truth data (Caucasia, Antioquia - Cauca River basin)
+    borehole_csv: "data/external/boreholes_caucasia.csv"
+    lithology_column: "descripcion_litologia"  # Column containing lithology descriptions
+    depth_column: "profundidad_m"  # Column containing depth information
+    coordinates_columns: ["longitud", "latitud"]  # Coordinate columns
+    gold_column: "au_ppm"  # Gold concentration column
+    enabled: true
+    # Colombian research methodology parameters
+    research_methodology:
+      borehole_count: 147  # Number of boreholes in Caucasia study
+      sample_count: 8642  # Total samples from Colombian research
+      study_area: "Caucasia_Antioquia_Cauca_River"  # Study area identifier
+      validation_framework: true  # Use as ground truth for model validation
+    # NLP processing for lithology text (following Colombian research)
+    nlp_processing:
+      use_glove_embeddings: true  # Use GloVe embeddings for lithology text
+      embedding_dimension: 300  # GloVe embedding dimension
+      max_sequence_length: 100  # Maximum text length for processing
+      lithology_classes: 50  # Number of lithology classes for classification
+      # Colombian research specific parameters
+      text_preprocessing:
+        remove_stopwords: true
+        lemmatization: true
+        technical_terms: true  # Keep geological technical terms
+
+  # Hydrologic and Infrastructure Data (Colombian equivalents of OSM + USGS NHD)
+  hydrology:
+    # Colombian hydrologic data (IDEAM - Instituto de Hidrología, Meteorología y Estudios Ambientales)
+    rivers_path: "data/external/hidrologia_colombia.gpkg"
+    watersheds_path: "data/external/cuencas_colombia.gpkg"
+    # Infrastructure data (from Colombian sources)
+    infrastructure_path: "data/external/infraestructura_colombia.gpkg"
     enabled: true
 
-  # Sentinel-2 Satellite Imagery
-  sentinel2:
-    enabled: false  # Requires SentinelHub account and credentials
-    # SentinelHub configuration (get from sentinelhub.com)
+  # Terrain Derivatives (following EarthScape methodology)
+  terrain_derivatives:
+    # DEM for derivative calculations
+    dem_path: "data/external/aster_dem_colombia.tif"
+    enabled: true
+    # Calculated derivatives
+    derivatives:
+      slope: true
+      aspect: true
+      curvature: true
+      hillshade: true
+      elevation_percentile: true
+      topographic_wetness_index: true
+      flow_accumulation: true
+    # Parameters for derivative calculations
+    slope_units: "degrees"  # degrees or percent
+    curvature_method: "standard"  # standard, plan, profile
+    twi_exponent: 1.0  # Topographic Wetness Index exponent
+
+  # Enhanced Multispectral Imagery (EarthScape RGB + NIR approach)
+  multispectral:
+    # Sentinel-2 bands (following EarthScape approach)
+    sentinel2_bands: ["B02", "B03", "B04", "B08", "B11", "B12"]  # Blue, Green, Red, NIR, SWIR1, SWIR2
+    # ASTER DEM for topographic correction
+    aster_dem: "data/external/aster_dem_colombia.tif"
+    enabled: true
+    # Image preprocessing options
+    preprocessing:
+      atmospheric_correction: true
+      topographic_correction: true
+      cloud_masking: true
+      band_stacking: true
+
+  # Geological Map Data (Colombian Geological Survey)
+  geological_map:
+    # Path to geological map shapefile or geopackage
+    map_path: "data/external/geological_map_colombia.gpkg"
+    enabled: true
+    # Lithology column name in the geological map
+    lithology_column: "LITOLOGIA"
+    # Age column name
+    age_column: "EDAD"
+    # Formation column name
+    formation_column: "FORMACION"
+
+  # Geophysical Data (Magnetic and Gravity Anomalies)
+  geophysics:
+    # Magnetic anomaly raster file
+    magnetic_raster: "data/external/magnetic_anomalies_colombia.tif"
+    # Gravity anomaly raster file
+    gravity_raster: "data/external/gravity_anomalies_colombia.tif"
+    enabled: true
+    # Buffer distance for point sampling (meters)
+    buffer_distance: 1000
+
+  # Structural Geology Data (Faults and Structures)
+  structural:
+    # Path to faults and structures data
+    faults_path: "data/external/faults_colombia.gpkg"
+    structures_path: "data/external/structures_colombia.gpkg"
+    enabled: true
+    # Distance to nearest fault (meters)
+    fault_proximity_distance: 5000
+    # Structural complexity index calculation
+    complexity_radius: 10000
+
+  # ObservEarth Satellite Imagery API
+  observearth:
+    enabled: true  # Requires ObservEarth account and API credentials
+    # API configuration (get from observearth.com)
     credentials:
-      instance_id: ""  # Your SentinelHub instance ID
-      client_id: ""    # Your SentinelHub client ID
-      client_secret: "" # Your SentinelHub client secret
-    # Processing options
-    processing:
-      # Time period for image collection
-      time_period: ["2023-01-01", "2023-12-31"]
-      # Cloud coverage threshold (0-100)
-      max_cloud_cover: 20
-      # Resolution in meters
-      resolution: 10
+      api_key: "${OBSERVEARTH_API_KEY}"        # Your ObservEarth API key from env
+      geometry_id: "${OBSERVEARTH_GEOMETRY_ID}"    # Your ObservEarth geometry ID from env
+    # Satellite image configuration
+    satellite:
+      # Sentinel-2 item identifier (scene ID)
+      item_id: "S2C_MSIL2A_20250320T045721_R119_T44QMG_20250320T103315"
+      # Image format for downloads
+      image_format: "png"
     # Spectral indices to calculate
     indices:
-      ndvi: true       # (B08 - B04) / (B08 + B04)
-      clay_index: true # B11 / B8A (Clay minerals)
-      iron_index: true # B04 / B02 (Iron oxides)
+      ndvi: true         # Normalized Difference Vegetation Index
+      clay_index: true   # Clay minerals index
+      iron_index: true   # Iron oxides index
 
 # Output configuration
 output:

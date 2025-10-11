@@ -1,0 +1,75 @@
+columns:
+- ID_MUESTRA
+- LATITUD
+- LONGITUD
+- AU_PPM
+- AS_PPM
+- CU_PPM
+- FE_PPM
+- SB_PPM
+- PROYECTO
+- FECHA_MUESTREO
+data_types:
+  AS_PPM: &id001 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  AU_PPM: *id001
+  CU_PPM: *id001
+  FECHA_MUESTREO: &id002 !!python/object/apply:numpy.dtype
+    args:
+    - O8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - '|'
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 63
+  FE_PPM: *id001
+  ID_MUESTRA: !!python/object/apply:numpy.dtype
+    args:
+    - i8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  LATITUD: *id001
+  LONGITUD: *id001
+  PROYECTO: *id002
+  SB_PPM: *id001
+file_path: data/raw/sgc/geoquimica_sgc_20251010_201520.csv
+missing_data:
+  AS_PPM: 0
+  AU_PPM: 0
+  CU_PPM: 0
+  FECHA_MUESTREO: 0
+  FE_PPM: 0
+  ID_MUESTRA: 0
+  LATITUD: 0
+  LONGITUD: 0
+  PROYECTO: 0
+  SB_PPM: 0
+total_records: 1000
+validation_date: '2025-10-10T20:15:20.288837'
