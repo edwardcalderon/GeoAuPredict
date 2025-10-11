@@ -1,21 +1,20 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Database, Map, Brain, BarChart3, Shield, Download } from "lucide-react";
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Database, Map, Brain, BarChart3, Shield, Download, BookOpen } from 'lucide-react';
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700 bg-slate-900/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-              <span className="text-slate-900 font-bold text-sm">G</span>
-            </div>
-            <h1 className="text-xl font-bold text-white">GeoGold AI</h1>
-          </div>
-        </div>
-      </header>
+      <Header
+        logoText="G.A.P"
+        title="Geo Au Predict"
+        navigation={[
+          { label: 'Home', href: '/', isActive: true },
+          { label: 'White Paper', href: '/whitepaper', isActive: false }
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16 text-center">
@@ -97,10 +96,10 @@ export default function Page() {
 
           <Card className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-colors">
             <CardHeader>
-              <Download className="w-10 h-10 text-yellow-500 mb-2" />
-              <CardTitle className="text-white">Exportable Results</CardTitle>
+              <BookOpen className="w-10 h-10 text-yellow-500 mb-2" />
+              <CardTitle className="text-white">Research White Paper</CardTitle>
               <CardDescription className="text-slate-400">
-                Download datasets, visualizations, and reports in multiple formats for further analysis
+                Comprehensive technical documentation with mathematical formulations and scientific methodology
               </CardDescription>
             </CardHeader>
           </Card>
@@ -121,21 +120,7 @@ export default function Page() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-700 bg-slate-900/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded flex items-center justify-center">
-                <span className="text-slate-900 font-bold text-xs">G</span>
-              </div>
-              <span className="text-slate-400">© 2024 GeoGold AI. All rights reserved.</span>
-            </div>
-            <div className="text-slate-400 text-sm">
-              Optimized for data scientists and mining engineers
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

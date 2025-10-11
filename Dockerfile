@@ -19,10 +19,10 @@ RUN pip install --no-cache-dir conda && \
 COPY . .
 
 # Activate conda environment
-SHELL ["conda", "run", "-n", "geogold", "/bin/bash", "-c"]
+SHELL ["conda", "run", "-n", "geoau", "/bin/bash", "-c"]
 
 # Expose port for web application
 EXPOSE 3000
 
 # Default command
-CMD ["conda", "run", "-n", "geogold", "python", "-m", "src.main"]
+CMD ["conda", "run", "-n", "geoau", "python", "-m", "src.main"]

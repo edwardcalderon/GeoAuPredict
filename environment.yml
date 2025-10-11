@@ -1,4 +1,4 @@
-name: geogold
+name: geoau
 channels:
   - conda-forge
   - defaults
