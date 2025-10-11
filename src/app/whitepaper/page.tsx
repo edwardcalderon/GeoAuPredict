@@ -34,7 +34,7 @@ export default async function WhitePaperPage() {
       <div className="fixed bottom-6 right-6 z-50">
         <a
           href={versions.downloadUrl}
-          download={`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`}
+          download={getNavUrl(`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`)}
           className="flex items-center space-x-2 px-4 py-3 bg-yellow-600 hover:bg-yellow-700 text-slate-900 rounded-full font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
         >
           <Download className="w-5 h-5" />
@@ -54,7 +54,7 @@ export default async function WhitePaperPage() {
                 </p>
                 <a
                   href={versions.downloadUrl}
-                  download={`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`}
+                  download={getNavUrl(`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`)}
                   className="inline-flex items-center mt-3 px-3 py-2 bg-yellow-600 hover:bg-yellow-700 text-slate-900 rounded text-sm font-medium transition-colors"
                 >
                   <Download className="w-4 h-4 mr-2" />
