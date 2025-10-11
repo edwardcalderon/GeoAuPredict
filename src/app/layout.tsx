@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GeoAuPredict GAP - AI-Driven Geospatial Gold Prediction",
+  title: "GAP ( GeoAuPredict) | AI-Driven Geospatial Gold Prediction",
   description: "Advanced AI-powered system that integrates multiple geospatial data sources to predict gold presence in subsoil with interactive 3D visualization and confidence levels for mining exploration.",
 };
 
