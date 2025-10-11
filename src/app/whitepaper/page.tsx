@@ -15,7 +15,7 @@ export default async function WhitePaperPage() {
   const versions = JSON.parse(versionsData);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
       <Header
         logoText="GAP"
         title="Geo Au Predict"
@@ -38,89 +38,91 @@ export default async function WhitePaperPage() {
         </a>
       </div>
 
-      {/* White Paper Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-slate-800/50 rounded-lg border border-slate-700 p-8">
-            <div className="prose prose-invert max-w-none">
-              <ReactMarkdown
-                components={{
-                  // Custom styling for markdown elements
-                  h1: ({ children }) => (
-                    <h1 className="text-3xl font-bold text-white mb-6 border-b border-slate-600 pb-4">
-                      {children}
-                    </h1>
-                  ),
-                  h2: ({ children }) => (
-                    <h2 className="text-2xl font-semibold text-yellow-400 mt-8 mb-4">
-                      {children}
-                    </h2>
-                  ),
-                  h3: ({ children }) => (
-                    <h3 className="text-xl font-medium text-slate-200 mt-6 mb-3">
-                      {children}
-                    </h3>
-                  ),
-                  p: ({ children }) => (
-                    <p className="text-slate-300 leading-relaxed mb-4">
-                      {children}
-                    </p>
-                  ),
-                  ul: ({ children }) => (
-                    <ul className="text-slate-300 space-y-2 mb-4 ml-6">
-                      {children}
-                    </ul>
-                  ),
-                  li: ({ children }) => (
-                    <li className="list-disc text-slate-300">
-                      {children}
-                    </li>
-                  ),
-                  strong: ({ children }) => (
-                    <strong className="text-white font-semibold">
-                      {children}
-                    </strong>
-                  ),
-                  em: ({ children }) => (
-                    <em className="text-slate-200 italic">
-                      {children}
-                    </em>
-                  ),
-                  a: ({ href, children }) => (
-                    <a
-                      href={href}
-                      className="text-yellow-400 hover:text-yellow-300 underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {children}
-                    </a>
-                  ),
-                  blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-yellow-500 pl-4 italic text-slate-400 my-4">
-                      {children}
-                    </blockquote>
-                  ),
-                  code: ({ children }) => (
-                    <code className="bg-slate-700 text-slate-200 px-2 py-1 rounded text-sm">
-                      {children}
-                    </code>
-                  ),
-                  pre: ({ children }) => (
-                    <pre className="bg-slate-900 text-slate-200 p-4 rounded-lg overflow-x-auto my-4">
-                      {children}
-                    </pre>
-                  ),
-                }}
-              >
-                {content}
-              </ReactMarkdown>
+      {/* White Paper Content - This will grow to fill available space */}
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-slate-800/50 rounded-lg border border-slate-700 p-8">
+              <div className="prose prose-invert max-w-none">
+                <ReactMarkdown
+                  components={{
+                    // Custom styling for markdown elements
+                    h1: ({ children }) => (
+                      <h1 className="text-3xl font-bold text-white mb-6 border-b border-slate-600 pb-4">
+                        {children}
+                      </h1>
+                    ),
+                    h2: ({ children }) => (
+                      <h2 className="text-2xl font-semibold text-yellow-400 mt-8 mb-4">
+                        {children}
+                      </h2>
+                    ),
+                    h3: ({ children }) => (
+                      <h3 className="text-xl font-medium text-slate-200 mt-6 mb-3">
+                        {children}
+                      </h3>
+                    ),
+                    p: ({ children }) => (
+                      <p className="text-slate-300 leading-relaxed mb-4">
+                        {children}
+                      </p>
+                    ),
+                    ul: ({ children }) => (
+                      <ul className="text-slate-300 space-y-2 mb-4 ml-6">
+                        {children}
+                      </ul>
+                    ),
+                    li: ({ children }) => (
+                      <li className="list-disc text-slate-300">
+                        {children}
+                      </li>
+                    ),
+                    strong: ({ children }) => (
+                      <strong className="text-white font-semibold">
+                        {children}
+                      </strong>
+                    ),
+                    em: ({ children }) => (
+                      <em className="text-slate-200 italic">
+                        {children}
+                      </em>
+                    ),
+                    a: ({ href, children }) => (
+                      <a
+                        href={href}
+                        className="text-yellow-400 hover:text-yellow-300 underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {children}
+                      </a>
+                    ),
+                    blockquote: ({ children }) => (
+                      <blockquote className="border-l-4 border-yellow-500 pl-4 italic text-slate-400 my-4">
+                        {children}
+                      </blockquote>
+                    ),
+                    code: ({ children }) => (
+                      <code className="bg-slate-700 text-slate-200 px-2 py-1 rounded text-sm">
+                        {children}
+                      </code>
+                    ),
+                    pre: ({ children }) => (
+                      <pre className="bg-slate-900 text-slate-200 p-4 rounded-lg overflow-x-auto my-4">
+                        {children}
+                      </pre>
+                    ),
+                  }}
+                >
+                  {content}
+                </ReactMarkdown>
+              </div>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Footer */}
+      {/* Footer - This will stick to the bottom */}
       <Footer />
     </div>
   );

@@ -18,16 +18,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* MathJax for LaTeX rendering */}
-      <Script
-        src="https://polyfill.io/v3/polyfill.min.js?features=es6"
-        strategy="beforeInteractive"
-      />
-      <Script
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-        strategy="beforeInteractive"
-      />
       <body className={inter.className}>
+        {/* MathJax for LaTeX rendering */}
+        <Script
+          src="https://polyfill.io/v3/polyfill.min.js?features=es6"
+          strategy="beforeInteractive"
+        />
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+          strategy="beforeInteractive"
+        />
         {children}
         <TempoInit />
       </body>
