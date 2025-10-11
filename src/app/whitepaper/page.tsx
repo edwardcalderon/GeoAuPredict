@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Download, FileText } from 'lucide-react';
 export default async function WhitePaperPage() {
@@ -43,6 +44,20 @@ export default async function WhitePaperPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
             <div className="bg-slate-800/50 rounded-lg border border-slate-700 p-8">
+              <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                <h3 className="text-yellow-400 font-semibold mb-2">📝 Note on Mathematical Content</h3>
+                <p className="text-slate-300 text-sm">
+                  For the best viewing experience with mathematical formulas and equations, please download the PDF version.
+                </p>
+                <a
+                  href={versions.downloadUrl}
+                  download={`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`}
+                  className="inline-flex items-center mt-3 px-3 py-2 bg-yellow-600 hover:bg-yellow-700 text-slate-900 rounded text-sm font-medium transition-colors"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Download PDF
+                </a>
+              </div>
               <div className="prose prose-invert max-w-none">
                 <ReactMarkdown
                   components={{
@@ -102,16 +117,54 @@ export default async function WhitePaperPage() {
                         {children}
                       </blockquote>
                     ),
-                    code: ({ children }) => (
-                      <code className="bg-slate-700 text-slate-200 px-2 py-1 rounded text-sm">
-                        {children}
-                      </code>
-                    ),
-                    pre: ({ children }) => (
-                      <pre className="bg-slate-900 text-slate-200 p-4 rounded-lg overflow-x-auto my-4">
-                        {children}
-                      </pre>
-                    ),
+                    code: ({ children }) => {
+                      // Handle inline LaTeX/math expressions
+                      const content = String(children);
+                      if (content.includes('$') || content.includes('\\')) {
+                        return (
+                          <code className="bg-slate-700 text-slate-200 px-2 py-1 rounded text-sm font-mono">
+                            [LaTeX: {content}]
+                          </code>
+                        );
+                      }
+                      return (
+                        <code className="bg-slate-700 text-slate-200 px-2 py-1 rounded text-sm">
+                          {children}
+                        </code>
+                      );
+                    },
+                    pre: ({ children }) => {
+                      // Handle code blocks with LaTeX/math
+                      // Properly handle different types of children (React elements vs strings)
+                      let content = '';
+
+                      if (React.isValidElement(children)) {
+                        // If children is a React element, access its props.children
+                        content = children.props?.children || '';
+                      } else {
+                        // If children is a string or other primitive, use it directly
+                        content = String(children || '');
+                      }
+
+                      if (content.includes('$') || content.includes('\\')) {
+                        return (
+                          <div className="bg-slate-900 text-slate-200 p-4 rounded-lg my-4 border border-slate-600">
+                            <div className="text-slate-400 text-sm mb-2">Mathematical Expression:</div>
+                            <code className="text-slate-300 font-mono text-sm">
+                              {content}
+                            </code>
+                            <div className="text-slate-400 text-xs mt-2">
+                              💡 Download PDF for proper mathematical rendering
+                            </div>
+                          </div>
+                        );
+                      }
+                      return (
+                        <pre className="bg-slate-900 text-slate-200 p-4 rounded-lg overflow-x-auto my-4">
+                          {children}
+                        </pre>
+                      );
+                    },
                   }}
                 >
                   {content}
