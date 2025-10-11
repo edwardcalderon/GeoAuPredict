@@ -23,8 +23,8 @@ export default async function WhitePaperPage() {
       <Header
         logoText="GAP"
         title="Geo Au Predict"
+        logoHref={getNavUrl('/')}
         navigation={[
-          { label: 'Home', href: getNavUrl('/'), isActive: false },
           { label: 'White Paper', href: getNavUrl('/whitepaper'), isActive: true },
           { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false, target: '_blank' }
         ]}
