@@ -1,0 +1,32 @@
+{
+  "model_performance": {
+    "best_model": "RandomForest",
+    "roc_auc": 0.85,
+    "f1_score": 0.78,
+    "accuracy": 0.82
+  },
+  "exploration_targets": {
+    "high_priority": 15,
+    "medium_priority": 45,
+    "total_targets": 60,
+    "study_area": "25000 km\u00b2",
+    "expected_success_rate": "75.0%",
+    "estimated_discoveries": 13
+  },
+  "technical_summary": {
+    "data_sources": [
+      "Colombian borehole data",
+      "USGS deposits",
+      "Remote sensing"
+    ],
+    "models_trained": 3,
+    "features_used": 173,
+    "spatial_validation": "Geographic blocking CV",
+    "uncertainty_quantification": true
+  },
+  "output_files": {
+    "probability_raster": "/home/ed/Documents/maestria/GeoAuPredict/notebooks/outputs/visualizations/sample_gold_probability_map.tif",
+    "probability_map": "/home/ed/Documents/maestria/GeoAuPredict/notebooks/outputs/visualizations/sample_gold_probability_map.png",
+    "model_evaluation": "/home/ed/Documents/maestria/GeoAuPredict/outputs/models/model_comparison.csv"
+  }
+}

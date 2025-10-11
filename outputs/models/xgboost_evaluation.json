@@ -1,0 +1,64 @@
+{
+  "model_name": "XGBoost",
+  "basic_metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0
+  },
+  "spatial_cv": {
+    "cv_mean": 1.0,
+    "cv_std": 0.0,
+    "cv_min": 1.0,
+    "cv_max": 1.0,
+    "fold_metrics": [
+      {
+        "fold": 0,
+        "test_samples": 27,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      {
+        "fold": 1,
+        "test_samples": 42,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      {
+        "fold": 2,
+        "test_samples": 33,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      {
+        "fold": 3,
+        "test_samples": 66,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      {
+        "fold": 4,
+        "test_samples": 32,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      }
+    ],
+    "n_folds": 5
+  }
+}

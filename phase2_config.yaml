@@ -1,0 +1,94 @@
+# GeoAuPredict Phase 2: Geospatial Feature Engineering Configuration
+# Sample configuration file for the Phase 2 pipeline
+
+# Output configuration
+output_dir: "phase2_output"
+satellite_type: "sentinel2"  # Options: "sentinel2", "aster"
+pixel_size: 100.0  # meters
+use_richdem: true
+
+# Spectral Indices Configuration
+spectral_indices:
+  # Sentinel-2 band file paths (adjust paths as needed)
+  band_paths:
+    blue: "data/satellite/B02.tif"
+    green: "data/satellite/B03.tif"
+    red: "data/satellite/B04.tif"
+    nir: "data/satellite/B08.tif"
+    swir1: "data/satellite/B11.tif"
+    swir2: "data/satellite/B12.tif"
+
+  # ASTER band paths (if using ASTER data)
+  # band_paths:
+  #   green: "data/satellite/ASTER_VNIR_1.tif"
+  #   red: "data/satellite/ASTER_VNIR_2.tif"
+  #   nir: "data/satellite/ASTER_VNIR_3.tif"
+  #   swir1: "data/satellite/ASTER_SWIR_4.tif"
+  #   swir2: "data/satellite/ASTER_SWIR_5.tif"
+  #   swir3: "data/satellite/ASTER_SWIR_6.tif"
+  #   swir4: "data/satellite/ASTER_SWIR_7.tif"
+  #   swir5: "data/satellite/ASTER_SWIR_8.tif"
+  #   swir6: "data/satellite/ASTER_SWIR_9.tif"
+
+# Terrain Analysis Configuration
+terrain_analysis:
+  dem_path: "data/external/dem/colombia_srtm.tif"
+  # Additional terrain variables to calculate:
+  # - elevation (always calculated)
+  # - slope_degrees, slope_percent
+  # - plan_curvature, profile_curvature, mean_curvature
+  # - aspect
+  # - flow_accumulation
+  # - twi (Topographic Wetness Index)
+
+# Geological Processing Configuration
+geological_processing:
+  geochemical_path: "data/raw/geological/geochemical_samples.csv"
+  features_path: "data/raw/geological/geological_features/"
+  # Expected geochemical columns (elements associated with gold):
+  # - Au, Ag (gold, silver)
+  # - Fe, As, Cu, Pb, Zn (pathfinder elements)
+  # - Na, K, Ca (alteration indices)
+
+# Feature Integration Configuration
+feature_integration:
+  bounds: [-79.0, -4.3, -66.8, 12.5]  # Colombia bounds (min_lon, min_lat, max_lon, max_lat)
+  use_grid: true  # Create regular grid vs use existing points
+  output_format: "csv"  # Options: "csv", "parquet", "feather"
+
+# Advanced Configuration (optional)
+advanced:
+  # Raster processing options
+  raster_processing:
+    chunk_size: 1000  # Process rasters in chunks for large datasets
+    parallel_processing: true
+    max_workers: 4
+
+  # Quality control options
+  quality_control:
+    remove_outliers: true
+    outlier_threshold: 3.0  # Standard deviations
+    fill_missing_values: true
+    missing_value_method: "interpolation"  # Options: "interpolation", "mean", "median"
+
+  # Validation options
+  validation:
+    cross_validate: true
+    test_split: 0.2
+    random_seed: 42
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file_path: "phase2_feature_engineering.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Example data structure for geochemical CSV:
+# lat,lon,Au_ppm,As_ppm,Cu_ppm,Pb_ppm,Zn_ppm,Fe_pct,Ag_ppm,sample_id,date,collected_by
+# 6.234,-74.123,0.15,12.3,45.6,8.9,123.4,5.2,0.02,SAMP001,2023-01-15,Researcher A
+# 6.456,-74.234,0.08,8.7,32.1,5.4,89.2,3.8,0.01,SAMP002,2023-01-16,Researcher A
+
+# Example geological features shapefile structure:
+# geological_features.shp (point, line, or polygon features)
+# - Feature type: faults, contacts, mineralization zones, etc.
+# - Attributes: name, type, age, formation, description, etc.
