@@ -1,0 +1,143 @@
+# Configuration template for Gold Prediction Dataset Ingestion
+# Copy this file to config.yaml and modify as needed
+
+# Base data directory
+data_dir: "data"
+
+# Logging configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "data/processed/data_ingestion.log"
+
+# Data sources configuration
+sources:
+  # USGS MRDS (Mineral Resource Data System)
+  usgs:
+    url: "https://mrdata.usgs.gov/mineral-resources/mrds-csv.zip"
+    enabled: true
+    # Filter commodities (case-insensitive, partial match)
+    commodities_filter: ["Gold", "Au"]
+    # Columns to keep from USGS dataset
+    columns: [
+      "site_name", "latitude", "longitude", "country", "state",
+      "commodity", "orebody_type", "development_status"
+    ]
+
+  # SGC Geochemistry (Servicio Geológico Colombiano)
+  sgc:
+    # Path to SGC geochemical CSV file (download manually from SGC portal)
+    csv_path: "data/raw/geoquimica_sgc.csv"
+    enabled: true
+    # Column mapping (adjust based on actual SGC file format)
+    column_mapping:
+      latitude: ["LATITUD"]
+      longitude: ["LONGITUD"]
+      gold_ppm: ["AU_PPM"]
+      arsenic_ppm: ["AS_PPM"]
+      copper_ppm: ["CU_PPM"]
+      iron_ppm: ["FE_PPM"]
+      antimony_ppm: ["SB_PPM"]
+    # Gold threshold for labeling (ppm)
+    gold_threshold: 0.1
+    # CSV parsing options
+    csv_options:
+      separator: ";"  # Common separators: ",", ";", "|"
+      encoding: "utf-8"  # Common encodings: "utf-8", "latin-1"
+
+  # SRTM Elevation Data
+  srtm:
+    # Path to SRTM DEM file (download from USGS EarthExplorer)
+    dem_path: "data/external/srtm_colombia.tif"
+    enabled: true
+
+  # Sentinel-2 Satellite Imagery
+  sentinel2:
+    enabled: false  # Requires SentinelHub account and credentials
+    # SentinelHub configuration (get from sentinelhub.com)
+    credentials:
+      instance_id: ""  # Your SentinelHub instance ID
+      client_id: ""    # Your SentinelHub client ID
+      client_secret: "" # Your SentinelHub client secret
+    # Processing options
+    processing:
+      # Time period for image collection
+      time_period: ["2023-01-01", "2023-12-31"]
+      # Cloud coverage threshold (0-100)
+      max_cloud_cover: 20
+      # Resolution in meters
+      resolution: 10
+    # Spectral indices to calculate
+    indices:
+      ndvi: true       # (B08 - B04) / (B08 + B04)
+      clay_index: true # B11 / B8A (Clay minerals)
+      iron_index: true # B04 / B02 (Iron oxides)
+
+# Output configuration
+output:
+  # Coordinate Reference System
+  crs: "EPSG:4326"
+  # Colombia bounding box (for spatial filtering)
+  colombia_bounds:
+    west: -79.0
+    south: -4.3
+    east: -66.8
+    north: 12.5
+
+  # Output formats
+  formats:
+    csv: true
+    geojson: true
+    parquet: false  # Requires pyarrow
+
+  # File naming
+  naming:
+    master_dataset: "gold_dataset_master"
+    timestamp_suffix: true
+
+# Processing options
+processing:
+  # Batch size for API calls and processing
+  batch_size: 100
+  # Number of parallel workers (for CPU-intensive tasks)
+  workers: 4
+  # Timeout for API requests (seconds)
+  request_timeout: 60
+  # Retry attempts for failed requests
+  max_retries: 3
+
+# Data quality filters
+quality_filters:
+  # Remove points outside Colombia bounds
+  spatial_filter: true
+  # Remove duplicate coordinates
+  remove_duplicates: true
+  # Minimum elevation (meters)
+  min_elevation: -100
+  # Maximum elevation (meters)
+  max_elevation: 6000
+  # Remove points with missing critical data
+  remove_incomplete: false
+
+# Advanced options
+advanced:
+  # Cache downloaded data
+  cache_enabled: true
+  cache_dir: "data/cache"
+  # Compress large files
+  compression: true
+  # Verbose output
+  verbose: false
+
+# Example SGC column formats (for reference)
+# Uncomment and modify if your SGC file has different column names
+# sgc_example_columns:
+#   - "ID_MUESTRA"
+#   - "LATITUD"
+#   - "LONGITUD"
+#   - "AU_PPM"
+#   - "AS_PPM"
+#   - "CU_PPM"
+#   - "FE_PPM"
+#   - "SB_PPM"
+#   - "FECHA_MUESTREO"
+#   - "PROYECTO"
