@@ -1,8 +1,9 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Database, Map, Brain, BarChart3, Shield, Download, BookOpen } from 'lucide-react';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Database, Map, Brain, BarChart3, Shield, BookOpen } from 'lucide-react';
+import { getNavUrl } from '@/lib/navigation';
 
 export default function Page() {
   return (
@@ -11,8 +12,8 @@ export default function Page() {
         logoText="GAP"
         title="Geo Au Predict"
         navigation={[
-          { label: 'Home', href: '/', isActive: true },
-          { label: 'White Paper', href: '/whitepaper', isActive: false },
+          { label: 'Home', href: getNavUrl('/'), isActive: true },
+          { label: 'White Paper', href: getNavUrl('/whitepaper'), isActive: false },
           { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false }
         ]}
       />
