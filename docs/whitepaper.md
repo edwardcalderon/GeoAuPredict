@@ -1,16 +1,28 @@
-# ⚠️ WORK IN PROGRESS - DOWNLOAD PDF FOR BETTER VIEW ⚠️
+**⚠️ WORK IN PROGRESS** 
+ 
+> This is a live document, please download the PDF for the best view and version tracking. 
 
-> **This is a constantly evolving live document, please download the PDF for the best view and version tracking.**  
-> **To propose a change, please open an issue on GitHub, by editing the original .tex file and re-running the conversion script.**
+> To propose a change, please open an PR on GitHub, by editing the original whitepaper.tex file and re-running the version manager script. 
 
-# GeoAuPredict: AI-Driven Geospatial Prediction of Gold Deposits in Colombia
+# GeoAuPredict (GAP) AI-Driven Geospatial Prediction of Gold Deposits
+
+## Document Information
+
+**Author:** Edward Calderón thanks{href{mailto:ecalderon@unal.edu.co
+
+**Affiliations:**
+- Universidad Nacional de Colombia
+
+**Last Modified:** October 11, 2025 at 04:48  Version 1.3.2
+
+---
 
 ## Abstract
-This study presents GeoAuPredict, an open-source geospatial artificial intelligence system for predicting gold deposits in Colombia using multimodal remote sensing and geological data. Traditional mineral exploration relies on expensive drilling campaigns, while existing AI approaches lack integration of multiple data sources for scalable, reproducible gold prospectivity mapping. We develop a three-phase deep learning architecture that fuses satellite imagery, geochemical data, geophysical surveys, and borehole information to generate continuous probability fields of gold presence. The framework integrates EarthScape methodology with Colombian geological datasets, achieving improved accuracy through multimodal fusion and transfer learning. Results demonstrate successful implementation across Colombian territories with 27 additional geological variables, providing a reproducible pipeline for global mineral exploration that reduces environmental impact while maintaining scientific rigor.
+This study presents GeoAuPredict (GAP), an open-source geospatial artificial intelligence system for predicting gold deposits in Colombia using multimodal remote sensing and geological data. Traditional mineral exploration relies on expensive drilling campaigns, while existing AI approaches lack integration of multiple data sources for scalable, reproducible gold prospectivity mapping. We develop a three-phase deep learning architecture that fuses satellite imagery, geochemical data, geophysical surveys, and borehole information to generate continuous probability fields of gold presence. The framework integrates EarthScape methodology with Colombian geological datasets, achieving improved accuracy through multimodal fusion and transfer learning. Results demonstrate successful implementation across Colombian territories with 27 additional geological variables, providing a reproducible pipeline for global mineral exploration that reduces environmental impact while maintaining scientific rigor.
 **Keywords:** geospatial AI, mineral prospectivity, gold prediction, EarthScape, deep learning, Colombia
 # Introduction
-Mineral exploration traditionally relies on extensive drilling campaigns that are costly, time-intensive, and environmentally invasive \citep{traditional_exploration}. The high financial risk and ecological impact of conventional methods have driven the development of alternative approaches using artificial intelligence and geospatial data analysis. However, existing open-source frameworks for mineral prospectivity mapping remain limited in their integration of multiple data modalities and struggle with generalization across different geological terrains.
-Recent advances in deep learning have demonstrated potential for automated geological feature extraction and subsurface prediction. The EarthScape initiative introduced large-scale AI-ready geospatial datasets that successfully integrate optical imagery, digital elevation models (DEMs), and hydrological data for surface geological mapping without requiring drilling \citep{earthscape2025}. Complementing this, Colombian research on alluvial gold deposits has established ground-truth datasets using borehole data from the Cauca River basin, comparing traditional geostatistical methods with modern machine learning approaches \citep{franco2025}.
+Mineral exploration traditionally relies on extensive drilling campaigns that are costly, time-intensive, and environmentally invasive citep{traditional_exploration}. The high financial risk and ecological impact of conventional methods have driven the development of alternative approaches using artificial intelligence and geospatial data analysis. However, existing open-source frameworks for mineral prospectivity mapping remain limited in their integration of multiple data modalities and struggle with generalization across different geological terrains.
+Recent advances in deep learning have demonstrated potential for automated geological feature extraction and subsurface prediction. The EarthScape initiative introduced large-scale AI-ready geospatial datasets that successfully integrate optical imagery, digital elevation models (DEMs), and hydrological data for surface geological mapping without requiring drilling citep{massey2025earthscape}. Complementing this, Colombian research on alluvial gold deposits has established ground-truth datasets using borehole data from the Cauca River basin, comparing traditional geostatistical methods with modern machine learning approaches. Recent studies have also advanced geophysical data analysis techniques for mineral exploration citep{springer2025}.
 This study addresses the gap in integrated, open-source mineral prospectivity frameworks by developing GeoAuPredict, a comprehensive AI system that fuses multiple data sources for gold deposit prediction in Colombia. The framework builds upon EarthScape methodology while incorporating local geological knowledge and borehole validation data. By integrating geochemical, geophysical, satellite, and drilling data through a three-phase deep learning architecture, we aim to provide a reproducible, scalable solution for evidence-based mineral exploration decision-making.
 The objectives of this research are threefold: (1) develop an integrated AI framework for multimodal geological data fusion, (2) demonstrate improved gold prospectivity mapping accuracy through transfer learning across geological regions, and (3) establish an open-science pipeline that reduces exploration costs while maintaining environmental responsibility. Our approach leverages 27 distinct geological variables and implements uncertainty quantification for reliable exploration targeting.
 # Materials and Methods
@@ -41,7 +53,7 @@ The AI system implements a three-phase deep learning architecture designed for p
 **Phase 1 Implementation:** Following University of Kentucky methodology, we implemented attention mechanisms and spatial-channel attention for improved feature fusion across multimodal inputs.
 **Phase 2 Implementation:** Building on Colombian research, we developed depth-aware convolutional layers adapted for borehole depth information with spatial context encoding for 3D geological modeling.
 **Phase 3 Implementation:** Transfer learning across geological regions with incremental learning capabilities and probabilistic output generation for exploration decision-making.
-The final model outputs continuous probability fields \( P(\text{gold presence}) \in [0,1] \) visualized as georeferenced heatmaps with uncertainty bounds.
+The final model outputs continuous probability fields \( P(text{gold presence}) in [0,1] \) visualized as georeferenced heatmaps with uncertainty bounds.
 ## Technical Infrastructure
 - **FastAPI Backend:** RESTful API serving model predictions and borehole data
 - **3D Visualization Framework:** CesiumJS and Leaflet 3D integration for geological overlays and borehole cross-sections
@@ -73,7 +85,7 @@ Our results show that the three-phase architecture successfully addresses key li
 - **Transfer Learning:** Cross-region generalization enables broader applicability across diverse geological terrains
 - **Uncertainty Quantification:** Probabilistic outputs support evidence-based exploration decision-making
 ## Comparison with Existing Approaches
-Compared to the baseline Colombian alluvial gold study \citep{franco2025}, our framework achieves improved performance through:
+Compared to the baseline Colombian alluvial gold study, our framework achieves improved performance through:
 - Enhanced multimodal fusion integrating geochemical and geophysical data
 - Advanced uncertainty quantification for reliable exploration targeting
 - Scalable architecture supporting production-scale deployment
@@ -111,5 +123,3 @@ This research builds upon open data and methodologies provided by:
 - NASA - ASTER Digital Elevation Model
 - Instituto Tecnológico Metropolitano (ITM), Universidad de Antioquia (UdeA), and Universidad Nacional de Colombia (UNAL) - Colombian alluvial gold research
 - University of Kentucky EarthScape Initiative - Multimodal geospatial methodology
-\bibliographystyle{plain}
-\bibliography{references}

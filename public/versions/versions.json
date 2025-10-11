@@ -1,0 +1,66 @@
+{
+  "currentVersion": "v1.3.2",
+  "versions": [
+    {
+      "version": "v1.3.1",
+      "filename": "whitepaper-v1.3.1.pdf",
+      "date": "2025-10-11",
+      "timestamp": "2025-10-11 04:38:47",
+      "changes": "Final bibliography corrections with proper academic citations",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "1c8758c20205efe0ffdb852d0d36ee0fc074174f"
+    },
+    {
+      "version": "v1.3.0",
+      "filename": "whitepaper-v1.3.0.pdf",
+      "date": "2025-10-11",
+      "timestamp": "2025-10-11 04:23:40",
+      "changes": "Final bibliography corrections with proper academic citations",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "1c8758c20205efe0ffdb852d0d36ee0fc074174f"
+    },
+    {
+      "version": "v1.2.9",
+      "filename": "whitepaper-v1.2.9.pdf",
+      "date": "2025-10-11",
+      "timestamp": "2025-10-11 03:59:00",
+      "changes": "Final bibliography corrections with proper academic citations",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "1c8758c20205efe0ffdb852d0d36ee0fc074174f"
+    },
+    {
+      "version": "v1.2.8",
+      "filename": "whitepaper-v1.2.8.pdf",
+      "date": "2025-10-11",
+      "timestamp": "2025-10-11 03:57:15",
+      "changes": "Final bibliography corrections with proper academic citations",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "1c8758c20205efe0ffdb852d0d36ee0fc074174f"
+    },
+    {
+      "version": "v1.2.7",
+      "filename": "whitepaper-v1.2.7.pdf",
+      "date": "2025-10-11",
+      "timestamp": "2025-10-11 03:56:26",
+      "changes": "Final bibliography corrections with proper academic citations",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "1c8758c20205efe0ffdb852d0d36ee0fc074174f"
+    },
+    {
+      "version": "v1.3.2",
+      "filename": "whitepaper-v1.3.2.pdf",
+      "date": "2025-10-11",
+      "timestamp": "2025-10-11 04:48:24",
+      "changes": "Final bibliography corrections with proper academic citations",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "1c8758c20205efe0ffdb852d0d36ee0fc074174f"
+    }
+  ],
+  "downloadUrl": "/versions/whitepaper-v1.3.2.pdf"
+}

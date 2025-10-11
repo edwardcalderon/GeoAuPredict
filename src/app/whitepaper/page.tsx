@@ -4,28 +4,33 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import ReactMarkdown from 'react-markdown';
 import { Download, FileText } from 'lucide-react';
-
 export default async function WhitePaperPage() {
   // Read the markdown whitepaper content
   const whitepaperPath = join(process.cwd(), 'docs', 'whitepaper.md');
   const content = await fs.readFile(whitepaperPath, 'utf8');
 
+  // Read version information
+  const versionsPath = join(process.cwd(), 'public', 'versions', 'versions.json');
+  const versionsData = await fs.readFile(versionsPath, 'utf8');
+  const versions = JSON.parse(versionsData);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <Header
-        logoText="G.A.P"
+        logoText="GAP"
         title="Geo Au Predict"
         navigation={[
           { label: 'Home', href: '/', isActive: false },
-          { label: 'White Paper', href: '/whitepaper', isActive: true }
+          { label: 'White Paper', href: '/whitepaper', isActive: true },
+          { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false, target: '_blank' }
         ]}
       />
 
       {/* Floating Download Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <a
-          href="/whitepaper-latex.pdf"
-          download="GeoAuPredict_GAP_WhitePaper.pdf"
+          href={versions.downloadUrl}
+          download={`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`}
           className="flex items-center space-x-2 px-4 py-3 bg-yellow-600 hover:bg-yellow-700 text-slate-900 rounded-full font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
         >
           <Download className="w-5 h-5" />

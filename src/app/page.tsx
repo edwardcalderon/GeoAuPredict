@@ -8,11 +8,12 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <Header
-        logoText="G.A.P"
+        logoText="GAP"
         title="Geo Au Predict"
         navigation={[
           { label: 'Home', href: '/', isActive: true },
-          { label: 'White Paper', href: '/whitepaper', isActive: false }
+          { label: 'White Paper', href: '/whitepaper', isActive: false },
+          { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false }
         ]}
       />
 

@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{amsmath}
+\usepackage{url}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -9,23 +10,22 @@
 \usepackage{natbib}
 \usepackage{booktabs}
 \usepackage{authblk}
+\usepackage[yyyymmdd,hhmmss]{datetime}
 
 \geometry{margin=2.5cm}
 \definecolor{gold}{RGB}{212,175,55}
 
-\title{GeoAuPredict: AI-Driven Geospatial Prediction of Gold Deposits in Colombia}
-\author{Edward Calderón}
+\title{GeoAuPredict (GAP) AI-Driven Geospatial Prediction of Gold Deposits}
+\author{Edward Calderón \thanks{\href{mailto:ecalderon@unal.edu.co}{ecalderon@unal.edu.co}}}
 \affil{Universidad Nacional de Colombia}
-\affil{\href{mailto:ecalderon@unal.edu.co}{ecalderon@unal.edu.co}}
-
-\date{October 2025}
+\date{\today\ at \currenttime \\ {\small Version 1.3.2}}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-This study presents GeoAuPredict, an open-source geospatial artificial intelligence system for predicting gold deposits in Colombia using multimodal remote sensing and geological data. Traditional mineral exploration relies on expensive drilling campaigns, while existing AI approaches lack integration of multiple data sources for scalable, reproducible gold prospectivity mapping. We develop a three-phase deep learning architecture that fuses satellite imagery, geochemical data, geophysical surveys, and borehole information to generate continuous probability fields of gold presence. The framework integrates EarthScape methodology with Colombian geological datasets, achieving improved accuracy through multimodal fusion and transfer learning. Results demonstrate successful implementation across Colombian territories with 27 additional geological variables, providing a reproducible pipeline for global mineral exploration that reduces environmental impact while maintaining scientific rigor.
+This study presents GeoAuPredict (GAP), an open-source geospatial artificial intelligence system for predicting gold deposits in Colombia using multimodal remote sensing and geological data. Traditional mineral exploration relies on expensive drilling campaigns, while existing AI approaches lack integration of multiple data sources for scalable, reproducible gold prospectivity mapping. We develop a three-phase deep learning architecture that fuses satellite imagery, geochemical data, geophysical surveys, and borehole information to generate continuous probability fields of gold presence. The framework integrates EarthScape methodology with Colombian geological datasets, achieving improved accuracy through multimodal fusion and transfer learning. Results demonstrate successful implementation across Colombian territories with 27 additional geological variables, providing a reproducible pipeline for global mineral exploration that reduces environmental impact while maintaining scientific rigor.
 
 \textbf{Keywords:} geospatial AI, mineral prospectivity, gold prediction, EarthScape, deep learning, Colombia
 \end{abstract}
@@ -34,7 +34,7 @@ This study presents GeoAuPredict, an open-source geospatial artificial intellige
 
 Mineral exploration traditionally relies on extensive drilling campaigns that are costly, time-intensive, and environmentally invasive \citep{traditional_exploration}. The high financial risk and ecological impact of conventional methods have driven the development of alternative approaches using artificial intelligence and geospatial data analysis. However, existing open-source frameworks for mineral prospectivity mapping remain limited in their integration of multiple data modalities and struggle with generalization across different geological terrains.
 
-Recent advances in deep learning have demonstrated potential for automated geological feature extraction and subsurface prediction. The EarthScape initiative introduced large-scale AI-ready geospatial datasets that successfully integrate optical imagery, digital elevation models (DEMs), and hydrological data for surface geological mapping without requiring drilling \citep{earthscape2025}. Complementing this, Colombian research on alluvial gold deposits has established ground-truth datasets using borehole data from the Cauca River basin, comparing traditional geostatistical methods with modern machine learning approaches \citep{franco2025}.
+Recent advances in deep learning have demonstrated potential for automated geological feature extraction and subsurface prediction. The EarthScape initiative introduced large-scale AI-ready geospatial datasets that successfully integrate optical imagery, digital elevation models (DEMs), and hydrological data for surface geological mapping without requiring drilling \citep{massey2025earthscape}. Complementing this, Colombian research on alluvial gold deposits has established ground-truth datasets using borehole data from the Cauca River basin, comparing traditional geostatistical methods with modern machine learning approaches. Recent studies have also advanced geophysical data analysis techniques for mineral exploration \citep{springer2025}.
 
 This study addresses the gap in integrated, open-source mineral prospectivity frameworks by developing GeoAuPredict, a comprehensive AI system that fuses multiple data sources for gold deposit prediction in Colombia. The framework builds upon EarthScape methodology while incorporating local geological knowledge and borehole validation data. By integrating geochemical, geophysical, satellite, and drilling data through a three-phase deep learning architecture, we aim to provide a reproducible, scalable solution for evidence-based mineral exploration decision-making.
 
@@ -136,7 +136,7 @@ Our results show that the three-phase architecture successfully addresses key li
 \end{itemize}
 
 \subsection{Comparison with Existing Approaches}
-Compared to the baseline Colombian alluvial gold study \citep{franco2025}, our framework achieves improved performance through:
+Compared to the baseline Colombian alluvial gold study, our framework achieves improved performance through:
 
 \begin{enumerate}
     \item Enhanced multimodal fusion integrating geochemical and geophysical data

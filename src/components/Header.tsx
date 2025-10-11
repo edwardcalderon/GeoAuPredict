@@ -4,6 +4,7 @@ interface HeaderProps {
   navigation?: Array<{
     label: string;
     href: string;
+    target?: string;
     isActive?: boolean;
   }>;
 }
@@ -24,6 +25,7 @@ export default function Header({ logoText = "G", title, navigation = [] }: Heade
               <a
                 key={item.href}
                 href={item.href}
+                target={item.target}
                 className={`transition-colors ${
                   item.isActive
                     ? "text-yellow-400 font-semibold"
