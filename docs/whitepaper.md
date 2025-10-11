@@ -1,7 +1,6 @@
 **⚠️ WORK IN PROGRESS** 
  
 > This is a live document, please download the PDF for the best view and version tracking. 
-
 > To propose a change, please open an PR on GitHub, by editing the original whitepaper.tex file and re-running the version manager script. 
 
 # GeoAuPredict (GAP) AI-Driven Geospatial Prediction of Gold Deposits
@@ -13,7 +12,7 @@
 **Affiliations:**
 - Universidad Nacional de Colombia
 
-**Last Modified:** October 11, 2025 at 04:48  Version 1.3.2
+**Last Modified:** October 11, 2025 at 05:00  Version 1.3.2
 
 ---
 

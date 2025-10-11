@@ -55,11 +55,11 @@
       "version": "v1.3.2",
       "filename": "whitepaper-v1.3.2.pdf",
       "date": "2025-10-11",
-      "timestamp": "2025-10-11 04:48:24",
+      "timestamp": "2025-10-11 05:00:53",
       "changes": "Final bibliography corrections with proper academic citations",
       "author": "Unknown",
       "email": "edwardca12@hotmail.com",
-      "commit_hash": "1c8758c20205efe0ffdb852d0d36ee0fc074174f"
+      "commit_hash": "dc7cbbf8ba32119bcfd61491f10b08e6196bfd45"
     }
   ],
   "downloadUrl": "/versions/whitepaper-v1.3.2.pdf"

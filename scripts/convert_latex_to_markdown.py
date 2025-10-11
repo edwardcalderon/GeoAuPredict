@@ -310,7 +310,7 @@ class LaTeXToMarkdownConverter:
         # Write output with header warning (as plain text, not processed through LaTeX conversion)
         with open(output_path, 'w', encoding='utf-8') as outfile:
             outfile.write('**⚠️ WORK IN PROGRESS** \n \n')
-            outfile.write('> This is a live document, please download the PDF for the best view and version tracking. \n\n')
+            outfile.write('> This is a live document, please download the PDF for the best view and version tracking. \n')
             outfile.write('> To propose a change, please open an PR on GitHub, by editing the original whitepaper.tex file and re-running the version manager script. \n\n')
 
             # Add title if found

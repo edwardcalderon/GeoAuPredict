@@ -18,16 +18,50 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* CSP-compliant script loading for production */}
+        {process.env.NODE_ENV === 'production' ? (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (function() {
+                    var script = document.createElement('script');
+                    script.src = 'https://polyfill.io/v3/polyfill.min.js?features=es6';
+                    script.async = true;
+                    document.head.appendChild(script);
+                  })();
+                `
+              }}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (function() {
+                    var script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+                    script.async = true;
+                    document.head.appendChild(script);
+                  })();
+                `
+              }}
+            />
+          </>
+        ) : (
+          <>
+            {/* MathJax for LaTeX rendering - Development */}
+            <Script
+              src="https://polyfill.io/v3/polyfill.min.js?features=es6"
+              strategy="beforeInteractive"
+            />
+            <Script
+              src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+              strategy="beforeInteractive"
+            />
+          </>
+        )}
+      </head>
       <body className={inter.className}>
-        {/* MathJax for LaTeX rendering */}
-        <Script
-          src="https://polyfill.io/v3/polyfill.min.js?features=es6"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-          strategy="beforeInteractive"
-        />
         {children}
         <TempoInit />
       </body>
