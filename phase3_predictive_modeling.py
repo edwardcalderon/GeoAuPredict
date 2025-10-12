@@ -358,13 +358,16 @@ class Phase3Pipeline:
                         'model': eval_result['model_name'],
                         'accuracy': bm.get('accuracy'),
                         'roc_auc': bm.get('roc_auc'),
-                        'f1_score': bm.get('f1'),
+                        'f1_score': bm.get('f1_score', bm.get('f1', 0)),
                         'precision': bm.get('precision', 0),
                         'recall': bm.get('recall', 0)
                     })
 
             # Always a DataFrame (empty if no rows)
-            comparison_df = pd.DataFrame(comparison, columns=['model','roc_auc','f1_score','accuracy','precision','recall'])
+            if comparison:
+                comparison_df = pd.DataFrame(comparison, columns=['model','roc_auc','f1_score','accuracy','precision','recall'])
+            else:
+                comparison_df = pd.DataFrame(columns=['model','roc_auc','f1_score','accuracy','precision','recall'])
 
             # Optional: print comparison if available
             if comparison_df is not None and not comparison_df.empty:
