@@ -1,0 +1,15 @@
+# Backup of packages.txt in case you need system packages
+# Current packages.txt content:
+libgdal-dev
+libgeos-dev
+
+# Alternative minimal (if above fails):
+# (empty - rely on Python wheels only)
+
+# Original full version:
+# gdal-bin
+# libgdal-dev
+# libspatialindex-dev
+# libproj-dev
+# libgeos-dev
+
