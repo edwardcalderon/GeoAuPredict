@@ -131,7 +131,7 @@ class GoldPredictionModel:
             'accuracy': accuracy_score(y_test, y_pred),
             'precision': precision_score(y_test, y_pred, zero_division=0),
             'recall': recall_score(y_test, y_pred, zero_division=0),
-            'f1': f1_score(y_test, y_pred),
+            'f1_score': f1_score(y_test, y_pred),
             'roc_auc': roc_auc_score(y_test, y_pred_proba)
         }
 

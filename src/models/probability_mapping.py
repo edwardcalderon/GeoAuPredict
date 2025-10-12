@@ -223,6 +223,16 @@ class ProbabilityMapper:
         # Extract coordinates and values
         points = predictions_df[['lat', 'lon']].values
         values = predictions_df['probability'].values
+        
+        # Ensure values are 1D
+        if values.ndim > 1:
+            values = values.flatten()
+        
+        # Ensure points are 2D
+        if points.ndim == 1:
+            points = points.reshape(-1, 1)
+        elif points.shape[1] != 2:
+            raise ValueError(f"Expected 2D coordinates, got shape {points.shape}")
 
         # Create prediction grid
         x_grid, y_grid, width, height = self.create_prediction_grid(bounds, self.pixel_size)

@@ -98,36 +98,42 @@ class GeospatialModelEvaluator:
         """
         logger.info(f"Calculating Precision@k for k={k_values}")
 
-        # Convert to numpy arrays to avoid pandas index issues
-        y_true = np.asarray(y_true)
-        y_pred_proba = np.asarray(y_pred_proba)
+        try:
+            # Convert to numpy arrays to avoid pandas index issues
+            y_true = np.asarray(y_true)
+            y_pred_proba = np.asarray(y_pred_proba)
 
-        # If probabilities are 2D (predict_proba output), take positive class column
-        if y_pred_proba.ndim == 2 and y_pred_proba.shape[1] > 1:
-            y_pred_proba = y_pred_proba[:, 1]
+            # If probabilities are 2D (predict_proba output), take positive class column
+            if y_pred_proba.ndim == 2 and y_pred_proba.shape[1] > 1:
+                y_pred_proba = y_pred_proba[:, 1]
 
-        # Sort by predicted probability (descending)
-        sorted_indices = np.argsort(y_pred_proba)[::-1]
+            # Sort by predicted probability (descending)
+            sorted_indices = np.argsort(y_pred_proba)[::-1]
 
-        precision_results = {}
+            precision_results = {}
 
-        for k in k_values:
-            if k > len(y_true):
-                logger.warning(f"k={k} larger than dataset size {len(y_true)}")
-                continue
+            for k in k_values:
+                if k > len(y_true):
+                    logger.warning(f"k={k} larger than dataset size {len(y_true)}")
+                    continue
 
-            # Get top-k predictions
-            top_k_indices = sorted_indices[:k]
-            top_k_true = y_true[top_k_indices]
+                # Get top-k predictions
+                top_k_indices = sorted_indices[:k]
+                top_k_true = y_true[top_k_indices]
 
-            # Calculate precision@k
-            precision_k = np.mean(top_k_true)
+                # Calculate precision@k
+                precision_k = np.mean(top_k_true)
 
-            precision_results[f'precision@{k}'] = precision_k
+                precision_results[f'precision@{k}'] = precision_k
 
-            logger.info(f"Precision@{k}: {precision_k:.3f} ({np.sum(top_k_true)}/{k} true positives)")
+                logger.info(f"Precision@{k}: {precision_k:.3f} ({np.sum(top_k_true)}/{k} true positives)")
 
-        return precision_results
+            return precision_results
+            
+        except Exception as e:
+            logger.error(f"Error calculating Precision@k: {str(e)}")
+            # Return default values if calculation fails
+            return {f'precision@{k}': 0.0 for k in k_values}
 
     def create_geographic_confusion_matrix(self, y_true: np.ndarray,
                                          y_pred: np.ndarray,
@@ -147,56 +153,61 @@ class GeospatialModelEvaluator:
         """
         logger.info(f"Creating geographic confusion matrix with {grid_resolution}° resolution")
 
-        # Create geographic bins
-        lat_bins = np.arange(coordinates[:, 0].min(), coordinates[:, 0].max() + grid_resolution, grid_resolution)
-        lon_bins = np.arange(coordinates[:, 1].min(), coordinates[:, 1].max() + grid_resolution, grid_resolution)
+        try:
+            # Create geographic bins
+            lat_bins = np.arange(coordinates[:, 0].min(), coordinates[:, 0].max() + grid_resolution, grid_resolution)
+            lon_bins = np.arange(coordinates[:, 1].min(), coordinates[:, 1].max() + grid_resolution, grid_resolution)
 
-        # Assign samples to bins
-        lat_indices = np.digitize(coordinates[:, 0], lat_bins) - 1
-        lon_indices = np.digitize(coordinates[:, 1], lon_bins) - 1
+            # Assign samples to bins
+            lat_indices = np.digitize(coordinates[:, 0], lat_bins) - 1
+            lon_indices = np.digitize(coordinates[:, 1], lon_bins) - 1
 
-        # Create confusion matrix for each geographic bin
-        n_lat_bins = len(lat_bins) - 1
-        n_lon_bins = len(lon_bins) - 1
+            # Create confusion matrix for each geographic bin
+            n_lat_bins = len(lat_bins) - 1
+            n_lon_bins = len(lon_bins) - 1
 
-        geo_cm = np.zeros((n_lat_bins, n_lon_bins, 2, 2))  # (lat_bin, lon_bin, true_class, pred_class)
+            geo_cm = np.zeros((n_lat_bins, n_lon_bins, 2, 2))  # (lat_bin, lon_bin, true_class, pred_class)
 
-        for i in range(len(y_true)):
-            lat_idx = lat_indices[i]
-            lon_idx = lon_indices[i]
-            true_class = int(y_true[i])
-            pred_class = int(y_pred[i])
+            for i in range(len(y_true)):
+                lat_idx = lat_indices[i]
+                lon_idx = lon_indices[i]
+                true_class = int(y_true[i])
+                pred_class = int(y_pred[i])
 
-            geo_cm[lat_idx, lon_idx, true_class, pred_class] += 1
+                geo_cm[lat_idx, lon_idx, true_class, pred_class] += 1
 
-        # Convert to DataFrame
-        results = []
-        for lat_idx in range(n_lat_bins):
-            for lon_idx in range(n_lon_bins):
-                bin_data = {
-                    'lat_bin': lat_idx,
-                    'lon_bin': lon_idx,
-                    'lat_center': (lat_bins[lat_idx] + lat_bins[lat_idx + 1]) / 2,
-                    'lon_center': (lon_bins[lon_idx] + lon_bins[lon_idx + 1]) / 2,
-                    'true_negative': geo_cm[lat_idx, lon_idx, 0, 0],
-                    'false_positive': geo_cm[lat_idx, lon_idx, 0, 1],
-                    'false_negative': geo_cm[lat_idx, lon_idx, 1, 0],
-                    'true_positive': geo_cm[lat_idx, lon_idx, 1, 1],
-                    'total_samples': geo_cm[lat_idx, lon_idx].sum()
-                }
+            # Convert to DataFrame
+            results = []
+            for lat_idx in range(n_lat_bins):
+                for lon_idx in range(n_lon_bins):
+                    bin_data = {
+                        'lat_bin': lat_idx,
+                        'lon_bin': lon_idx,
+                        'lat_center': (lat_bins[lat_idx] + lat_bins[lat_idx + 1]) / 2,
+                        'lon_center': (lon_bins[lon_idx] + lon_bins[lon_idx + 1]) / 2,
+                        'true_negative': geo_cm[lat_idx, lon_idx, 0, 0],
+                        'false_positive': geo_cm[lat_idx, lon_idx, 0, 1],
+                        'false_negative': geo_cm[lat_idx, lon_idx, 1, 0],
+                        'true_positive': geo_cm[lat_idx, lon_idx, 1, 1],
+                        'total_samples': geo_cm[lat_idx, lon_idx].sum()
+                    }
 
-                if bin_data['total_samples'] > 0:
-                    bin_data['accuracy'] = (bin_data['true_negative'] + bin_data['true_positive']) / bin_data['total_samples']
-                    bin_data['precision'] = bin_data['true_positive'] / (bin_data['true_positive'] + bin_data['false_positive']) if (bin_data['true_positive'] + bin_data['false_positive']) > 0 else 0
-                    bin_data['recall'] = bin_data['true_positive'] / (bin_data['true_positive'] + bin_data['false_negative']) if (bin_data['true_positive'] + bin_data['false_negative']) > 0 else 0
+                    if bin_data['total_samples'] > 0:
+                        bin_data['accuracy'] = (bin_data['true_negative'] + bin_data['true_positive']) / bin_data['total_samples']
+                        bin_data['precision'] = bin_data['true_positive'] / (bin_data['true_positive'] + bin_data['false_positive']) if (bin_data['true_positive'] + bin_data['false_positive']) > 0 else 0
+                        bin_data['recall'] = bin_data['true_positive'] / (bin_data['true_positive'] + bin_data['false_negative']) if (bin_data['true_positive'] + bin_data['false_negative']) > 0 else 0
 
-                results.append(bin_data)
+                    results.append(bin_data)
 
-        geo_cm_df = pd.DataFrame(results)
+            geo_cm_df = pd.DataFrame(results)
 
-        logger.info(f"Created geographic confusion matrix with {len(geo_cm_df)} bins")
+            logger.info(f"Created geographic confusion matrix with {len(geo_cm_df)} bins")
 
-        return geo_cm_df
+            return geo_cm_df
+            
+        except Exception as e:
+            logger.error(f"Geographic confusion matrix creation failed: {str(e)}")
+            return pd.DataFrame()
 
     def calculate_spatial_autocorrelation(self, y_true: np.ndarray,
                                         y_pred: np.ndarray,
@@ -216,51 +227,61 @@ class GeospatialModelEvaluator:
         """
         logger.info("Calculating spatial autocorrelation metrics")
 
-        from scipy.spatial.distance import pdist, squareform
+        try:
+            from scipy.spatial.distance import pdist, squareform
 
-        # Calculate distance matrix
-        distances = squareform(pdist(coordinates))
+            # Calculate distance matrix
+            distances = squareform(pdist(coordinates))
 
-        # Create binary distance mask
-        distance_mask = distances <= max_distance
+            # Create binary distance mask
+            distance_mask = distances <= max_distance
 
-        # Calculate Moran's I for predictions
-        y_pred_centered = y_pred - np.mean(y_pred)
-        y_true_centered = y_true - np.mean(y_true)
+            # Calculate Moran's I for predictions
+            y_pred_centered = y_pred - np.mean(y_pred)
+            y_true_centered = y_true - np.mean(y_true)
 
-        # Spatial weights matrix (inverse distance)
-        weights = 1.0 / (distances + 1e-10)  # Avoid division by zero
-        weights[~distance_mask] = 0  # Only consider nearby points
+            # Spatial weights matrix (inverse distance)
+            weights = 1.0 / (distances + 1e-10)  # Avoid division by zero
+            weights[~distance_mask] = 0  # Only consider nearby points
 
-        # Normalize weights by row
-        row_sums = np.sum(weights, axis=1, keepdims=True)
-        weights = weights / row_sums
+            # Normalize weights by row
+            row_sums = np.sum(weights, axis=1, keepdims=True)
+            weights = weights / row_sums
 
-        # Calculate Moran's I
-        n = len(y_pred)
-        numerator = np.sum(weights * np.outer(y_pred_centered, y_pred_centered))
-        denominator = np.sum(y_pred_centered ** 2)
+            # Calculate Moran's I
+            n = len(y_pred)
+            numerator = np.sum(weights * np.outer(y_pred_centered, y_pred_centered))
+            denominator = np.sum(y_pred_centered ** 2)
 
-        morans_i_pred = (n / np.sum(weights)) * (numerator / denominator) if denominator > 0 else 0
+            morans_i_pred = (n / np.sum(weights)) * (numerator / denominator) if denominator > 0 else 0
 
-        # Moran's I for errors
-        errors = y_pred - y_true
-        errors_centered = errors - np.mean(errors)
+            # Moran's I for errors
+            errors = y_pred - y_true
+            errors_centered = errors - np.mean(errors)
 
-        numerator_error = np.sum(weights * np.outer(errors_centered, errors_centered))
-        morans_i_error = (n / np.sum(weights)) * (numerator_error / np.sum(errors_centered ** 2)) if np.sum(errors_centered ** 2) > 0 else 0
+            numerator_error = np.sum(weights * np.outer(errors_centered, errors_centered))
+            morans_i_error = (n / np.sum(weights)) * (numerator_error / np.sum(errors_centered ** 2)) if np.sum(errors_centered ** 2) > 0 else 0
 
-        results = {
-            'morans_i_predictions': morans_i_pred,
-            'morans_i_errors': morans_i_error,
-            'spatial_autocorrelation_present': abs(morans_i_pred) > 0.1,
-            'error_spatial_autocorrelation': abs(morans_i_error) > 0.1
-        }
+            results = {
+                'morans_i_predictions': morans_i_pred,
+                'morans_i_errors': morans_i_error,
+                'spatial_autocorrelation_present': abs(morans_i_pred) > 0.1,
+                'error_spatial_autocorrelation': abs(morans_i_error) > 0.1
+            }
 
-        logger.info(f"Moran's I (predictions): {morans_i_pred:.3f}")
-        logger.info(f"Moran's I (errors): {morans_i_error:.3f}")
+            logger.info(f"Moran's I (predictions): {morans_i_pred:.3f}")
+            logger.info(f"Moran's I (errors): {morans_i_error:.3f}")
 
-        return results
+            return results
+            
+        except Exception as e:
+            logger.error(f"Spatial autocorrelation calculation failed: {str(e)}")
+            return {
+                'morans_i_predictions': 0.0,
+                'morans_i_errors': 0.0,
+                'spatial_autocorrelation_present': False,
+                'error_spatial_autocorrelation': False
+            }
 
     def calculate_exploration_metrics(self, y_true: np.ndarray,
                                     y_pred_proba: np.ndarray,
@@ -280,27 +301,32 @@ class GeospatialModelEvaluator:
         """
         logger.info("Calculating exploration-specific metrics")
 
-        metrics = {}
+        try:
+            metrics = {}
 
-        for threshold in area_thresholds:
-            # Sort by probability and select top percentage
-            n_select = max(1, int(len(y_true) * threshold))
-            top_indices = np.argsort(y_pred_proba)[::-1][:n_select]
+            for threshold in area_thresholds:
+                # Sort by probability and select top percentage
+                n_select = max(1, int(len(y_true) * threshold))
+                top_indices = np.argsort(y_pred_proba)[::-1][:n_select]
 
-            # Calculate metrics for selected area
-            selected_true = y_true[top_indices]
-            selected_proba = y_pred_proba[top_indices]
+                # Calculate metrics for selected area
+                selected_true = y_true[top_indices]
+                selected_proba = y_pred_proba[top_indices]
 
-            precision = np.mean(selected_true)
-            recall = np.sum(selected_true) / np.sum(y_true) if np.sum(y_true) > 0 else 0
+                precision = np.mean(selected_true)
+                recall = np.sum(selected_true) / np.sum(y_true) if np.sum(y_true) > 0 else 0
 
-            metrics[f'precision_at_{int(threshold*100)}pct'] = precision
-            metrics[f'recall_at_{int(threshold*100)}pct'] = recall
-            metrics[f'gold_found_at_{int(threshold*100)}pct'] = np.sum(selected_true)
+                metrics[f'precision_at_{int(threshold*100)}pct'] = precision
+                metrics[f'recall_at_{int(threshold*100)}pct'] = recall
+                metrics[f'gold_found_at_{int(threshold*100)}pct'] = np.sum(selected_true)
 
-            logger.info(f"At {int(threshold*100)}% area: Precision={precision:.3f}, Recall={recall:.3f}")
+                logger.info(f"At {int(threshold*100)}% area: Precision={precision:.3f}, Recall={recall:.3f}")
 
-        return metrics
+            return metrics
+            
+        except Exception as e:
+            logger.error(f"Exploration metrics calculation failed: {str(e)}")
+            return {}
 
     def plot_roc_curve(self, y_true: np.ndarray, y_pred_proba: np.ndarray,
                       save_path: Optional[str] = None):
@@ -458,52 +484,77 @@ class GeospatialModelEvaluator:
         """
         logger.info("Creating comprehensive evaluation report")
 
-        # Get predictions if not provided
-        if model_predictions is None:
-            y_pred = model.predict(X_test)
-            y_pred_proba = model.predict_proba(X_test)
-        else:
-            y_pred = model_predictions['predictions']
-            y_pred_proba = model_predictions['probabilities']
+        try:
+            # Get predictions if not provided
+            if model_predictions is None:
+                y_pred = model.predict(X_test)
+                y_pred_proba = model.predict_proba(X_test)
+            else:
+                y_pred = model_predictions['predictions']
+                y_pred_proba = model_predictions['probabilities']
 
-        # Basic metrics
-        basic_metrics = self.calculate_basic_metrics(y_test, y_pred, y_pred_proba)
+            # Basic metrics
+            logger.info("Calculating basic metrics...")
+            basic_metrics = self.calculate_basic_metrics(y_test, y_pred, y_pred_proba)
 
-        # Precision@k
-        precision_k = self.calculate_precision_at_k(y_test, y_pred_proba, coordinates)
+            # Precision@k
+            logger.info("Calculating Precision@k...")
+            precision_k = self.calculate_precision_at_k(y_test, y_pred_proba, coordinates)
 
-        # Geographic confusion matrix
-        geo_cm = self.create_geographic_confusion_matrix(y_test, y_pred, coordinates)
+            # Geographic confusion matrix
+            logger.info("Creating geographic confusion matrix...")
+            geo_cm = self.create_geographic_confusion_matrix(y_test, y_pred, coordinates)
 
-        # Spatial autocorrelation
-        spatial_autocorr = self.calculate_spatial_autocorrelation(y_test, y_pred, coordinates)
+            # Spatial autocorrelation
+            logger.info("Calculating spatial autocorrelation...")
+            spatial_autocorr = self.calculate_spatial_autocorrelation(y_test, y_pred, coordinates)
 
-        # Exploration metrics
-        exploration_metrics = self.calculate_exploration_metrics(y_test, y_pred_proba, coordinates)
+            # Exploration metrics
+            logger.info("Calculating exploration metrics...")
+            exploration_metrics = self.calculate_exploration_metrics(y_test, y_pred_proba, coordinates)
 
-        # Feature importance (if available)
-        feature_importance = None
-        if hasattr(model, 'feature_importances_') or hasattr(model, 'coef_'):
-            feature_importance = self.calculate_feature_importance_spatial(model, X_test, y_test, coordinates)
+            # Feature importance (if available)
+            logger.info("Calculating feature importance...")
+            feature_importance = None
+            if hasattr(model, 'feature_importances_') or hasattr(model, 'coef_'):
+                feature_importance = self.calculate_feature_importance_spatial(model, X_test, y_test, coordinates)
 
-        # Compile results
-        evaluation_results = {
-            'model_name': self.model_name,
-            'basic_metrics': basic_metrics,
-            'precision_k': precision_k,
-            'geographic_confusion_matrix': geo_cm,
-            'spatial_autocorrelation': spatial_autocorr,
-            'exploration_metrics': exploration_metrics,
-            'feature_importance': feature_importance,
-            'n_test_samples': len(y_test),
-            'test_class_distribution': pd.Series(y_test).value_counts().to_dict()
-        }
+            # Compile results
+            evaluation_results = {
+                'model_name': self.model_name,
+                'basic_metrics': basic_metrics,
+                'precision_k': precision_k,
+                'geographic_confusion_matrix': geo_cm,
+                'spatial_autocorrelation': spatial_autocorr,
+                'exploration_metrics': exploration_metrics,
+                'feature_importance': feature_importance,
+                'n_test_samples': len(y_test),
+                'test_class_distribution': pd.Series(y_test).value_counts().to_dict()
+            }
 
-        self.evaluation_results = evaluation_results
+            self.evaluation_results = evaluation_results
 
-        logger.info("Comprehensive evaluation completed")
+            logger.info("Comprehensive evaluation completed")
 
-        return evaluation_results
+            return evaluation_results
+            
+        except Exception as e:
+            logger.error(f"Comprehensive evaluation failed: {str(e)}")
+            logger.error(f"Error type: {type(e)}")
+            logger.error(f"Error args: {e.args if hasattr(e, 'args') else 'No args'}")
+            # Return minimal results if comprehensive evaluation fails
+            return {
+                'model_name': self.model_name,
+                'basic_metrics': {'accuracy': 0, 'precision': 0, 'recall': 0, 'f1_score': 0, 'roc_auc': 0},
+                'precision_k': {'precision@10': 0, 'precision@50': 0, 'precision@100': 0},
+                'geographic_confusion_matrix': pd.DataFrame(),
+                'spatial_autocorrelation': {'morans_i_predictions': 0, 'morans_i_errors': 0},
+                'exploration_metrics': {},
+                'feature_importance': None,
+                'n_test_samples': len(y_test),
+                'test_class_distribution': pd.Series(y_test).value_counts().to_dict(),
+                'error': str(e)
+            }
 
     def save_evaluation_report(self, output_path: str):
         """
