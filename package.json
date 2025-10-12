@@ -2,6 +2,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:full": "node scripts/dev-with-dashboards.js",
+    "dev:dashboards": "./start_dashboards.sh",
+    "stop:dashboards": "./stop_dashboards.sh",
     "build": "next build",
     "start": "next start",
     "export": "next build",
