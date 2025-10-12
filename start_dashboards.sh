@@ -6,15 +6,64 @@
 echo "🚀 Starting GeoAuPredict Dashboards..."
 echo "======================================"
 
+# Check if virtual environment exists
+if [ ! -d "venv" ]; then
+    echo "❌ Virtual environment not found. Creating one..."
+    python3 -m venv venv
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to create virtual environment"
+        exit 1
+    fi
+fi
+
 # Check if virtual environment is activated
 if [ -z "$VIRTUAL_ENV" ]; then
     echo "📦 Activating virtual environment..."
     source venv/bin/activate
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to activate virtual environment"
+        exit 1
+    fi
 fi
 
-# Check if web requirements are installed
+# Create logs directory if it doesn't exist
+mkdir -p logs
+
+# Check and install web requirements
 echo "📦 Checking web dependencies..."
-pip install -q -r web_requirements.txt
+if [ -f "web_requirements.txt" ]; then
+    echo "   Installing/updating from web_requirements.txt..."
+    pip install -q -r web_requirements.txt
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to install web requirements"
+        echo "   Trying verbose installation..."
+        pip install -r web_requirements.txt
+        if [ $? -ne 0 ]; then
+            echo "❌ Critical: Could not install requirements"
+            exit 1
+        fi
+    fi
+else
+    echo "⚠️  web_requirements.txt not found, installing core packages..."
+    pip install -q streamlit plotly pandas numpy dash
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to install core packages"
+        exit 1
+    fi
+fi
+
+# Verify critical packages are installed
+echo "🔍 Verifying critical packages..."
+python -c "import streamlit, plotly, pandas, numpy, dash" 2>/dev/null
+if [ $? -ne 0 ]; then
+    echo "❌ Critical packages missing. Installing..."
+    pip install streamlit plotly pandas numpy dash
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to install critical packages"
+        exit 1
+    fi
+fi
+echo "✅ All dependencies verified"
 
 # Kill any existing dashboard processes
 echo "🧹 Cleaning up existing processes..."

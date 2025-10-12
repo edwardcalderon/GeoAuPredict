@@ -1,4 +1,47 @@
+#!/usr/bin/env python3
+"""
+3D Visualization Dashboard for GeoAuPredict
+Checks and installs required dependencies before running
+"""
 
+import sys
+import subprocess
+
+# Check and install required packages
+def check_requirements():
+    """Check if all required packages are installed, install if missing"""
+    required_packages = {
+        'dash': 'dash>=2.14.0',
+        'plotly': 'plotly>=5.17.0',
+        'pandas': 'pandas>=1.5.0',
+        'numpy': 'numpy>=1.21.0'
+    }
+    
+    missing_packages = []
+    
+    for package, requirement in required_packages.items():
+        try:
+            __import__(package)
+        except ImportError:
+            missing_packages.append(requirement)
+    
+    if missing_packages:
+        print("📦 Installing missing dependencies...")
+        print(f"   Missing: {', '.join(missing_packages)}")
+        try:
+            subprocess.check_call(
+                [sys.executable, "-m", "pip", "install", "-q"] + missing_packages
+            )
+            print("✅ Dependencies installed successfully!")
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Error installing dependencies: {e}")
+            print("Please run: pip install -r web_requirements.txt")
+            sys.exit(1)
+
+# Run requirement check
+check_requirements()
+
+# Now import the packages
 import dash
 from dash import dcc, html, Input, Output, callback
 import plotly.graph_objects as go
@@ -10,17 +53,17 @@ import json
 # Initialize Dash app
 app = dash.Dash(__name__)
 
-# Define theme colors to match Next.js app (dark mode)
+# Define theme colors to match Next.js app (dark mode with blue tint)
 THEME_COLORS = {
-    'background': '#0a0a0a',  # Dark background
+    'background': '#1c2739',  # Dark background with blue tint
     'foreground': '#fafafa',   # Light text
     'primary': '#fafafa',      # Light primary
-    'secondary': '#262626',    # Dark secondary
+    'secondary': '#131b2d',    # Dark secondary with blue tint
     'muted': '#262626',        # Dark muted
     'border': '#262626',       # Dark border
     'accent': '#fbbf24',       # Yellow accent (gold)
-    'card': '#0a0a0a',         # Dark card
-    'card_secondary': '#171717',  # Slightly lighter card
+    'card': '#1c2739',         # Dark card
+    'card_secondary': '#131b2d',  # Slightly lighter card with blue tint
     'muted_foreground': '#a3a3a3',  # Muted text
     'highlight': '#fbbf24',    # Yellow highlight
     'chart_yellow': '#fbbf24', # Gold/Yellow for charts
@@ -185,7 +228,7 @@ def update_visualization(selected_model, threshold, uncertainty_options):
             colorbar=dict(
                 title="Probability",
                 tickfont=dict(color=THEME_COLORS['foreground']),
-                titlefont=dict(color=THEME_COLORS['foreground'])
+                title_font=dict(color=THEME_COLORS['foreground'])
             ),
             opacity=0.8
         ),
@@ -250,7 +293,7 @@ def update_visualization(selected_model, threshold, uncertainty_options):
         paper_bgcolor=THEME_COLORS['background'],
         plot_bgcolor=THEME_COLORS['background'],
         font=dict(color=THEME_COLORS['foreground']),
-        titlefont=dict(color=THEME_COLORS['foreground'])
+        title_font=dict(color=THEME_COLORS['foreground'])
     )
 
     # Performance metrics
@@ -305,4 +348,4 @@ def update_visualization(selected_model, threshold, uncertainty_options):
     return fig, performance_metrics, target_metrics
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8051)
+    app.run(debug=True, port=8050)
