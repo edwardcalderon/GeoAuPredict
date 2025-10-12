@@ -6,11 +6,12 @@ Checks and installs required dependencies before running
 
 import sys
 import subprocess
+import os
 from pathlib import Path
 
 # Check and install required packages
 def check_requirements():
-    """Check if all required packages are installed, install if missing"""
+    """Check if all required packages are installed, install if missing (local only)"""
     required_packages = {
         'streamlit': 'streamlit>=1.28.0',
         'pandas': 'pandas>=1.5.0',
@@ -28,17 +29,38 @@ def check_requirements():
             missing_packages.append(requirement)
     
     if missing_packages:
-        print("📦 Installing missing dependencies...")
-        print(f"   Missing: {', '.join(missing_packages)}")
-        try:
-            subprocess.check_call(
-                [sys.executable, "-m", "pip", "install", "-q"] + missing_packages
-            )
-            print("✅ Dependencies installed successfully!")
-        except subprocess.CalledProcessError as e:
-            print(f"❌ Error installing dependencies: {e}")
-            print("Please run: pip install -r web_requirements.txt")
+        # Check if running on Streamlit Cloud or other production environment
+        is_production = (
+            os.environ.get('STREAMLIT_SHARING_MODE') == 'True' or
+            os.environ.get('STREAMLIT_CLOUD') == 'true' or
+            os.path.exists('/.dockerenv') or
+            'KUBERNETES_SERVICE_HOST' in os.environ
+        )
+        
+        if is_production:
+            # In production, can't install packages - must be in requirements.txt
+            print("❌ Missing required packages in production environment:")
+            print(f"   Missing: {', '.join(missing_packages)}")
+            print("\n📋 To fix this, add these to your requirements.txt file:")
+            for pkg in missing_packages:
+                print(f"   {pkg}")
+            print("\nOr use web_requirements.txt by creating .streamlit/config.toml:")
+            print("   [server]")
+            print("   requirements = 'web_requirements.txt'")
             sys.exit(1)
+        else:
+            # Local development - try to install
+            print("📦 Installing missing dependencies...")
+            print(f"   Missing: {', '.join(missing_packages)}")
+            try:
+                subprocess.check_call(
+                    [sys.executable, "-m", "pip", "install", "-q"] + missing_packages
+                )
+                print("✅ Dependencies installed successfully!")
+            except subprocess.CalledProcessError as e:
+                print(f"❌ Error installing dependencies: {e}")
+                print("Please run: pip install -r web_requirements.txt")
+                sys.exit(1)
 
 # Run requirement check
 check_requirements()
