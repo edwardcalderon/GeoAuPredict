@@ -19,27 +19,181 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS
+# Custom CSS with dark mode and yellow accents
 st.markdown("""
 <style>
+    /* Dark mode styling */
+    .stApp {
+        background-color: #1c2739;
+        color: #fafafa;
+    }
+    
+    /* Main header - smaller and more refined */
     .main-header {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #1f77b4;
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #fafafa;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
     }
+    
+    /* Compact metric cards */
     .metric-card {
-        background-color: #f0f2f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        border-left: 4px solid #1f77b4;
+        background-color: #131b2d;
+        padding: 0.75rem;
+        border-radius: 0.375rem;
+        border-left: 3px solid #fbbf24;
+        color: #fafafa;
     }
+    
     .success-metric {
-        border-left-color: #28a745;
+        border-left-color: #fbbf24;
     }
+    
     .warning-metric {
-        border-left-color: #ffc107;
+        border-left-color: #f59e0b;
+    }
+    
+    /* Sidebar styling - more compact */
+    section[data-testid="stSidebar"] {
+        background-color: #131b2d;
+        border-right: 1px solid #262626;
+    }
+    
+    section[data-testid="stSidebar"] .stMarkdown h1 {
+        font-size: 1.25rem !important;
+        font-weight: 600 !important;
+        color: #fafafa !important;
+    }
+    
+    section[data-testid="stSidebar"] .stMarkdown h3 {
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+        color: #a3a3a3 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 1rem !important;
+    }
+    
+    /* Text color overrides */
+    .stMarkdown, .stText, p, span, label {
+        color: #fafafa !important;
+        font-size: 0.875rem !important;
+    }
+    
+    /* Smaller, refined tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: #131b2d;
+        border-radius: 0.5rem;
+        gap: 0.25rem;
+        padding: 0.25rem;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        color: #a3a3a3;
+        background-color: transparent;
+        border-radius: 0.375rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: #334155;
+        color: #fafafa;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        color: #0a0a0a !important;
+        background-color: #fbbf24 !important;
+        border-bottom-color: #fbbf24 !important;
+    }
+    
+    /* Compact metric styling */
+    [data-testid="stMetric"] {
+        background-color: transparent;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+    }
+    
+    [data-testid="stMetricLabel"] {
+        font-size: 0.75rem !important;
+        font-weight: 500 !important;
+        color: #a3a3a3 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    [data-testid="stMetricValue"] {
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+        color: #fbbf24 !important;
+    }
+    
+    [data-testid="stMetricDelta"] {
+        font-size: 0.75rem !important;
+    }
+    
+    /* Smaller selectbox */
+    .stSelectbox label {
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+        color: #fafafa !important;
+    }
+    
+    .stSelectbox > div > div {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Compact slider */
+    .stSlider label {
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+    }
+    
+    .stSlider [data-baseweb="slider"] {
+        margin-top: 0.5rem;
+    }
+    
+    /* Smaller checkbox */
+    .stCheckbox label {
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Compact columns */
+    [data-testid="column"] {
+        padding: 0.25rem;
+    }
+    
+    /* Remove extra padding */
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+    }
+    
+    /* Plotly charts - dark theme */
+    .js-plotly-plot {
+        background-color: transparent !important;
+    }
+    
+    /* Subheaders */
+    .stMarkdown h2, .stMarkdown h3 {
+        font-size: 1.125rem !important;
+        font-weight: 600 !important;
+        color: #fafafa !important;
+        margin-top: 1rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    /* Cards/containers */
+    [data-testid="stVerticalBlock"] > div {
+        background-color: transparent;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -158,7 +312,14 @@ with tab1:
         title=f'Gold Probability Map - {selected_model}'
     )
 
-    fig.update_layout(height=600)
+    fig.update_layout(
+        height=600,
+        paper_bgcolor='#131b2d',
+        plot_bgcolor='#131b2d',
+        font=dict(color='#fafafa', size=12),
+        margin=dict(l=0, r=0, t=40, b=0),
+        title_font_size=14
+    )
     st.plotly_chart(fig, use_container_width=True)
 
     # Map statistics
@@ -183,14 +344,23 @@ with tab2:
         x=models,
         y=cv_scores,
         error_y=dict(type='data', array=cv_stds),
-        marker_color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+        marker_color='#fbbf24',
+        marker_line_color='#f59e0b',
+        marker_line_width=1
     ))
 
     fig.update_layout(
         title="Cross-Validation AUC Scores",
         xaxis_title="Model",
         yaxis_title="AUC Score",
-        height=400
+        height=400,
+        paper_bgcolor='#131b2d',
+        plot_bgcolor='#131b2d',
+        font=dict(color='#fafafa', size=12),
+        xaxis=dict(gridcolor='#262626'),
+        yaxis=dict(gridcolor='#262626'),
+        margin=dict(l=60, r=20, t=40, b=60),
+        title_font_size=14
     )
 
     st.plotly_chart(fig, use_container_width=True)
@@ -203,20 +373,34 @@ with tab2:
         precision_data.append([results['precision_at_k'][model][k] for k in k_values])
 
     fig2 = go.Figure()
+    colors = ['#fbbf24', '#f59e0b', '#d97706', '#b45309', '#92400e']
     for i, model in enumerate(models):
         fig2.add_trace(go.Scatter(
             x=k_values,
             y=precision_data[i],
             mode='lines+markers',
             name=model,
-            line=dict(width=3)
+            line=dict(width=2, color=colors[i]),
+            marker=dict(size=8)
         ))
 
     fig2.update_layout(
         title="Precision@k Comparison",
         xaxis_title="k",
         yaxis_title="Precision",
-        height=400
+        height=400,
+        paper_bgcolor='#131b2d',
+        plot_bgcolor='#131b2d',
+        font=dict(color='#fafafa', size=12),
+        xaxis=dict(gridcolor='#262626'),
+        yaxis=dict(gridcolor='#262626'),
+        margin=dict(l=60, r=20, t=40, b=60),
+        title_font_size=14,
+        legend=dict(
+            bgcolor='#171717',
+            bordercolor='#262626',
+            borderwidth=1
+        )
     )
 
     st.plotly_chart(fig2, use_container_width=True)
@@ -248,14 +432,24 @@ with tab3:
     fig.add_trace(go.Histogram(
         x=filtered_data['probability'],
         nbinsx=20,
-        name='Probability Distribution'
+        name='Probability Distribution',
+        marker_color='#fbbf24',
+        marker_line_color='#f59e0b',
+        marker_line_width=1
     ))
 
     fig.update_layout(
         title="Target Probability Distribution",
         xaxis_title="Probability",
         yaxis_title="Count",
-        height=400
+        height=400,
+        paper_bgcolor='#131b2d',
+        plot_bgcolor='#131b2d',
+        font=dict(color='#fafafa', size=12),
+        xaxis=dict(gridcolor='#262626'),
+        yaxis=dict(gridcolor='#262626'),
+        margin=dict(l=60, r=20, t=40, b=60),
+        title_font_size=14
     )
 
     st.plotly_chart(fig, use_container_width=True)
@@ -290,12 +484,3 @@ with tab4:
     for stat, value in uncertainty_stats.items():
         st.metric(stat, value)
 
-# Footer
-st.markdown("---")
-st.markdown("""
-<div style='text-align: center; color: #666;'>
-    <p>GeoAuPredict Spatial Validation Dashboard | 
-    <a href='https://github.com/your-repo/GeoAuPredict' target='_blank'>GitHub</a> | 
-    <a href='#'>Documentation</a></p>
-</div>
-""", unsafe_allow_html=True)

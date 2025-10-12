@@ -25,8 +25,8 @@ const nextConfig = {
                             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
                             "font-src 'self' https://fonts.gstatic.com",
                             "img-src 'self' data: https: blob:",
-                            "connect-src 'self'",
-                            "frame-src 'none'",
+                            "connect-src 'self' http://localhost:8501 http://localhost:8050",
+                            "frame-src 'self' http://localhost:8501 http://localhost:8050",
                             "object-src 'none'",
                             "base-uri 'self'",
                             "form-action 'self'"
