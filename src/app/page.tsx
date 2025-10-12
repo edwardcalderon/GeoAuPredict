@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Database, Map, Brain, BarChart3, Shield, BookOpen } from 'lucide-react';
 import { getNavUrl } from '@/lib/navigation';
+import Link from 'next/link';
 
 export default function Page() {
   return (
@@ -12,6 +13,7 @@ export default function Page() {
         logoText="GAP"
         title="Geo Au Predict"
         navigation={[
+          { label: 'Dashboards', href: getNavUrl('/dashboards'), isActive: false },
           { label: 'White Paper', href: getNavUrl('/whitepaper'), isActive: false },
           { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false }
         ]}
@@ -30,9 +32,11 @@ export default function Page() {
               Advanced AI-powered system that integrates multiple geospatial data sources to predict gold presence in subsoil with interactive 3D visualization and confidence levels for mining exploration.
             </p>
             <div className="flex gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-slate-900 font-semibold">
-                Start Exploration
-              </Button>
+              <Link href={getNavUrl('/dashboards')}>
+                <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-slate-900 font-semibold">
+                  Start Exploration
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -116,9 +120,11 @@ export default function Page() {
             <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
               Join leading mining companies using GeoGold AI to discover new opportunities and optimize exploration strategies.
             </p>
-            <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-slate-900 font-semibold">
-              Get Started Today
-            </Button>
+            <Link href={getNavUrl('/dashboards')}>
+              <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-slate-900 font-semibold">
+                Get Started Today
+              </Button>
+            </Link>
           </div>
         </section>
       </main>
