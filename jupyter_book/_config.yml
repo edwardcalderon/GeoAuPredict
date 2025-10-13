@@ -3,12 +3,12 @@
 # Book settings
 title: "GeoAuPredict (GAP): AI-Driven Geospatial Prediction of Gold Deposits"
 author: "Edward Calderón"
-copyright: "2025"
+copyright: "October 13, 2025 06:51 v1.0.9" #update automatically by the version manager script
 logo: "../public/logo.png"
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/your-username/geoaupredict
+  url: https://github.com/edwardcalderon/geoaupredict
   branch: main
 
 # Add GitHub buttons to your book
@@ -20,6 +20,8 @@ html:
 sphinx:
   config:
     html_theme: sphinx_book_theme
+    html_static_path: ["_static"]
+    html_css_files: ["custom.css"]
     html_theme_options:
       repository_url: https://github.com/edwardcalderon/geoaupredict
       use_repository_button: true

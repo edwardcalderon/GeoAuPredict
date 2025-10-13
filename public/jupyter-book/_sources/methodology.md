@@ -1,38 +1,19 @@
----
-title: Materials and Methods
----
-
 # Materials and Methods
 
 ## Multi-Source Data Integration
 
 GAP integrates six heterogeneous data sources spanning satellite imagery, geochemistry, geophysics, and ground-truth validation:
 
-{list-table} Integrated Data Sources
-:header-rows: 1
-:widths: 30 20 50
+**Integrated Data Sources**
 
-* - **Source**
-  - **Resolution**
-  - **Variables**
-* - USGS MRDS
-  - Point data
-  - Au occurrences
-* - SGC Geochem
-  - 1:100,000
-  - 35 elements
-* - Sentinel-2
-  - 10-60m
-  - 13 bands
-* - SRTM DEM
-  - 30m
-  - Elevation
-* - Geophysics
-  - Variable
-  - Mag/Grav
-* - Boreholes
-  - Point (147)
-  - Ground truth
+| **Source** | **Resolution** | **Variables** |
+|---|---|---|
+| USGS MRDS | Point data | Au occurrences |
+| SGC Geochem | 1:100,000 | 35 elements |
+| Sentinel-2 | 10-60m | 13 bands |
+| SRTM DEM | 30m | Elevation |
+| Geophysics | Variable | Mag/Grav |
+| Boreholes | Point (147) | Ground truth |
 
 **USGS Mineral Resources (MRDS):** Global mineral occurrence database providing gold-specific locations across Colombia with deposit type classifications.
 
@@ -40,7 +21,7 @@ GAP integrates six heterogeneous data sources spanning satellite imagery, geoche
 
 **Sentinel-2 Multispectral Imagery:** European Space Agency optical data (10m visible, 20m NIR, 60m atmospheric) enabling spectral indices for alteration mapping (iron oxides, clay minerals, vegetation).
 
-**SRTM Digital Elevation Model:** NASA 30m resolution DEM for terrain analysis including slope, aspect, curvature, topographic wetness index, and flow accumulation---critical for structural geology interpretation.
+**SRTM Digital Elevation Model:** NASA 30m resolution DEM for terrain analysis including slope, aspect, curvature, topographic wetness index, and flow accumulation—critical for structural geology interpretation.
 
 **Geophysical Surveys:** Magnetic and gravimetric anomaly data revealing subsurface structures, intrusions, and fault systems associated with gold mineralization.
 
@@ -80,9 +61,9 @@ GAP employs three complementary base models leveraging different inductive biase
 
 The Voting Ensemble combines base model predictions through simple averaging:
 
-$$\begin{equation}
-P_{vot}(y|x) = \frac{1}{3}\sum_{i=1}^{3} P_i(y|x)
-\end{equation}$$
+\begin{equation}
+| P_{vot}(y|x) = \frac{1}{3}\sum_{i=1}^{3} P_i(y|x) |
+\end{equation}
 
 where $P_i$ represents predictions from RF, XGBoost, and LightGBM.
 
@@ -94,9 +75,9 @@ where $P_i$ represents predictions from RF, XGBoost, and LightGBM.
 
 The Stacking Ensemble employs meta-learning where a Logistic Regression model learns optimal combination weights:
 
-$$\begin{equation}
-P_{stack}(y|x) = \sigma\left(\sum_{k=1}^{3} w_k P_k(y|x)\right)
-\end{equation}$$
+\begin{equation}
+| P_{stack}(y|x) = \sigma\left(\sum_{k=1}^{3} w_k P_k(y|x)\right) |
+\end{equation}
 
 where $\sigma$ is sigmoid, $w_k$ are learned weights.
 
@@ -108,7 +89,8 @@ where $\sigma$ is sigmoid, $w_k$ are learned weights.
 
 Standard K-Fold cross-validation overestimates performance for geospatial data due to spatial autocorrelation (Tobler's First Law of Geography). We implement Geographic Block Cross-Validation:
 
-**Methodology:** Geographic blocks are created by dividing the study area into $k$ regions, where for each fold $i$, the model trains on blocks $\{1, \ldots, k\} \setminus \{i\}$ and tests on block $i$, ensuring minimum 50km separation between train/test blocks.
+**Methodology:**
+Geographic blocks are created by dividing the study area into $k$ regions, where for each fold $i$, the model trains on blocks ${1, \ldots, k} \setminus {i}$ and tests on block $i$, ensuring minimum 50km separation between train/test blocks.
 
 This approach prevents spatial leakage where training samples artificially boost test performance through geographic proximity.
 
@@ -118,25 +100,18 @@ This approach prevents spatial leakage where training samples artificially boost
 
 Live API (<https://geoaupredict.onrender.com>):
 
-{list-table} Production API Endpoints
-:header-rows: 1
-:widths: 15 35 50
+**Production API Endpoints**
 
-* - **Method**
-  - **Endpoint**
-  - **Description**
-* - `GET`
-  - [`/health`](https://geoaupredict.onrender.com/health)
-  - System health check returning uptime, memory usage, and model loading status
-* - `POST`
-  - [`/predict`](https://geoaupredict.onrender.com/predict)
-  - Real-time gold probability prediction accepting geospatial coordinates and returning ensemble model predictions with confidence scores
-* - `GET`
-  - [`/ensemble-info`](https://geoaupredict.onrender.com/ensemble-info)
-  - Model registry metadata including version history, performance metrics, and ensemble composition
-* - `GET`
-  - [`/docs`](https://geoaupredict.onrender.com/docs)
-  - Interactive Swagger/OpenAPI documentation with request/response schemas and testing interface
+| **Method** | **Endpoint** | **Description** |
+|---|---|---|
+| `GET` | [`/health`](https://geoaupredict.onrender.com/health) | System health check returning uptime, memory usage, |
+|  |  | and model loading status |
+| `POST` | [`/predict`](https://geoaupredict.onrender.com/predict) | Real-time gold probability prediction accepting |
+|  |  | geospatial coordinates and returning ensemble |
+|  |  | model predictions with confidence scores |
+| `GET` | [`/ensemble-info`](https://geoaupredict.onrender.com/ensemble-info) | Model registry metadata including version history, |
+|  |  | performance metrics, and ensemble composition |
+| `GET` | [`/docs`](https://geoaupredict.onrender.com/docs) | Interactive Swagger/OpenAPI documentation with |
+|  |  | request/response schemas and testing interface |
 
 **Model Registry:** The system maintains complete versioning tracking including model artifacts in .pkl files, performance metrics per version, training data provenance, and deployment timestamps.
-

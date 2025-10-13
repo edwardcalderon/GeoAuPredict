@@ -1,14 +1,10 @@
----
-title: Discussion
----
-
 # Discussion
 
 ## Ensemble Architecture Selection
 
 Our finding that Voting Ensemble outperforms Stacking Ensemble contradicts conventional wisdom suggesting meta-learning should always improve performance. We attribute this to:
 
-**1. Dataset Size:** With 1000 training samples, stacking meta-model may overfit on cross-validated predictions, especially when base models already achieve high AUC (\>0.91).
+**1. Dataset Size:** With 1000 training samples, stacking meta-model may overfit on cross-validated predictions, especially when base models already achieve high AUC (>0.91).
 
 **2. Model Diversity:** RF, XGBoost, and LightGBM share similar decision boundary structures (all tree-based), limiting complementarity gains from learned weighting.
 
@@ -39,4 +35,3 @@ GAP demonstrates several requirements for industry adoption:
 **Multi-Mineral Extension:** Architecture readily extends to other minerals (copper, silver, zinc) by retraining with appropriate geochemical pathfinders.
 
 **Uncertainty Quantification:** While ensemble variance provides uncertainty estimates, formal calibration (e.g., conformal prediction) would enable probabilistic guarantees for risk-averse exploration decisions.
-

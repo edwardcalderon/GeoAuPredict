@@ -529,12 +529,8 @@ class LaTeXConverter:
 
         print(f"✅ Conversion completed: {output_path}")
 
-        # Also generate HTML version using tex4ht
-        html_output_dir = Path(output_path).parent
-        html_success = converter.convert_to_html(input_path, str(html_output_dir))
-
-        if html_success:
-            print(f"✅ HTML version also created: {html_output_dir}/whitepaper.html")
+        # NOTE: HTML generation moved to build_jupyter_book_from_latex.py (single-source workflow)
+        # This converter now only maintains Markdown output for docs/whitepaper.md
 
 def main():
     parser = argparse.ArgumentParser(description='Convert LaTeX whitepaper to HTML and Markdown')

@@ -1,66 +1,18 @@
 {
-  "currentVersion": "v1.0.6",
+  "currentVersion": "v1.0.9",
   "versions": [
     {
-      "version": "v1.0.0",
+      "version": "v1.0.9",
       "date": "2025-10-13",
-      "timestamp": "2025-10-13 03:05:16",
-      "changes": "Converted all bullet points and enumerated lists to paragraph form for better readability",
+      "timestamp": "2025-10-13 06:51:47",
+      "changes": "Release v1.0.9: improved LaTeX\u2192Markdown table conversion and rebuild",
       "author": "Unknown",
       "email": "edwardca12@hotmail.com",
-      "commit_hash": "d19c5d16a8539e2a47541050441b914aeedebb3a",
-      "pdf_url": "/versions/whitepaper-v1.0.0.pdf",
-      "size": "173KB",
-      "pages": 8
-    },
-    {
-      "version": "v1.0.1",
-      "date": "2025-10-13",
-      "timestamp": "2025-10-13 03:12:53",
-      "changes": "Updated abstract to add reference for cost figures and removed specific percentage claims",
-      "author": "Unknown",
-      "email": "edwardca12@hotmail.com",
-      "commit_hash": "d19c5d16a8539e2a47541050441b914aeedebb3a",
-      "pdf_url": "/versions/whitepaper-v1.0.1.pdf",
-      "size": "174KB",
-      "pages": 8
-    },
-    {
-      "version": "v1.0.4",
-      "date": "2025-10-13",
-      "timestamp": "2025-10-13 03:19:48",
-      "changes": "Converted Feature Importance Analysis to stylish table format with proper LaTeX positioning",
-      "author": "Unknown",
-      "email": "edwardca12@hotmail.com",
-      "commit_hash": "d19c5d16a8539e2a47541050441b914aeedebb3a",
-      "pdf_url": "/versions/whitepaper-v1.0.4.pdf",
-      "size": "174KB",
-      "pages": 8
-    },
-    {
-      "version": "v1.0.5",
-      "date": "2025-10-13",
-      "timestamp": "2025-10-13 03:26:59",
-      "changes": "Added dataset details, corrected feature counts, and clarified deployment metrics as design targets",
-      "author": "Unknown",
-      "email": "edwardca12@hotmail.com",
-      "commit_hash": "d19c5d16a8539e2a47541050441b914aeedebb3a",
-      "pdf_url": "/versions/whitepaper-v1.0.5.pdf",
-      "size": "174KB",
-      "pages": 8
-    },
-    {
-      "version": "v1.0.6",
-      "date": "2025-10-13",
-      "timestamp": "2025-10-13 03:58:19",
-      "changes": "Updated version numbers and enhanced LaTeX to Markdown conversion for better HTML rendering",
-      "author": "Unknown",
-      "email": "edwardca12@hotmail.com",
-      "commit_hash": "d19c5d16a8539e2a47541050441b914aeedebb3a",
-      "pdf_url": "/versions/whitepaper-v1.0.6.pdf",
+      "commit_hash": "1894690b043a351432205e3af679d888ab794de7",
+      "pdf_url": "/versions/whitepaper-v1.0.9.pdf",
       "size": "174KB",
       "pages": 8
     }
   ],
-  "downloadUrl": "/versions/whitepaper-v1.0.6.pdf"
+  "downloadUrl": "/versions/whitepaper-v1.0.9.pdf"
 }

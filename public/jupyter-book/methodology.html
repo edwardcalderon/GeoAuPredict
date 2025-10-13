@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=98d6b7e2" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -176,7 +177,6 @@
 <li class="toctree-l1"><a class="reference internal" href="results.html">Results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discussion.html">Discussion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
@@ -232,7 +232,7 @@
       
       
       
-      <li><a href="https://github.com/your-username/geoaupredict" target="_blank"
+      <li><a href="https://github.com/edwardcalderon/geoaupredict" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -249,7 +249,7 @@
       
       
       
-      <li><a href="https://github.com/your-username/geoaupredict/edit/main/methodology.md" target="_blank"
+      <li><a href="https://github.com/edwardcalderon/geoaupredict/edit/main/methodology.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -266,7 +266,7 @@
       
       
       
-      <li><a href="https://github.com/your-username/geoaupredict/issues/new?title=Issue%20on%20page%20%2Fmethodology.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/edwardcalderon/geoaupredict/issues/new?title=Issue%20on%20page%20%2Fmethodology.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -416,53 +416,42 @@ document.write(`
 <section id="multi-source-data-integration">
 <h2>Multi-Source Data Integration<a class="headerlink" href="#multi-source-data-integration" title="Link to this heading">#</a></h2>
 <p>GAP integrates six heterogeneous data sources spanning satellite imagery, geochemistry, geophysics, and ground-truth validation:</p>
-<p>{list-table} Integrated Data Sources
-:header-rows: 1
-:widths: 30 20 50</p>
-<ul class="simple">
-<li><ul>
-<li><p><strong>Source</strong></p></li>
-<li><p><strong>Resolution</strong></p></li>
-<li><p><strong>Variables</strong></p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>USGS MRDS</p></li>
-<li><p>Point data</p></li>
-<li><p>Au occurrences</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>SGC Geochem</p></li>
-<li><p>1:100,000</p></li>
-<li><p>35 elements</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>Sentinel-2</p></li>
-<li><p>10-60m</p></li>
-<li><p>13 bands</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>SRTM DEM</p></li>
-<li><p>30m</p></li>
-<li><p>Elevation</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>Geophysics</p></li>
-<li><p>Variable</p></li>
-<li><p>Mag/Grav</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p>Boreholes</p></li>
-<li><p>Point (147)</p></li>
-<li><p>Ground truth</p></li>
-</ul>
-</li>
-</ul>
+<p><strong>Integrated Data Sources</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Source</strong></p></th>
+<th class="head"><p><strong>Resolution</strong></p></th>
+<th class="head"><p><strong>Variables</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>USGS MRDS</p></td>
+<td><p>Point data</p></td>
+<td><p>Au occurrences</p></td>
+</tr>
+<tr class="row-odd"><td><p>SGC Geochem</p></td>
+<td><p>1:100,000</p></td>
+<td><p>35 elements</p></td>
+</tr>
+<tr class="row-even"><td><p>Sentinel-2</p></td>
+<td><p>10-60m</p></td>
+<td><p>13 bands</p></td>
+</tr>
+<tr class="row-odd"><td><p>SRTM DEM</p></td>
+<td><p>30m</p></td>
+<td><p>Elevation</p></td>
+</tr>
+<tr class="row-even"><td><p>Geophysics</p></td>
+<td><p>Variable</p></td>
+<td><p>Mag/Grav</p></td>
+</tr>
+<tr class="row-odd"><td><p>Boreholes</p></td>
+<td><p>Point (147)</p></td>
+<td><p>Ground truth</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p><strong>USGS Mineral Resources (MRDS):</strong> Global mineral occurrence database providing gold-specific locations across Colombia with deposit type classifications.</p>
 <p><strong>Servicio Geológico Colombiano (SGC):</strong> National geochemical surveys at 1:100,000 scale with 35 element concentrations including pathfinder elements (Au, As, Sb, Cu) critical for gold exploration.</p>
 <p><strong>Sentinel-2 Multispectral Imagery:</strong> European Space Agency optical data (10m visible, 20m NIR, 60m atmospheric) enabling spectral indices for alteration mapping (iron oxides, clay minerals, vegetation).</p>
@@ -493,9 +482,9 @@ document.write(`
 <section id="voting-ensemble-production-model">
 <h3>Voting Ensemble (Production Model)<a class="headerlink" href="#voting-ensemble-production-model" title="Link to this heading">#</a></h3>
 <p>The Voting Ensemble combines base model predictions through simple averaging:</p>
-<p>$$\begin{equation}
-P_{vot}(y|x) = \frac{1}{3}\sum_{i=1}^{3} P_i(y|x)
-\end{equation}$$</p>
+<p>\begin{equation}
+| P_{vot}(y|x) = \frac{1}{3}\sum_{i=1}^{3} P_i(y|x) |
+\end{equation}</p>
 <p>where $P_i$ represents predictions from RF, XGBoost, and LightGBM.</p>
 <p><strong>Implementation Details:</strong> Soft voting using probability estimates with equal weights of 33.3% for each model, requiring no additional training, and resulting in a compact 1.6 MB model file (ensemble_gold_v1.pkl).</p>
 <p><strong>Advantages:</strong> The approach offers simplicity, robustness to overfitting, transparent decision-making, lower computational cost, and better generalization performance on test data.</p>
@@ -503,9 +492,9 @@ P_{vot}(y|x) = \frac{1}{3}\sum_{i=1}^{3} P_i(y|x)
 <section id="stacking-ensemble-alternative-model">
 <h3>Stacking Ensemble (Alternative Model)<a class="headerlink" href="#stacking-ensemble-alternative-model" title="Link to this heading">#</a></h3>
 <p>The Stacking Ensemble employs meta-learning where a Logistic Regression model learns optimal combination weights:</p>
-<p>$$\begin{equation}
-P_{stack}(y|x) = \sigma\left(\sum_{k=1}^{3} w_k P_k(y|x)\right)
-\end{equation}$$</p>
+<p>\begin{equation}
+| P_{stack}(y|x) = \sigma\left(\sum_{k=1}^{3} w_k P_k(y|x)\right) |
+\end{equation}</p>
 <p>where $\sigma$ is sigmoid, $w_k$ are learned weights.</p>
 <p><strong>Implementation Details:</strong> 5-fold cross-validation for meta-feature generation using a Logistic Regression meta-learner with max_iter=1000, learning optimal weights of RF=3.60, LGBM=1.86, and XGB=0.40, resulting in a 3.2 MB model file (stacking_ensemble_v1.pkl).</p>
 <p><strong>Learned Behavior:</strong> The meta-model heavily favors Random Forest despite LightGBM having the best individual AUC of 0.9243, suggesting that Random Forest predictions offer superior complementarity for ensemble performance.</p>
@@ -514,48 +503,62 @@ P_{stack}(y|x) = \sigma\left(\sum_{k=1}^{3} w_k P_k(y|x)\right)
 <section id="spatial-cross-validation">
 <h2>Spatial Cross-Validation<a class="headerlink" href="#spatial-cross-validation" title="Link to this heading">#</a></h2>
 <p>Standard K-Fold cross-validation overestimates performance for geospatial data due to spatial autocorrelation (Tobler’s First Law of Geography). We implement Geographic Block Cross-Validation:</p>
-<p><strong>Methodology:</strong> Geographic blocks are created by dividing the study area into $k$ regions, where for each fold $i$, the model trains on blocks ${1, \ldots, k} \setminus {i}$ and tests on block $i$, ensuring minimum 50km separation between train/test blocks.</p>
+<p><strong>Methodology:</strong>
+Geographic blocks are created by dividing the study area into $k$ regions, where for each fold $i$, the model trains on blocks ${1, \ldots, k} \setminus {i}$ and tests on block $i$, ensuring minimum 50km separation between train/test blocks.</p>
 <p>This approach prevents spatial leakage where training samples artificially boost test performance through geographic proximity.</p>
 </section>
 <section id="production-deployment">
 <h2>Production Deployment<a class="headerlink" href="#production-deployment" title="Link to this heading">#</a></h2>
 <p><strong>REST API Architecture:</strong> FastAPI framework with asynchronous request handling deployed on <a class="reference external" href="http://Render.com">Render.com</a> cloud infrastructure.</p>
 <p>Live API (<a class="reference external" href="https://geoaupredict.onrender.com">https://geoaupredict.onrender.com</a>):</p>
-<p>{list-table} Production API Endpoints
-:header-rows: 1
-:widths: 15 35 50</p>
-<ul class="simple">
-<li><ul>
-<li><p><strong>Method</strong></p></li>
-<li><p><strong>Endpoint</strong></p></li>
-<li><p><strong>Description</strong></p></li>
-</ul>
-</li>
-<li><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">GET</span></code></p></li>
-<li><p><a class="reference external" href="https://geoaupredict.onrender.com/health"><code class="docutils literal notranslate"><span class="pre">/health</span></code></a></p></li>
-<li><p>System health check returning uptime, memory usage, and model loading status</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">POST</span></code></p></li>
-<li><p><a class="reference external" href="https://geoaupredict.onrender.com/predict"><code class="docutils literal notranslate"><span class="pre">/predict</span></code></a></p></li>
-<li><p>Real-time gold probability prediction accepting geospatial coordinates and returning ensemble model predictions with confidence scores</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">GET</span></code></p></li>
-<li><p><a class="reference external" href="https://geoaupredict.onrender.com/ensemble-info"><code class="docutils literal notranslate"><span class="pre">/ensemble-info</span></code></a></p></li>
-<li><p>Model registry metadata including version history, performance metrics, and ensemble composition</p></li>
-</ul>
-</li>
-<li><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">GET</span></code></p></li>
-<li><p><a class="reference external" href="https://geoaupredict.onrender.com/docs"><code class="docutils literal notranslate"><span class="pre">/docs</span></code></a></p></li>
-<li><p>Interactive Swagger/OpenAPI documentation with request/response schemas and testing interface</p></li>
-</ul>
-</li>
-</ul>
+<p><strong>Production API Endpoints</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Method</strong></p></th>
+<th class="head"><p><strong>Endpoint</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GET</span></code></p></td>
+<td><p><a class="reference external" href="https://geoaupredict.onrender.com/health"><code class="docutils literal notranslate"><span class="pre">/health</span></code></a></p></td>
+<td><p>System health check returning uptime, memory usage,</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p>and model loading status</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">POST</span></code></p></td>
+<td><p><a class="reference external" href="https://geoaupredict.onrender.com/predict"><code class="docutils literal notranslate"><span class="pre">/predict</span></code></a></p></td>
+<td><p>Real-time gold probability prediction accepting</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p>geospatial coordinates and returning ensemble</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p>model predictions with confidence scores</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GET</span></code></p></td>
+<td><p><a class="reference external" href="https://geoaupredict.onrender.com/ensemble-info"><code class="docutils literal notranslate"><span class="pre">/ensemble-info</span></code></a></p></td>
+<td><p>Model registry metadata including version history,</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p>performance metrics, and ensemble composition</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GET</span></code></p></td>
+<td><p><a class="reference external" href="https://geoaupredict.onrender.com/docs"><code class="docutils literal notranslate"><span class="pre">/docs</span></code></a></p></td>
+<td><p>Interactive Swagger/OpenAPI documentation with</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p>request/response schemas and testing interface</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p><strong>Model Registry:</strong> The system maintains complete versioning tracking including model artifacts in .pkl files, performance metrics per version, training data provenance, and deployment timestamps.</p>
 </section>
 </section>
@@ -658,7 +661,7 @@ By Edward Calderón
 
   <p class="copyright">
     
-      © Copyright 2025.
+      © Copyright October 13, 2025 06:51 v1.0.9.
       <br/>
     
   </p>
