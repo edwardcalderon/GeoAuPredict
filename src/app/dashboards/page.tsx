@@ -4,8 +4,7 @@ import AppHeader from '@/components/AppHeader';
 import Footer from '@/components/Footer';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Viz3D from '@/components/Viz3D';
-import JupyterLiteViewer from '@/components/JupyterLiteViewer';
-import { Map, Box, BookOpen } from 'lucide-react';
+import { Map, Box } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Dashboard URLs - use environment variables for production deployment
@@ -38,14 +37,14 @@ export default function DashboardsPage() {
                 Gold Prediction Analysis
               </h1>
               <p className="text-sm text-slate-400">
-                Interactive dashboards, 3D visualization, and executable notebooks
+                Interactive dashboards and 3D visualization
               </p>
             </div>
           </div>
 
           {/* Tabs Component */}
           <Tabs defaultValue="spatial" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-slate-800/50 border border-slate-700 rounded-lg mb-4" style={{ pointerEvents: 'auto' }}>
+            <TabsList className="grid w-full grid-cols-2 bg-slate-800/50 border border-slate-700 rounded-lg mb-4" style={{ pointerEvents: 'auto' }}>
               <TabsTrigger
                 value="spatial"
                 className="flex items-center justify-center data-[state=active]:bg-slate-700 data-[state=active]:text-yellow-400 text-slate-400 cursor-pointer"
@@ -61,14 +60,6 @@ export default function DashboardsPage() {
               >
                 <Box className="w-4 h-4 mr-2" />
                 3D Visualization
-              </TabsTrigger>
-              <TabsTrigger
-                value="notebook"
-                className="flex items-center justify-center data-[state=active]:bg-slate-700 data-[state=active]:text-yellow-400 text-slate-400 cursor-pointer"
-                style={{ pointerEvents: 'auto' }}
-              >
-                <BookOpen className="w-4 h-4 mr-2" />
-                Interactive Notebook
               </TabsTrigger>
             </TabsList>
 
@@ -123,16 +114,6 @@ export default function DashboardsPage() {
                 style={{ height: 'calc(100vh - 250px)' }}
               >
                 <Viz3D />
-              </div>
-            </TabsContent>
-
-            {/* Dashboard Content - Interactive Notebook (JupyterLite) */}
-            <TabsContent value="notebook" className="mt-0 relative z-0">
-              <div
-                className="w-full"
-                style={{ height: 'calc(100vh - 250px)' }}
-              >
-                <JupyterLiteViewer />
               </div>
             </TabsContent>
           </Tabs>

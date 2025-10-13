@@ -88,9 +88,9 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
           NODE_ENV: production
-          NEXT_PUBLIC_STREAMLIT_URL:https://gap-geoaupredict.streamlit.app
-          NEXT_PUBLIC_SUPABASE_URL:https://gfncvtssohgbqgmcjblp.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdmbmN2dHNzb2hnYnFnbWNqYmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MjQsImV4cCI6MjA3NTg1MzQyNH0.hlD22_T0X2pJ62wZ_sMlxSHTQwdqONr6tgMgU4qXwjc
+          NEXT_PUBLIC_STREAMLIT_URL: https://gap-geoaupredict.streamlit.app
+          NEXT_PUBLIC_SUPABASE_URL: https://gfncvtssohgbqgmcjblp.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdmbmN2dHNzb2hnYnFnbWNqYmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MjQsImV4cCI6MjA3NTg1MzQyNH0.hlD22_T0X2pJ62wZ_sMlxSHTQwdqONr6tgMgU4qXwjc
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
