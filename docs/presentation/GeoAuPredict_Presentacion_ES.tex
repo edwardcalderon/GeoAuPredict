@@ -1,0 +1,146 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,provide=*]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes,fit,calc}
+
+% Tema oscuro similar a la app
+\newif\iflighttheme
+\lightthemetrue
+
+\definecolor{slate900}{HTML}{0F172A}
+\definecolor{slate800}{HTML}{1E293B}
+\definecolor{slate700}{HTML}{334155}
+\definecolor{slate200}{HTML}{E2E8F0}
+\definecolor{slate100}{HTML}{F8FAFC}
+% Accentos dorados/amarillos para tema ES
+\definecolor{cyan400}{HTML}{FBBF24} % amber-400
+\definecolor{indigo400}{HTML}{F59E0B} % amber-500 (para enlaces finos)
+
+\iflighttheme
+  \setbeamercolor{background canvas}{bg=slate100}
+  \setbeamercolor{normal text}{fg=slate900}
+  \setbeamercolor{frametitle}{fg=slate900,bg=slate200}
+  \setbeamercolor{title}{fg=slate900}
+  \setbeamercolor{subtitle}{fg=slate800}
+  \setbeamercolor{structure}{fg=cyan400}
+\else
+  \setbeamercolor{background canvas}{bg=slate900}
+  \setbeamercolor{normal text}{fg=slate100}
+  \setbeamercolor{frametitle}{fg=slate100,bg=slate800}
+  \setbeamercolor{title}{fg=slate100}
+  \setbeamercolor{subtitle}{fg=slate100}
+  \setbeamercolor{structure}{fg=cyan400}
+\fi
+\setbeamertemplate{navigation symbols}{}
+
+\title{GeoAuPredict (GAP): Aprendizaje profundo para predicción geoespacial de oro}
+\subtitle{Proyecto final — Curso de Deep Learning}
+\author{Edward Calderón y Equipo}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Motivación y problema}
+  \begin{itemize}
+    \item Relevancia: exploración, costos, riesgo.
+    \item Enfoques clásicos: levantamientos, interpolación, geoestadística.
+    \item Desafíos: datos heterogéneos, autocorrelación espacial, faltantes.
+    \item Objetivo: aprender de datos multimodales para predecir ocurrencia de Au.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ingesta y preprocesamiento}
+  \begin{itemize}
+    \item Fuentes: DEM, índices de teledetección, capas geológicas, ensayos geoquímicos, distancias a estructuras.
+    \item Unificación CRS, remuestreo, recorte del área de estudio, normalización.
+    \item Particiones espaciales; balance de clases.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{EDA}
+  \begin{itemize}
+    \item Correlaciones y distribuciones; atípicos y faltantes.
+    \item Mapas de ensayos y variables; clusters y hotspots.
+    \item Ideas para ingeniería de características.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Flujo de la tubería}
+  \centering
+  \resizebox{!}{0.78\textheight}{\input{diagrams/pipeline.tex}}
+\end{frame}
+
+\begin{frame}{Enfoque de modelado}
+  \begin{itemize}
+    \item Ensambles: Random Forest, XGBoost, LightGBM.
+    \item Validación cruzada espacial (bloques geográficos).
+    \item Mapas de probabilidad e incertidumbre.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Arquitectura (Ensamble)}
+  \centering
+  \resizebox{\textwidth}{!}{\input{diagrams/architecture.tex}}
+\end{frame}
+
+\begin{frame}{Entrenamiento y validación}
+  \begin{itemize}
+    \item Métricas: Exactitud, Precisión, Recall, F1, ROC-AUC, Precision@k.
+    \item Detalles: early stopping (boosting), chequeos de hiperparámetros.
+    \item Resultados clave: LightGBM AUC \textbf{0.9243}; Ensamble (producción) AUC \textbf{0.9208}; AUC por bloques espaciales \textbf{0.86}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Comparación con métodos clásicos}
+  \begin{itemize}
+    \item Baselines: kriging, regresión, WoE, SVM (AUC típica \(\approx 0.82\)).
+    \item Mejora: +\(\sim\)\textbf{22\%} AUC (0.82 \(\to\) 0.9208/0.9243).
+    \item Fortalezas: no linealidad y multimodalidad; debilidades clásicas: estacionariedad/linealidad.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Despliegue y casos de uso}
+  \begin{itemize}
+    \item Dashboards web, exportación GIS, APIs.
+    \item Guiar muestreo, priorizar zonas, soporte a decisión.
+    \item Limitaciones: shift de dominio, disponibilidad de datos, generalización.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Estrategia de Q\&A}
+  \small
+  \begin{tabular}{p{0.48\textwidth} p{0.48\textwidth}}
+  \textbf{¿Por qué DL vs geoestadística?} & Interacciones no lineales; multimodalidad; escala. \\
+  \textbf{Evitar sobreajuste} & CV espacial; regularización; early stopping; holdouts no contiguos. \\
+  \textbf{Interpretabilidad} & Importancia de variables, SHAP, modelos sustitutos. \\
+  \textbf{Transferencia} & Shift de dominio; fine-tuning; entrenamiento multi-región. \\
+  \textbf{Incertidumbre} & MC-dropout, ensambles, regresión cuantílica (trabajo futuro). \\
+  \textbf{SOTA} & Citar TorchGeo/RS DL; comparar enfoque/métricas; novedad. \\
+  \textbf{Limitaciones} & Datos escasos, ruido de sensores, shift, interpretabilidad. \\
+  \textbf{Operación} & Ingesta continua; inferencia; integración GIS; feedback del campo. \\
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{Conclusiones}
+  \begin{itemize}
+    \item Novedad: integración multimodal, CV espacial, mapas de probabilidad.
+    \item Impacto: menores costos, mejor focalización, escalabilidad.
+    \item Futuro: incertidumbre, adaptación de dominio, explicabilidad.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Preguntas}
+  \centering\Large ¡Gracias!\\[0.5cm]Preguntas bienvenidas.\\[0.6cm]
+  \href{https://edwardcalderon.github.io/GeoAuPredict/login}{\beamergotobutton{Demo}}\\[0.4cm]
+  \small \href{https://github.com/edwardcalderon/GeoAuPredict/}{github.com/edwardcalderon/GeoAuPredict}
+\end{frame}
+
+\end{document}
+
