@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -6,23 +6,26 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     gdal-bin \
     libgdal-dev \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy environment file
-COPY environment.yml .
+# Copy requirements files
+COPY requirements.txt requirements_full.txt ./
 
-# Install conda and dependencies
-RUN pip install --no-cache-dir conda && \
-    conda env create -f environment.yml
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements_full.txt
 
 # Copy application code
-COPY . .
+COPY src/ ./src/
+COPY outputs/ ./outputs/
+COPY data/ ./data/
+COPY mlflow_config.py ./
 
-# Activate conda environment
-SHELL ["conda", "run", "-n", "geoau", "/bin/bash", "-c"]
+# Create necessary directories
+RUN mkdir -p logs mlruns
 
-# Expose port for web application
-EXPOSE 3000
+# Expose ports
+EXPOSE 8000 8501 3000 5000
 
-# Default command
-CMD ["conda", "run", "-n", "geoau", "python", "-m", "src.main"]
+# Default command (can be overridden)
+CMD ["python", "src/api/prediction_api.py"]

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # REST API Service
+  api:
+    build: .
+    container_name: geoaupredict-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/app/outputs:ro
+      - ./data:/app/data:ro
+    command: python src/api/prediction_api.py
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  # Streamlit Dashboard (Spatial Validation)
+  spatial-dashboard:
+    build: .
+    container_name: geoaupredict-spatial
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./outputs:/app/outputs:ro
+      - ./data:/app/data:ro
+    command: streamlit run src/app/spatial_validation_dashboard.py --server.port=8501 --server.address=0.0.0.0
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+  
+  # Streamlit Dashboard (3D Visualization)
+  viz-dashboard:
+    build: .
+    container_name: geoaupredict-viz3d
+    ports:
+      - "8502:8502"
+    volumes:
+      - ./outputs:/app/outputs:ro
+      - ./public:/app/public:ro
+    command: streamlit run src/app/3d_visualization_dashboard.py --server.port=8502 --server.address=0.0.0.0
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+  
+  # MLflow Tracking Server
+  mlflow:
+    build: .
+    container_name: geoaupredict-mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/app/mlruns
+      - ./outputs:/app/outputs:ro
+    command: mlflow ui --host 0.0.0.0 --port 5000
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+networks:
+  default:
+    name: geoaupredict-network
+

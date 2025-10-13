@@ -1,0 +1,19 @@
+services:
+  # REST API Service
+  - type: web
+    name: geoaupredict-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerCommand: python src/api/prediction_api.py
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHONUNBUFFERED
+        value: 1
+    disk:
+      name: models
+      mountPath: /app/outputs/models
+      sizeGB: 1
+

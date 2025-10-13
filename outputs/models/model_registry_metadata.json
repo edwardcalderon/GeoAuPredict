@@ -1,0 +1,41 @@
+{
+  "trained_at": "2025-10-12T22:58:27.412033",
+  "n_train_samples": 800,
+  "n_test_samples": 200,
+  "n_features": 10,
+  "models": [
+    "random_forest",
+    "xgboost",
+    "lightgbm"
+  ],
+  "results": {
+    "random_forest": {
+      "accuracy": 0.85,
+      "precision": 0.8484848484848485,
+      "recall": 0.8484848484848485,
+      "f1": 0.8484848484848485,
+      "auc": 0.9168916891689168
+    },
+    "xgboost": {
+      "accuracy": 0.835,
+      "precision": 0.83,
+      "recall": 0.8383838383838383,
+      "f1": 0.8341708542713567,
+      "auc": 0.9196919691969198
+    },
+    "lightgbm": {
+      "accuracy": 0.835,
+      "precision": 0.83,
+      "recall": 0.8383838383838383,
+      "f1": 0.8341708542713567,
+      "auc": 0.9023902390239024
+    },
+    "ensemble": {
+      "accuracy": 0.855,
+      "precision": 0.8431372549019608,
+      "recall": 0.8686868686868687,
+      "f1": 0.8557213930348259,
+      "auc": 0.9178917891789179
+    }
+  }
+}

@@ -1,22 +1,8 @@
 [server]
-# Enable embedding in iframes
+headless = true
+port = 8501
 enableCORS = false
 enableXsrfProtection = false
 
-# Allow connections from Next.js dev server
-headless = true
-
 [browser]
-# Don't try to open browser automatically when embedded
-serverAddress = "localhost"
-serverPort = 8501
-
-[theme]
-# Dark mode theme to match Next.js app
-base = "dark"
-primaryColor = "#fbbf24"
-backgroundColor = "#0a0a0a"
-secondaryBackgroundColor = "#171717"
-textColor = "#fafafa"
-font = "sans serif"
-
+gatherUsageStats = false

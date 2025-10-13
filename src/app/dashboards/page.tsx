@@ -4,7 +4,8 @@ import AppHeader from '@/components/AppHeader';
 import Footer from '@/components/Footer';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Viz3D from '@/components/Viz3D';
-import { Map, Box } from 'lucide-react';
+import NotebookViewer from '@/components/NotebookViewer';
+import { Map, Box, BookOpen } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Dashboard URLs - use environment variables for production deployment
@@ -37,14 +38,22 @@ export default function DashboardsPage() {
                 Gold Prediction Analysis
               </h1>
               <p className="text-sm text-slate-400">
-                Interactive dashboards and 3D visualization
+                Interactive dashboards, 3D visualization, and project notebook
               </p>
             </div>
           </div>
 
           {/* Tabs Component */}
-          <Tabs defaultValue="spatial" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-slate-800/50 border border-slate-700 rounded-lg mb-4" style={{ pointerEvents: 'auto' }}>
+          <Tabs defaultValue="notebook" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-slate-800/50 border border-slate-700 rounded-lg mb-4" style={{ pointerEvents: 'auto' }}>
+              <TabsTrigger
+                value="notebook"
+                className="flex items-center justify-center data-[state=active]:bg-slate-700 data-[state=active]:text-yellow-400 text-slate-400 cursor-pointer"
+                style={{ pointerEvents: 'auto' }}
+              >
+                <BookOpen className="w-4 h-4 mr-2" />
+                Notebook
+              </TabsTrigger>
               <TabsTrigger
                 value="spatial"
                 className="flex items-center justify-center data-[state=active]:bg-slate-700 data-[state=active]:text-yellow-400 text-slate-400 cursor-pointer"
@@ -62,6 +71,19 @@ export default function DashboardsPage() {
                 3D Visualization
               </TabsTrigger>
             </TabsList>
+
+            {/* Dashboard Content - Project Notebook */}
+            <TabsContent value="notebook" className="mt-0 relative z-0">
+              <div
+                className="w-full"
+                style={{ height: 'calc(100vh - 250px)' }}
+              >
+                <NotebookViewer
+                  title="GeoAuPredict - Project Presentation Notebook"
+                  description="Complete 3-phase pipeline: Data Ingestion → Feature Engineering → Predictive Modeling. Comprehensive notebook with detailed explanations and results."
+                />
+              </div>
+            </TabsContent>
 
             {/* Dashboard Content - Spatial Validation */}
             <TabsContent value="spatial" className="mt-0 relative z-0">
