@@ -2,18 +2,21 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies including build tools
 RUN apt-get update && apt-get install -y \
     gdal-bin \
     libgdal-dev \
     git \
+    build-essential \
+    g++ \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements files
-COPY requirements.txt requirements_full.txt ./
+COPY requirements_api.txt ./
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements_full.txt
+# Install Python dependencies (API only - much faster!)
+RUN pip install --no-cache-dir -r requirements_api.txt
 
 # Copy application code
 COPY src/ ./src/
