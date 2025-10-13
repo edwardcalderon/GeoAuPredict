@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=98d6b7e2" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -177,7 +178,6 @@
 <li class="toctree-l1"><a class="reference internal" href="results.html">Results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discussion.html">Discussion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
@@ -233,7 +233,7 @@
       
       
       
-      <li><a href="https://github.com/your-username/geoaupredict" target="_blank"
+      <li><a href="https://github.com/edwardcalderon/geoaupredict" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -250,7 +250,7 @@
       
       
       
-      <li><a href="https://github.com/your-username/geoaupredict/edit/main/intro.md" target="_blank"
+      <li><a href="https://github.com/edwardcalderon/geoaupredict/edit/main/intro.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -267,7 +267,7 @@
       
       
       
-      <li><a href="https://github.com/your-username/geoaupredict/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/edwardcalderon/geoaupredict/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -408,7 +408,7 @@ document.write(`
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
 <section id="industrial-context-and-motivation">
 <h2>Industrial Context and Motivation<a class="headerlink" href="#industrial-context-and-motivation" title="Link to this heading">#</a></h2>
-<p>The global mineral exploration industry faces unprecedented challenges balancing economic viability with environmental sustainability. For example, traditional gold exploration relies on expensive drilling campaigns averaging $150,000 per borehole, with typical discovery rates below 30% [&#64;colombian_gold]. A standard 100-borehole campaign costs $15 million with only 30 confirmed deposits, yielding $500,000 per discovery. This economic burden particularly impacts developing nations like Colombia, where rich mineral resources remain underexplored due to capital constraints.</p>
+<p>The global mineral exploration industry faces unprecedented challenges balancing economic viability with environmental sustainability. For example, traditional gold exploration relies on expensive drilling campaigns averaging $150,000 per borehole, with typical discovery rates below 30% [&#64;colombian_gold]. A standard 100-borehole campaign costs $15 million with only 30 confirmed deposits, yielding $500,000 per discovery. This economic burden particularly impacts developing nations like Colombia, where rich mineral resources remain underexplored due to capital constraints.</p>
 <p>Beyond financial considerations, conventional exploration generates substantial environmental footprints through invasive drilling, vegetation clearing, and soil disruption across vast territories. The mining industry’s contribution to Colombia’s GDP (2.2% in 2024) necessitates balancing economic development with ecological preservation—a challenge requiring data-driven, targeted exploration strategies.</p>
 <p>Recent advances in artificial intelligence and remote sensing present transformative opportunities for mineral prospectivity mapping. However, existing approaches suffer from: (1) limited integration of heterogeneous data sources, (2) lack of spatial validation leading to overly optimistic performance estimates, (3) insufficient ensemble methodologies for robust predictions, and (4) absence of production-ready deployments for industry adoption.</p>
 </section>
@@ -416,6 +416,11 @@ document.write(`
 <h2>Research Objectives<a class="headerlink" href="#research-objectives" title="Link to this heading">#</a></h2>
 <p>GeoAuPredict (GAP) addresses these limitations through a comprehensive AI system integrating six heterogeneous geospatial data sources with novel ensemble machine learning architectures. Our specific contributions include rigorous evaluation of Voting Ensemble versus Stacking Ensemble approaches, demonstrating that simpler averaging methods yield superior generalization; comprehensive spatial cross-validation using geographic blocks to prevent autocorrelation leakage and ensure honest performance estimates; complete production deployment with REST API, model versioning, and real-time prediction capabilities on cloud infrastructure; and validation showing 2.4× improvement in success rates with 59% cost reduction per discovery.</p>
 <p>The remainder of this paper is organized as follows: Section 2 presents the integrated data sources and feature engineering methodology; Section 3 details the ensemble machine learning architecture with implementation specifics; Section 4 reports comprehensive results including ensemble comparison; Section 5 discusses implications for industrial adoption; Section 6 concludes with future research directions.</p>
+<hr class="docutils" />
+<div class="tip admonition">
+<p class="admonition-title">Version 1.0.9</p>
+<p>Built: October 13, 2025</p>
+</div>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -502,7 +507,7 @@ By Edward Calderón
 
   <p class="copyright">
     
-      © Copyright 2025.
+      © Copyright October 13, 2025 06:51 v1.0.9.
       <br/>
     
   </p>

@@ -43,7 +43,7 @@ export default async function WhitePaperPage() {
 
       {/* Fixed Footer */}
       <div className="flex-shrink-0">
-        <Footer />
+        <Footer author="Edward Calderón" version={versions.currentVersion} />
       </div>
     </div>
   );

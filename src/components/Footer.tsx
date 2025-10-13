@@ -1,4 +1,9 @@
-export default function Footer() {
+interface FooterProps {
+  author?: string;
+  version?: string;
+}
+
+export default function Footer({ author, version }: FooterProps) {
   return (
     <footer className="border-t border-slate-700 bg-slate-900/50 backdrop-blur-sm relative z-40">
       <div className="container mx-auto px-4 py-8">
@@ -9,8 +14,13 @@ export default function Footer() {
             </div>
             <span className="text-slate-400">© 2025 GeoAuPredict GAP. All rights reserved.</span>
           </div>
-          <div className="text-slate-400 text-sm">
-            Open-source AI for mineral exploration
+          <div className="text-right">
+            <div className="text-slate-400 text-sm">Open-source AI for mineral exploration</div>
+            {(author || version) && (
+              <div className="text-slate-500 text-xs mt-1">
+                {version || ''}
+              </div>
+            )}
           </div>
         </div>
       </div>

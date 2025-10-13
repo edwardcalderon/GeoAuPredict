@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
 Version management script for GeoAuPredict whitepaper
+
+UNIFIED WORKFLOW - LaTeX as Single Source of Truth
+Builds PDF, Markdown, and Jupyter Book from docs/whitepaper.tex
 """
 
 import json
@@ -10,11 +13,6 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-
-# Import LaTeX compilation functionality
-sys.path.append(os.path.dirname(__file__))
-from compile_latex_to_pdf import LaTeXToPDFCompiler
-from convert_latex_to_html import LaTeXConverter
 
 class WhitepaperVersionManager:
     """Manages versioning for the whitepaper"""
@@ -180,36 +178,40 @@ class WhitepaperVersionManager:
         git_info = self.get_git_info()
         print(f"👤 Author: {git_info['author']} ({git_info['email']})")
 
-        # Step 1: Compile LaTeX to PDF
-        print("📄 Step 1: Compiling LaTeX to PDF...")
-        pdf_compiler = LaTeXToPDFCompiler()
-
-        if not pdf_compiler.check_dependencies():
-            print("❌ LaTeX compilation dependencies not available")
-            return False
-
-        pdf_success = pdf_compiler.compile_pdf()
-        if not pdf_success:
-            print("❌ PDF compilation failed")
-            return False
-
-        pdf_compiler.cleanup_auxiliary_files()
-        print("✅ PDF compilation completed")
-
-        # Step 2: Convert LaTeX to Markdown and HTML
-        print("📝 Step 2: Converting LaTeX to Markdown and HTML...")
-        latex_converter = LaTeXConverter()
-        markdown_output = "docs/whitepaper.md"
-
+        # Step 1: Build all outputs using unified workflow
+        print("\n🔨 Building all outputs from LaTeX (single source of truth)...")
+        print("   • PDF: public/whitepaper-latex.pdf")
+        print("   • Markdown: docs/whitepaper.md")
+        print("   • Jupyter Book: jupyter_book/*.md + _build/html/\n")
+        
         try:
-            latex_converter.convert_file("docs/whitepaper.tex", markdown_output)
-            print("✅ Markdown and HTML conversion completed")
+            # Run the unified build script
+            result = subprocess.run(
+                [sys.executable, "scripts/build_whitepaper.py"],
+                capture_output=True,
+                text=True,
+                timeout=180
+            )
+            
+            if result.returncode == 0:
+                print("✅ All whitepaper outputs built successfully")
+            else:
+                print("❌ Build failed!")
+                if result.stdout:
+                    print("Output:", result.stdout)
+                if result.stderr:
+                    print("Errors:", result.stderr)
+                return False
+                
+        except subprocess.TimeoutExpired:
+            print("❌ Build timed out (took longer than 3 minutes)")
+            return False
         except Exception as e:
-            print(f"❌ Markdown conversion failed: {e}")
+            print(f"❌ Build failed: {e}")
             return False
 
-        # Step 3: Version management
-        print("📦 Step 3: Managing version files...")
+        # Step 2: Version management
+        print("\n📦 Step 2: Managing version files...")
 
         # Load existing versions
         versions_data = self.load_versions()
@@ -251,11 +253,45 @@ class WhitepaperVersionManager:
         # Save updated versions
         self.save_versions(versions_data)
 
-        print(f"✅ Version {new_version} created successfully!")
-        print(f"   Download URL: {versions_data['downloadUrl']}")
-        print(f"   Markdown file: {markdown_output}")
-        print(f"   Committed by: @{git_info['author']} on {git_info['timestamp']}")
-        print(f"   PDF size: {pdf_metadata['size']}, Pages: {pdf_metadata['pages']}")
+        print(f"\n✅ Version {new_version} created successfully!")
+        print(f"   📄 PDF: {versions_data['downloadUrl']}")
+        print(f"   📝 Markdown: docs/whitepaper.md")
+        print(f"   📚 Jupyter Book: jupyter_book/_build/html/")
+        print(f"   👤 Committed by: @{git_info['author']} on {git_info['timestamp']}")
+        print(f"   📊 PDF size: {pdf_metadata['size']}, Pages: {pdf_metadata['pages']}")
+
+        # Step 3: Sync Jupyter Book config with human-readable date and version
+        try:
+            sync_result = subprocess.run(
+                [sys.executable, "scripts/sync_jupyter_book_config_version.py"],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            sync_msg = sync_result.stdout.strip() if sync_result.stdout else "No output"
+            print(f"\n🧩 Synced Jupyter Book config: {sync_msg}")
+        except subprocess.CalledProcessError as e:
+            print("\n⚠️  Failed to sync Jupyter Book config (_config.yml)")
+            if e.stdout:
+                print(e.stdout)
+            if e.stderr:
+                print(e.stderr)
+
+        # Step 4: Rebuild Jupyter Book so footer reflects updated config/version
+        try:
+            rebuild_result = subprocess.run(
+                [sys.executable, "scripts/build_jupyter_book_from_latex.py"],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            print("\n📖 Rebuilt Jupyter Book after config sync")
+        except subprocess.CalledProcessError as e:
+            print("\n⚠️  Failed to rebuild Jupyter Book after config sync")
+            if e.stdout:
+                print(e.stdout)
+            if e.stderr:
+                print(e.stderr)
 
         return True
 
