@@ -27,8 +27,9 @@ COPY mlflow_config.py ./
 # Create necessary directories
 RUN mkdir -p logs mlruns
 
-# Expose ports
-EXPOSE 8000 8501 3000 5000
+# Expose port (Render will set PORT env var, typically 10000)
+# The app will bind to the PORT environment variable
+EXPOSE 8000
 
 # Default command (can be overridden)
 CMD ["python", "src/api/prediction_api.py"]
