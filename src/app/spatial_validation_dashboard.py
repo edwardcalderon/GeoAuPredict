@@ -212,7 +212,7 @@ st.markdown("""
     }
     
     .stSelectbox > div > div {
-        background-color: #171717;
+        background-color: ##1c2739;
         border: 1px solid #262626;
         border-radius: 0.375rem;
         font-size: 0.875rem;
