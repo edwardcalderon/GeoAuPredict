@@ -13,6 +13,7 @@ services:
     command: python src/api/prediction_api.py
     environment:
       - PYTHONUNBUFFERED=1
+      - PORT=8000
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
