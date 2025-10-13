@@ -26,26 +26,30 @@ const showStreamlitHelp = isProduction && !hasDeployedStreamlit;
 export default function DashboardsPage() {
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
-        <AppHeader currentPage="dashboards" />
+      <div className="h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col overflow-hidden">
+        {/* Fixed Header */}
+        <div className="flex-shrink-0">
+          <AppHeader currentPage="dashboards" />
+        </div>
 
-      <main className="flex-grow container mx-auto px-4 py-4">
-        <div className="max-w-full mx-auto">
-          {/* Header */}
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-white">
-                Gold Prediction Analysis
-              </h1>
-              <p className="text-sm text-slate-400">
-                Interactive dashboards, 3D visualization, and project notebook
-              </p>
+        {/* Main Content - Scrollable */}
+        <main className="flex-1 overflow-hidden flex flex-col">
+          <div className="flex-1 flex flex-col px-4 py-4 overflow-hidden max-w-7xl mx-auto w-full">
+            {/* Page Header */}
+            <div className="flex-shrink-0 mb-4 flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-white">
+                  Gold Prediction Analysis
+                </h1>
+                <p className="text-sm text-slate-400">
+                  Interactive dashboards, 3D visualization, and project notebook
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Tabs Component */}
-          <Tabs defaultValue="notebook" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-slate-800/50 border border-slate-700 rounded-lg mb-4" style={{ pointerEvents: 'auto' }}>
+            {/* Tabs Component - Takes remaining space */}
+            <Tabs defaultValue="notebook" className="flex-1 flex flex-col overflow-hidden">
+              <TabsList className="flex-shrink-0 grid w-full max-w-2xl mx-auto grid-cols-3 bg-slate-800/50 border border-slate-700 rounded-lg mb-4" style={{ pointerEvents: 'auto' }}>
               <TabsTrigger
                 value="notebook"
                 className="flex items-center justify-center data-[state=active]:bg-slate-700 data-[state=active]:text-yellow-400 text-slate-400 cursor-pointer"
@@ -73,24 +77,16 @@ export default function DashboardsPage() {
             </TabsList>
 
             {/* Dashboard Content - Project Notebook */}
-            <TabsContent value="notebook" className="mt-0 relative z-0">
-              <div
-                className="w-full"
-                style={{ height: 'calc(100vh - 250px)' }}
-              >
-                <NotebookViewer
-                  title="GeoAuPredict - Project Presentation Notebook"
-                  description="Complete 3-phase pipeline: Data Ingestion → Feature Engineering → Predictive Modeling. Comprehensive notebook with detailed explanations and results."
-                />
-              </div>
+            <TabsContent value="notebook" className="mt-0 h-full overflow-hidden">
+              <NotebookViewer
+                title="GeoAuPredict - Project Presentation Notebook"
+                description="Complete 3-phase pipeline: Data Ingestion → Feature Engineering → Predictive Modeling. Comprehensive notebook with detailed explanations and results."
+              />
             </TabsContent>
 
             {/* Dashboard Content - Spatial Validation */}
-            <TabsContent value="spatial" className="mt-0 relative z-0">
-              <div
-                className="w-full bg-slate-900/30 rounded-lg border border-slate-700 overflow-hidden"
-                style={{ height: 'calc(100vh - 250px)' }}
-              >
+            <TabsContent value="spatial" className="mt-0 h-full overflow-hidden">
+              <div className="w-full h-full bg-slate-900/30 rounded-lg border border-slate-700 overflow-hidden">
                 {showStreamlitHelp ? (
                   <div className="flex flex-col items-center justify-center h-full p-8 text-center">
                     <Map className="w-16 h-16 text-yellow-400 mb-4" />
@@ -130,19 +126,17 @@ export default function DashboardsPage() {
             </TabsContent>
 
             {/* Dashboard Content - 3D Visualization (Static Plotly.js) */}
-            <TabsContent value="3d" className="mt-0 relative z-0">
-              <div
-                className="w-full"
-                style={{ height: 'calc(100vh - 250px)' }}
-              >
-                <Viz3D />
-              </div>
+            <TabsContent value="3d" className="mt-0 h-full overflow-hidden">
+              <Viz3D />
             </TabsContent>
-          </Tabs>
-        </div>
-      </main>
+            </Tabs>
+          </div>
+        </main>
 
-        <Footer />
+        {/* Fixed Footer */}
+        <div className="flex-shrink-0">
+          <Footer />
+        </div>
       </div>
     </ProtectedRoute>
   );

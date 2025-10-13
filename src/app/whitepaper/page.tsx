@@ -19,23 +19,25 @@ export default async function WhitePaperPage() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
-      <AppHeader currentPage="whitepaper" />
-
-      {/* Floating Download Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <a
-          href={versions.downloadUrl}
-          download={getNavUrl(`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`)}
-          className="flex items-center space-x-2 px-4 py-3 bg-yellow-600 hover:bg-yellow-700 text-slate-900 rounded-full font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-        >
-          <Download className="w-5 h-5" />
-          <span className="hidden sm:inline">Download PDF</span>
-        </a>
+    <div className="h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col overflow-hidden">
+      {/* Fixed Header */}
+      <div className="flex-shrink-0">
+        <AppHeader currentPage="whitepaper" />
       </div>
 
-      {/* White Paper Content - This will grow to fill available space */}
-      <main className="flex-grow">
+      {/* White Paper Content - Scrollable */}
+      <main className="flex-1 overflow-y-auto relative">
+        {/* Floating Download Button - Positioned just above footer */}
+        <div className="fixed right-6 bottom-20 md:bottom-16 z-50">
+          <a
+            href={versions.downloadUrl}
+            download={getNavUrl(`GeoAuPredict_GAP_WhitePaper_${versions.currentVersion}.pdf`)}
+            className="flex items-center space-x-2 px-4 py-3 bg-yellow-600 hover:bg-yellow-700 text-slate-900 rounded-full font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            <Download className="w-5 h-5" />
+            <span className="hidden sm:inline">Download PDF</span>
+          </a>
+        </div>
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
             <div className="bg-slate-800/50 rounded-lg border border-slate-700 p-8">
@@ -170,8 +172,10 @@ export default async function WhitePaperPage() {
         </div>
       </main>
 
-      {/* Footer - This will stick to the bottom */}
-      <Footer />
+      {/* Fixed Footer */}
+      <div className="flex-shrink-0">
+        <Footer />
+      </div>
     </div>
   );
 }
