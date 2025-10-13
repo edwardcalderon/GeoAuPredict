@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "model": "random_forest",
+      "accuracy": 0.84,
+      "precision": 0.8316831683168316,
+      "recall": 0.8484848484848485,
+      "f1": 0.84,
+      "auc": 0.9143914391439144
+    },
+    {
+      "model": "xgboost",
+      "accuracy": 0.84,
+      "precision": 0.8316831683168316,
+      "recall": 0.8484848484848485,
+      "f1": 0.84,
+      "auc": 0.9145914591459146
+    },
+    {
+      "model": "lightgbm",
+      "accuracy": 0.855,
+      "precision": 0.8645833333333334,
+      "recall": 0.8383838383838383,
+      "f1": 0.8512820512820513,
+      "auc": 0.9242924292429243
+    },
+    {
+      "model": "voting_ensemble",
+      "accuracy": 0.85,
+      "precision": 0.8484848484848485,
+      "recall": 0.8484848484848485,
+      "f1": 0.8484848484848485,
+      "auc": 0.9207920792079207
+    },
+    {
+      "model": "stacking_ensemble",
+      "accuracy": 0.845,
+      "precision": 0.84,
+      "recall": 0.8484848484848485,
+      "f1": 0.8442211055276382,
+      "auc": 0.9205920592059206
+    }
+  ],
+  "voting_metrics": {
+    "model": "voting_ensemble",
+    "accuracy": 0.85,
+    "precision": 0.8484848484848485,
+    "recall": 0.8484848484848485,
+    "f1": 0.8484848484848485,
+    "auc": 0.9207920792079207
+  },
+  "stacking_metrics": {
+    "model": "stacking_ensemble",
+    "accuracy": 0.845,
+    "precision": 0.84,
+    "recall": 0.8484848484848485,
+    "f1": 0.8442211055276382,
+    "auc": 0.9205920592059206
+  },
+  "winner": "voting",
+  "compared_at": "2025-10-13T00:47:26.984633"
+}

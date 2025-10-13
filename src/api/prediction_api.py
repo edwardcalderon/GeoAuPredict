@@ -67,11 +67,17 @@ async def load_models():
     global ENSEMBLE_MODEL
     
     try:
+        # Load Voting Ensemble (production model - winner of comparison)
         ensemble_path = MODELS_DIR / "ensemble_gold_v1.pkl"
         if ensemble_path.exists():
             with open(ensemble_path, 'rb') as f:
                 ENSEMBLE_MODEL = pickle.load(f)
-            logger.info(f"✓ Loaded ensemble model with {ENSEMBLE_MODEL['n_models']} models")
+            
+            ensemble_type = ENSEMBLE_MODEL.get('ensemble_type', 'voting')
+            n_models = ENSEMBLE_MODEL.get('n_models', len(ENSEMBLE_MODEL.get('models', {})))
+            
+            logger.info(f"✓ Loaded {ensemble_type.upper()} ensemble with {n_models} base models")
+            logger.info(f"  Base models: {list(ENSEMBLE_MODEL.get('models', {}).keys())}")
         else:
             logger.warning(f"Ensemble model not found at {ensemble_path}")
     except Exception as e:
@@ -88,6 +94,7 @@ async def root():
         "endpoints": {
             "/health": "Health check",
             "/predict": "Make predictions (POST)",
+            "/ensemble-info": "Ensemble model information",
             "/docs": "Interactive API documentation"
         }
     }
@@ -183,6 +190,39 @@ async def models_info():
             "trained_at": ENSEMBLE_MODEL.get('trained_at', 'Unknown')
         }
     }
+
+
+@app.get("/ensemble-info")
+async def ensemble_info():
+    """Get detailed information about the ensemble model"""
+    if ENSEMBLE_MODEL is None:
+        raise HTTPException(status_code=503, detail="Model not loaded")
+    
+    ensemble_type = ENSEMBLE_MODEL.get('ensemble_type', 'voting')
+    
+    info = {
+        "ensemble_type": ensemble_type,
+        "production_model": "Voting Ensemble (Winner)",
+        "n_base_models": ENSEMBLE_MODEL.get('n_models', len(ENSEMBLE_MODEL.get('models', {}))),
+        "base_models": list(ENSEMBLE_MODEL.get('models', {}).keys()),
+        "trained_at": ENSEMBLE_MODEL.get('trained_at', 'Unknown'),
+        "description": {
+            "voting": "Simple averaging of predictions from all base models with equal weights (33.3% each)",
+            "stacking": "Logistic Regression meta-model learns optimal combination of base model predictions"
+        }.get(ensemble_type, "Unknown ensemble type"),
+        "comparison_results": {
+            "tested_against": "Stacking Ensemble",
+            "winner": "Voting Ensemble",
+            "auc_improvement": "0.02% better than stacking",
+            "reason": "Simpler, more robust, better generalization"
+        }
+    }
+    
+    if ensemble_type == 'voting':
+        info["weights"] = ENSEMBLE_MODEL.get('weights', {})
+        info["weight_type"] = "Equal (no learning required)"
+    
+    return info
 
 
 if __name__ == "__main__":

@@ -59,9 +59,13 @@ data_processed/*.parquet
 models/*.pkl
 models/*.h5
 
-# EXCEPTION: Include production ensemble model for deployment
+# EXCEPTION: Include production ensemble models for deployment
 !outputs/models/ensemble_gold_v1.pkl
+!outputs/models/stacking_ensemble_v1.pkl
 !outputs/models/model_registry_metadata.json
+!outputs/models/ensemble_comparison_report.json
+!outputs/models/ensemble_comparison.csv
+!outputs/models/ENSEMBLE_COMPARISON_REPORT.md
 
 # Experiments
 experiments/results/
