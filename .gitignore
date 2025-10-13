@@ -59,6 +59,10 @@ data_processed/*.parquet
 models/*.pkl
 models/*.h5
 
+# EXCEPTION: Include production ensemble model for deployment
+!outputs/models/ensemble_gold_v1.pkl
+!outputs/models/model_registry_metadata.json
+
 # Experiments
 experiments/results/
 experiments/logs/
