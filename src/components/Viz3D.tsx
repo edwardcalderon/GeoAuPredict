@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { getNavUrl } from '@/lib/navigation';
 
 export default function Viz3D() {
   const [isMounted, setIsMounted] = useState(false);
@@ -23,7 +24,7 @@ export default function Viz3D() {
   return (
     <div className="w-full h-full min-h-[800px] bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
       <iframe
-        src="/3d-visualization.html"
+        src={getNavUrl('/3d-visualization.html')}
         className="w-full h-full min-h-[800px]"
         style={{
           border: 'none',
