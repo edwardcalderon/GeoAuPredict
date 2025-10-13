@@ -1,6 +1,6 @@
 {
   "name": "geoaupredict",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AI-Driven Gold Exploration in Colombia using Multi-source Geospatial Data and Ensemble Machine Learning",
   "private": true,
   "scripts": {
