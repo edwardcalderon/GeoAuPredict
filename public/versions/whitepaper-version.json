@@ -1,5 +1,5 @@
 {
-  "currentVersion": "v1.1.0",
+  "currentVersion": "v1.1.1",
   "versions": [
     {
       "version": "v1.0.9",
@@ -24,7 +24,19 @@
       "pdf_url": "/versions/whitepaper-v1.1.0.pdf",
       "size": "174KB",
       "pages": 8
+    },
+    {
+      "version": "v1.1.1",
+      "date": "2025-10-13",
+      "timestamp": "2025-10-13 07:26:08",
+      "changes": "Release v1.1.1: open links in new window; version refresh",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "e1cb27c9df4d95facdb78734f709956974b6b3bd",
+      "pdf_url": "/versions/whitepaper-v1.1.1.pdf",
+      "size": "174KB",
+      "pages": 8
     }
   ],
-  "downloadUrl": "/versions/whitepaper-v1.1.0.pdf"
+  "downloadUrl": "/versions/whitepaper-v1.1.1.pdf"
 }

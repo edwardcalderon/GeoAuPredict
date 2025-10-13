@@ -6,8 +6,8 @@ Loads version data from VERSION_HISTORY.json
 import json
 from pathlib import Path
 
-__version__ = "1.0.1"
-__version_info__ = (1, 0, 1)
+__version__ = "1.1.1"
+__version_info__ = (1, 1, 1)
 
 # Path to version history JSON
 VERSION_HISTORY_PATH = Path(__file__).parent.parent / "VERSION_HISTORY.json"

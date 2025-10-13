@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="GeoAuPredict API",
     description="REST API for gold deposit prediction using ensemble ML models",
-    version="1.0.0"
+    version="1.1.1"
 )
 
 # Add CORS middleware
@@ -90,7 +90,7 @@ async def root():
     """Root endpoint with API information"""
     return {
         "message": "GeoAuPredict API - Gold Deposit Prediction",
-        "version": "1.0.0",
+        "version": "1.1.1",
         "endpoints": {
             "/health": "Health check",
             "/predict": "Make predictions (POST)",

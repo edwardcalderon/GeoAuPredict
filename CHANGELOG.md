@@ -5,6 +5,13 @@ All notable changes to GeoAuPredict will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2025-10-13
+
+### Changed
+- Whitepaper v1.1.1: open external links in new window (pdfnewwindow)
+- Rebuilt whitepaper PDF, Markdown, and Jupyter Book
+- Added GitHub Actions keep-alive workflow for Render service
+
 ## [1.0.0] - 2025-10-13
 
 ### Added

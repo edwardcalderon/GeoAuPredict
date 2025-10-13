@@ -3,7 +3,7 @@
 # Book settings
 title: "GeoAuPredict (GAP): AI-Driven Geospatial Prediction of Gold Deposits"
 author: "Edward Calderón"
-copyright: "October 13, 2025 07:20 v1.1.0" #update automatically by the version manager script
+copyright: "October 13, 2025 07:26 v1.1.1" #update automatically by the version manager script
 logo: "../public/logo.png"
 
 # Information about where the book exists on the web
