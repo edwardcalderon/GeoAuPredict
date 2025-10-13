@@ -1,6 +1,24 @@
 # GeoAuPredict - Gold Prediction Dataset
 
 A comprehensive geospatial dataset and ingestion pipeline for gold deposit prediction in Colombia, integrating multiple data sources including geochemical sampling, geological features, satellite imagery, and known mineral deposits.
+
+## 📓 Interactive Notebooks
+
+**Try the complete project demo online - no installation required!**
+
+Choose your preferred platform:
+
+| 🔷 Google Colab (with GPU) | 🟠 Binder (no login) |
+|---|---|
+| [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/edwardcalderon/GeoAuPredict/blob/main/notebooks/GeoAuPredict_Project_Presentation.ipynb) | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/edwardcalderon/GeoAuPredict/main?filepath=notebooks/GeoAuPredict_Project_Presentation.ipynb) |
+| Requires Google account | No account needed |
+| Faster, with GPU support | May take 2-3 min to start |
+
+**Available Notebooks:**
+- 📊 **[Project Presentation](notebooks/GeoAuPredict_Project_Presentation.ipynb)** - Complete project demo with visualizations
+- 🔧 **[Complete Pipeline](notebooks/GeoAuPredict_Complete_Pipeline_Base.ipynb)** - Full data processing workflow
+- 🗺️ **[Spatial Validation](notebooks/GeoAuPredict_Spatial_Validation.ipynb)** - Advanced validation techniques
+
 ## 🚀 Deployment
 
 This project is configured for automatic deployment to GitHub Pages.
