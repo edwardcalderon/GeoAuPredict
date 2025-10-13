@@ -71,28 +71,39 @@ class LaTeXToPDFCompiler:
                 print(result.stderr)
                 return False
 
-            # Step 2: Copy bibliography file and run bibtex
+            # Step 2: Check if document uses thebibliography environment or needs BibTeX
             print("   Pass 2/4: Processing bibliography...")
-            # Copy references.bib to public directory for bibtex
-            import shutil
-            bib_source = "docs/references.bib"
-            bib_dest = "public/references.bib"
-            if os.path.exists(bib_source):
-                shutil.copy2(bib_source, bib_dest)
-                print(f"   Copied bibliography file to public directory")
 
-            bib_result = subprocess.run([
-                'bibtex',
-                'whitepaper-latex'
-            ], capture_output=True, text=True, cwd='public')
+            # Check if document uses thebibliography environment (embedded bibliography)
+            uses_embedded_bib = False
+            if os.path.exists(self.input_file):
+                with open(self.input_file, 'r') as f:
+                    content = f.read()
+                    if r'\begin{thebibliography}' in content and r'\bibitem{' in content:
+                        uses_embedded_bib = True
+                        print("   Using embedded bibliography (thebibliography environment)")
+                    else:
+                        # Copy references.bib to public directory for bibtex
+                        import shutil
+                        bib_source = "docs/references.bib"
+                        bib_dest = "public/references.bib"
+                        if os.path.exists(bib_source):
+                            shutil.copy2(bib_source, bib_dest)
+                            print(f"   Copied bibliography file to public directory")
 
-            # Bibtex return code 1 is normal when there are warnings
-            if bib_result.returncode not in [0, 1]:
-                print(f"❌ BibTeX failed with return code {bib_result.returncode}")
-                print("Error output:")
-                print(bib_result.stdout)
-                print(bib_result.stderr)
-                return False
+            if not uses_embedded_bib:
+                bib_result = subprocess.run([
+                    'bibtex',
+                    'whitepaper-latex'
+                ], capture_output=True, text=True, cwd='public')
+
+                # Bibtex return code 1 is normal when there are warnings
+                if bib_result.returncode not in [0, 1]:
+                    print(f"❌ BibTeX failed with return code {bib_result.returncode}")
+                    print("Error output:")
+                    print(bib_result.stdout)
+                    print(bib_result.stderr)
+                    return False
 
             # Step 3: Second pdflatex run to incorporate bibliography
             print("   Pass 3/4: Incorporating bibliography...")

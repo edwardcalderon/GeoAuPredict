@@ -1,0 +1,63 @@
+# Jupyter Book configuration for GeoAuPredict White Paper
+
+# Book settings
+title: "GeoAuPredict (GAP): AI-Driven Geospatial Prediction of Gold Deposits"
+author: "Edward Calderón"
+copyright: "2025"
+logo: "../public/logo.png"
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/your-username/geoaupredict
+  branch: main
+
+# Add GitHub buttons to your book
+html:
+  use_issues_button: true
+  use_repository_button: true
+
+# Configure Sphinx
+sphinx:
+  config:
+    html_theme: sphinx_book_theme
+    html_theme_options:
+      repository_url: https://github.com/your-username/geoaupredict
+      use_repository_button: true
+      use_issues_button: true
+      use_edit_page_button: true
+      navigation_with_keys: true
+      collapse_navigation: true
+      show_toc_level: 2
+      show_nav_level: 1
+      show_nav_level: 1
+      extra_navbar: ""
+      extra_footer: ""
+      search_bar_text: "Search this book..."
+
+# Configure MyST-Parser
+parse:
+  myst_enable_extensions:
+    - deflist
+    - html_admonition
+    - html_image
+    - colon_fence
+    - smartquotes
+    - replacements
+    - linkify
+    - substitution
+    - tasklist
+
+# Bibliography
+bibtex_bibfiles:
+  - ../docs/references.bib
+
+# Math rendering
+html:
+  mathjax_config:
+    tex:
+      macros:
+        "RR": "\\mathbb{R}"
+        "NN": "\\mathbb{N}"
+        "ZZ": "\\mathbb{Z}"
+        "QQ": "\\mathbb{Q}"
+        "CC": "\\mathbb{C}"
