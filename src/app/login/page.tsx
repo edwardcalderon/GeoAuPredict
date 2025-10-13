@@ -19,10 +19,16 @@ export default function LoginPage() {
     setError('');
     
     try {
+      // Construct full redirect URL including basePath for GitHub Pages
+      const basePath = process.env.NODE_ENV === 'production' ? '/GeoAuPredict' : '';
+      const redirectUrl = `${window.location.origin}${basePath}/dashboards`;
+      
+      console.log('🔐 OAuth Redirect URL:', redirectUrl);
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboards`,
+          redirectTo: redirectUrl,
         },
       });
       

@@ -24,9 +24,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 export const authService = {
   // Sign in with Google OAuth
   async signInWithGoogle() {
+    // Construct full redirect URL including basePath for GitHub Pages
+    const basePath = process.env.NODE_ENV === 'production' ? '/GeoAuPredict' : '';
     const redirectUrl = typeof window !== 'undefined' 
-      ? `${window.location.origin}/dashboards`
-      : '/dashboards';
+      ? `${window.location.origin}${basePath}/dashboards`
+      : `${basePath}/dashboards`;
+    
+    console.log('🔐 OAuth Redirect URL:', redirectUrl);
     
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
