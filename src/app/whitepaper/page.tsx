@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import AppHeader from '@/components/AppHeader';
 import Footer from '@/components/Footer';
 import { promises as fs } from 'fs';
 import { join } from 'path';
@@ -20,15 +20,7 @@ export default async function WhitePaperPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
-      <Header
-        logoText="GAP"
-        title="Geo Au Predict"
-        logoHref={getNavUrl('/')}
-        navigation={[
-          { label: 'White Paper', href: getNavUrl('/whitepaper'), isActive: true },
-          { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false, target: '_blank' }
-        ]}
-      />
+      <AppHeader currentPage="whitepaper" />
 
       {/* Floating Download Button */}
       <div className="fixed bottom-6 right-6 z-50">

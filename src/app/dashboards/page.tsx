@@ -1,38 +1,37 @@
 'use client';
 
-import Header from '@/components/Header';
+import AppHeader from '@/components/AppHeader';
 import Footer from '@/components/Footer';
-import { getNavUrl } from '@/lib/navigation';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import { Map, Box } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Dashboard URLs - use environment variables for production deployment
 const isProduction = process.env.NODE_ENV === 'production';
-const STREAMLIT_URL = process.env.NEXT_PUBLIC_STREAMLIT_URL || 'http://localhost:8501';
-const DASH_URL = process.env.NEXT_PUBLIC_DASH_URL || 'http://localhost:8050';
+
+// In development, ALWAYS use localhost. In production, use env vars or show help.
+const STREAMLIT_URL = isProduction 
+  ? (process.env.NEXT_PUBLIC_STREAMLIT_URL || '')
+  : 'http://localhost:8501';
+  
+const DASH_URL = isProduction 
+  ? (process.env.NEXT_PUBLIC_DASH_URL || '')
+  : 'http://localhost:8050';
 
 // Check if we have a valid deployed dashboard URL (not localhost)
-const hasDeployedStreamlit = STREAMLIT_URL && !STREAMLIT_URL.includes('localhost');
-const hasDeployedDash = DASH_URL && !DASH_URL.includes('localhost');
+const hasDeployedStreamlit = isProduction && STREAMLIT_URL && !STREAMLIT_URL.includes('localhost');
+const hasDeployedDash = isProduction && DASH_URL && !DASH_URL.includes('localhost');
 
-// Show helpful message only if we don't have a deployed dashboard
+// Show helpful message only if in production without a deployed dashboard
 const showStreamlitHelp = isProduction && !hasDeployedStreamlit;
 const showDashHelp = isProduction && !hasDeployedDash;
 
 
 export default function DashboardsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
-      <Header
-        logoText="GAP"
-        title="Geo Au Predict"
-        navigation={[
-          { label: 'Home', href: getNavUrl('/'), isActive: false },
-          { label: 'Dashboards', href: getNavUrl('/dashboards'), isActive: true },
-          { label: 'White Paper', href: getNavUrl('/whitepaper'), isActive: false },
-          { label: 'GitHub', href: 'https://github.com/edwardcalderon/GeoAuPredict', isActive: false }
-        ]}
-      />
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
+        <AppHeader currentPage="dashboards" />
 
       <main className="flex-grow container mx-auto px-4 py-4">
         <div className="max-w-full mx-auto">
@@ -49,8 +48,8 @@ export default function DashboardsPage() {
           </div>
 
           {/* Tabs Component */}
-          <Tabs defaultValue="spatial" className="w-full relative z-50">
-            <TabsList className="grid w-full grid-cols-2 bg-slate-800/50 border border-slate-700 rounded-lg mb-4 relative z-50" style={{ pointerEvents: 'auto' }}>
+          <Tabs defaultValue="spatial" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-slate-800/50 border border-slate-700 rounded-lg mb-4" style={{ pointerEvents: 'auto' }}>
               <TabsTrigger
                 value="spatial"
                 className="flex items-center justify-center data-[state=active]:bg-slate-700 data-[state=active]:text-yellow-400 text-slate-400 cursor-pointer"
@@ -70,7 +69,7 @@ export default function DashboardsPage() {
             </TabsList>
 
             {/* Dashboard Content - Spatial Validation */}
-            <TabsContent value="spatial" className="mt-0 relative z-10">
+            <TabsContent value="spatial" className="mt-0 relative z-0">
               <div
                 className="w-full bg-slate-900/30 rounded-lg border border-slate-700 overflow-hidden"
                 style={{ height: 'calc(100vh - 250px)' }}
@@ -114,7 +113,7 @@ export default function DashboardsPage() {
             </TabsContent>
 
             {/* Dashboard Content - 3D Visualization */}
-            <TabsContent value="3d" className="mt-0 relative z-10">
+            <TabsContent value="3d" className="mt-0 relative z-0">
               <div
                 className="w-full bg-slate-900/30 rounded-lg border border-slate-700 overflow-hidden"
                 style={{ height: 'calc(100vh - 250px)' }}
@@ -160,7 +159,8 @@ export default function DashboardsPage() {
         </div>
       </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </ProtectedRoute>
   );
 }

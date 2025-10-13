@@ -12,9 +12,10 @@ interface HeaderProps {
     target?: string;
     isActive?: boolean;
   }>;
+  children?: React.ReactNode;
 }
 
-export default function Header({ logoText = "G", title, logoHref, navigation = [] }: HeaderProps) {
+export default function Header({ logoText = "G", title, logoHref, navigation = [], children }: HeaderProps) {
   const pathname = usePathname();
   const isTitleActive = logoHref && pathname === logoHref;
 
@@ -43,24 +44,27 @@ export default function Header({ logoText = "G", title, logoHref, navigation = [
             <h1 className="text-xl font-bold text-white">{title}</h1>
           )}
         </div>
-        {navigation.length > 0 && (
-          <nav className="flex items-center space-x-6">
-            {navigation.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                target={item.target}
-                className={`transition-colors ${
-                  item.isActive
-                    ? "text-yellow-400 font-semibold"
-                    : "text-slate-300 hover:text-white"
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-        )}
+        <div className="flex items-center space-x-6">
+          {navigation.length > 0 && (
+            <nav className="flex items-center space-x-6">
+              {navigation.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target={item.target}
+                  className={`transition-colors ${
+                    item.isActive
+                      ? "text-yellow-400 font-semibold"
+                      : "text-slate-300 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          )}
+          {children}
+        </div>
       </div>
     </header>
   );
