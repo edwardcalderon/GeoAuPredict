@@ -212,7 +212,7 @@ st.markdown("""
     }
     
     .stSelectbox > div > div {
-        background-color: ##1c2739;
+        background-color: #1c2739;
         border: 1px solid #262626;
         border-radius: 0.375rem;
         font-size: 0.875rem;
@@ -243,6 +243,22 @@ st.markdown("""
     .block-container {
         padding-top: 2rem;
         padding-bottom: 1rem;
+        background-color: #1c2739;
+    }
+    
+    /* Main content area */
+    .main .block-container {
+        background-color: #1c2739 !important;
+    }
+    
+    /* Ensure main background stays dark */
+    .main {
+        background-color: #1c2739 !important;
+    }
+    
+    /* Content area when sidebar is collapsed */
+    section[data-testid="stSidebar"][aria-expanded="false"] ~ .main {
+        background-color: #1c2739 !important;
     }
     
     /* Plotly charts - dark theme */
@@ -262,6 +278,24 @@ st.markdown("""
     /* Cards/containers */
     [data-testid="stVerticalBlock"] > div {
         background-color: transparent;
+    }
+    
+    /* Fix any white backgrounds */
+    div, section, main {
+        background-color: inherit;
+    }
+    
+    /* Override Streamlit's default white background */
+    [data-testid="stAppViewContainer"] {
+        background-color: #1c2739 !important;
+    }
+    
+    [data-testid="stHeader"] {
+        background-color: #131b2d !important;
+    }
+    
+    [data-testid="stToolbar"] {
+        background-color: #131b2d !important;
     }
 </style>
 """, unsafe_allow_html=True)

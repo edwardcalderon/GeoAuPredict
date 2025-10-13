@@ -22,10 +22,10 @@ export default function Viz3D() {
   }
 
   return (
-    <div className="w-full h-full min-h-[800px] bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
+    <div className="w-full h-full bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
       <iframe
         src={getNavUrl('/3d-visualization.html')}
-        className="w-full h-full min-h-[800px]"
+        className="w-full h-full"
         style={{
           border: 'none',
           borderRadius: '0.5rem',
