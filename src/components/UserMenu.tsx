@@ -59,7 +59,7 @@ export default function UserMenu() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-slate-900 border-2 border-slate-600 rounded-lg shadow-2xl overflow-hidden z-[99999]">
+        <div className="absolute right-0 mt-2 w-64 bg-slate-900 border-2 border-slate-600 rounded-lg shadow-2xl overflow-hidden z-[100]">
           {/* User Info */}
           <div className="p-4 border-b-2 border-slate-600 bg-slate-800">
             <div className="flex items-center gap-3">

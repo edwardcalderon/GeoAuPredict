@@ -21,7 +21,7 @@ sphinx:
   config:
     html_theme: sphinx_book_theme
     html_theme_options:
-      repository_url: https://github.com/your-username/geoaupredict
+      repository_url: https://github.com/edwardcalderon/geoaupredict
       use_repository_button: true
       use_issues_button: true
       use_edit_page_button: true
