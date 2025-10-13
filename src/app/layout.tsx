@@ -1,4 +1,5 @@
 import { TempoInit } from "@/components/tempo-init";
+import { AuthProvider } from "@/contexts/AuthContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -23,7 +24,9 @@ export default function RootLayout({
         {/* If LaTeX rendering is needed, consider alternative approaches */}
       </head>
       <body className={inter.className}>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <TempoInit />
       </body>
     </html>
