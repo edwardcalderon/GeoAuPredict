@@ -1,0 +1,177 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes,fit,calc}
+
+% App-like dark theme colors (Tailwind slate + cyan/indigo accents)
+% Theme toggle: set to \lightthemetrue for light background
+\newif\iflighttheme
+\lightthemetrue
+
+% Color palette
+\definecolor{slate900}{HTML}{0F172A}
+\definecolor{slate800}{HTML}{1E293B}
+\definecolor{slate700}{HTML}{334155}
+\definecolor{slate200}{HTML}{E2E8F0}
+\definecolor{slate100}{HTML}{F8FAFC}
+\definecolor{cyan400}{HTML}{22D3EE}
+\definecolor{indigo400}{HTML}{818CF8}
+
+% Beamer color setup matching app UI, light/dark aware
+\iflighttheme
+  \setbeamercolor{background canvas}{bg=slate100}
+  \setbeamercolor{normal text}{fg=slate900}
+  \setbeamercolor{frametitle}{fg=slate900,bg=slate200}
+  \setbeamercolor{title}{fg=slate900}
+  \setbeamercolor{subtitle}{fg=slate800}
+  \setbeamercolor{structure}{fg=indigo400}
+  \setbeamercolor{block title}{fg=slate900,bg=slate200}
+  \setbeamercolor{block body}{fg=slate900,bg=slate100}
+  \setbeamercolor{itemize item}{fg=indigo400}
+\else
+  \setbeamercolor{background canvas}{bg=slate900}
+  \setbeamercolor{normal text}{fg=slate100}
+  \setbeamercolor{frametitle}{fg=slate100,bg=slate800}
+  \setbeamercolor{title}{fg=slate100}
+  \setbeamercolor{subtitle}{fg=slate100}
+  \setbeamercolor{structure}{fg=cyan400}
+  \setbeamercolor{block title}{fg=slate100,bg=slate700}
+  \setbeamercolor{block body}{fg=slate100,bg=slate800}
+  \setbeamercolor{itemize item}{fg=cyan400}
+\fi
+\setbeamertemplate{navigation symbols}{}
+
+\title{GeoAuPredict (GAP): Deep Learning for Geospatial Prediction of Gold}
+\subtitle{Final Project — Deep Learning Course}
+\author{Edward Calderón \& Team}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Motivation and Problem Statement}
+  \begin{itemize}
+    \item Why geospatial prediction of gold is relevant (exploration, cost, risk).
+    \item Traditional approaches: surveys, interpolation, geostatistics.
+    \item Challenges: heterogeneous data, spatial autocorrelation, missingness.
+    \item Our goal: learn from multi-modal geospatial data to predict Au occurrence.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Data Ingestion and Preprocessing}
+  \begin{itemize}
+    \item Sources: DEM, remote sensing indices, geology layers, geochemical assays, distances to structures.
+    \item CRS harmonization, resampling, study area clipping, normalization.
+    \item Spatially aware splits; class balance checks.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exploratory Data Analysis}
+  \begin{itemize}
+    \item Correlations and distributions; outliers and missingness.
+    \item Spatial plots of assays and features; clustering and hotspots.
+    \item Early insights to guide feature engineering.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Pipeline Flow}
+  \centering
+  \resizebox{!}{0.78\textheight}{\input{diagrams/pipeline.tex}}
+\end{frame}
+
+\begin{frame}{Modeling Approach}
+  \begin{itemize}
+    \item Tree ensembles: Random Forest, XGBoost, LightGBM (tabular geospatial features).
+    \item Spatial cross-validation (geographic blocks) to assess generalization.
+    \item Probability mapping via interpolation; uncertainty estimation.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Model Architecture (Ensemble)}
+  \centering
+  \resizebox{\textwidth}{!}{\input{diagrams/architecture.tex}}
+\end{frame}
+
+\begin{frame}{Training \& Validation}
+  \begin{itemize}
+    \item Metrics: Accuracy, Precision, Recall, F1, ROC-AUC, Precision@k.
+    \item Early stopping for boosting models; hyperparameter sanity checks.
+    \item Spatial CV (geographic blocks) for honest generalization.
+    \item Key results from notebooks:
+      \begin{itemize}
+        \item \textbf{LightGBM (best base)}: AUC = \textbf{0.9243}
+        \item \textbf{Voting Ensemble (production)}: AUC = \textbf{0.9208} (spatially separated test)
+        \item \textbf{Spatial Blocks AUC}: \textbf{0.86} (geographic CV)
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Results Summary}
+  \begin{itemize}
+    \item \textbf{Best base model}: LightGBM — AUC \textbf{0.9243}
+    \item \textbf{Production model}: Voting Ensemble — AUC \textbf{0.9208} (spatially separated test)
+    \item \textbf{Spatial Blocks AUC (CV)}: \textbf{0.86} — honest, geography-aware estimate
+    \item Precision@k supports efficient targeting (top areas).\footnotesize{\,Demo runs show high P@10; full report omitted here}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Comparison with Classical Methods}
+  \begin{itemize}
+    \item Baselines: kriging, logistic regression, WoE, SVM (literature typical AUC \(\approx 0.82\)).
+    \item \textbf{Improvement}: +\(\sim\)\textbf{22\%} AUC over best classical (0.82 \(\to\) 0.9208/0.9243).
+    \item Strengths: DL/ensembles capture non-linear, multi-modal interactions.
+    \item Limitations: classical methods often assume stationarity/linearity.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ablation \& Sensitivity}
+  \begin{itemize}
+    \item Feature importance / permutation importance; remove/keep studies.
+    \item Hyperparameters: depth, estimators, learning rate.
+    \item Robustness: spatial CV folds, noise perturbations.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Deployment \& Use Cases}
+  \begin{itemize}
+    \item Deployment: web dashboards, GIS export, APIs.
+    \item Use cases: guide field sampling; prioritize zones; decision support.
+    \item Limitations: domain shift, data availability, generalization.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Q\&A Strategy (Judge Questions)}
+  \small
+  \begin{tabular}{p{0.48\textwidth} p{0.48\textwidth}}
+  \textbf{Why DL vs geostatistics?} & Non-linear interactions; heterogeneous modalities; scale. Classical often assume stationarity / linearity. \\
+  \textbf{Avoiding overfitting?} & Spatial CV; regularization; early stopping; non-contiguous holdouts; augmentation. \\
+  \textbf{Interpretability?} & Feature importance, SHAP, LRP, surrogate models; spatial attribution maps. \\
+  \textbf{Transferability?} & Domain shift awareness; fine-tuning; multi-region training; domain adaptation. \\
+  \textbf{Uncertainty?} & If absent: propose MC-dropout, ensembles, quantile reg.; report as future work. \\
+  \textbf{Compare to SOTA?} & Cite TorchGeo/remote sensing DL; compare metrics/approach; highlight novelty. \\
+  \textbf{Limitations?} & Overfitting risk; sparse labels; sensor noise; domain shift; interpretability. \\
+  \textbf{Operational integration?} & Data ingestion pipeline; real-time inference; GIS integration; feedback loop. \\
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{Conclusions}
+  \begin{itemize}
+    \item Novelty: multi-modal integration, spatial CV, probability mapping.
+    \item Impact: reduce exploration costs; improve targeting; scalable pipeline.
+    \item Future: uncertainty quantification; domain adaptation; explainability.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Questions}
+  \centering\Large Thank you!\\[0.5cm]Questions welcome.\\[0.6cm]
+  \href{https://edwardcalderon.github.io/GeoAuPredict/login}{\beamergotobutton{Demo}}\\[0.4cm]
+  \small \href{https://github.com/edwardcalderon/GeoAuPredict/}{github.com/edwardcalderon/GeoAuPredict}
+\end{frame}
+
+\end{document}
+
