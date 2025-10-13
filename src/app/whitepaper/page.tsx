@@ -4,7 +4,7 @@ import CloseableNotice from '@/components/CloseableNotice';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import React  from 'react';
-
+import { getNavUrl } from '@/lib/navigation';
 export default async function WhitePaperPage() {
   // Read version information for download links
   const versionsPath = join(process.cwd(), 'public', 'versions', 'whitepaper-version.json');
@@ -30,7 +30,7 @@ export default async function WhitePaperPage() {
               {/* Jupyter Book Content */}
               <div className="bg-slate-800/50 rounded-lg border border-slate-700 overflow-hidden">
                 <iframe
-                  src="/jupyter-book/intro.html"
+                  src={`${getNavUrl('/jupyter-book/intro.html')}`}
                   className="w-full h-[calc(100vh-300px)] border-0"
                   title="GeoAuPredict White Paper"
                   sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
