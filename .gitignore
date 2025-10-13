@@ -67,6 +67,11 @@ models/*.h5
 !outputs/models/ensemble_comparison.csv
 !outputs/models/ENSEMBLE_COMPARISON_REPORT.md
 
+# Version tracking (must be included)
+!VERSION
+!VERSION_HISTORY.json
+!CHANGELOG.md
+
 # Experiments
 experiments/results/
 experiments/logs/

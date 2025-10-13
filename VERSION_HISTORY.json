@@ -1,0 +1,172 @@
+{
+  "current_version": "1.0.0",
+  "versions": {
+    "1.0.0": {
+      "release_date": "2025-10-13",
+      "release_name": "Gold Rush",
+      "type": "major",
+      "status": "stable",
+      "changelog": {
+        "added": [
+          "Voting Ensemble Model (simple averaging of RF, XGBoost, LightGBM)",
+          "Stacking Ensemble Model (meta-learning with Logistic Regression)",
+          "Comprehensive ensemble comparison framework",
+          "Automated versioning system with bump scripts",
+          "REST API /ensemble-info endpoint",
+          "Model registry with metadata tracking",
+          "Ensemble comparison report (MD, JSON, CSV)",
+          "CHANGELOG.md for version tracking",
+          "VERSION file for simple version reference",
+          "src/__version__.py module for programmatic access"
+        ],
+        "changed": [
+          "API now uses Voting Ensemble as production model",
+          "Enhanced model loading with ensemble type detection",
+          "Improved logging for model startup",
+          "Updated .gitignore to include production models"
+        ],
+        "fixed": [
+          "Render.com deployment (removed persistent disk mount conflict)",
+          "Model file deployment (now tracked in git)",
+          "API port configuration for Render",
+          "Docker configuration for production"
+        ],
+        "removed": []
+      },
+      "models": {
+        "ensemble_gold_v1.pkl": {
+          "size_mb": 1.6,
+          "type": "voting_ensemble",
+          "status": "production",
+          "base_models": ["random_forest", "xgboost", "lightgbm"],
+          "ensemble_method": "simple_averaging",
+          "weights": {
+            "random_forest": 0.333,
+            "xgboost": 0.333,
+            "lightgbm": 0.333
+          }
+        },
+        "stacking_ensemble_v1.pkl": {
+          "size_mb": 3.2,
+          "type": "stacking_ensemble",
+          "status": "alternative",
+          "base_models": ["random_forest", "xgboost", "lightgbm"],
+          "ensemble_method": "meta_learning",
+          "meta_model": "LogisticRegression",
+          "cv_folds": 5
+        },
+        "random_forest_model.pkl": {
+          "size_mb": 1.2,
+          "type": "base_model",
+          "algorithm": "RandomForest",
+          "n_estimators": 100,
+          "max_depth": 10
+        },
+        "xgboost_model.pkl": {
+          "size_mb": 0.202,
+          "type": "base_model",
+          "algorithm": "XGBoost",
+          "n_estimators": 100,
+          "max_depth": 6
+        },
+        "lightgbm_model.pkl": {
+          "size_mb": 0.220,
+          "type": "base_model",
+          "algorithm": "LightGBM",
+          "n_estimators": 100,
+          "max_depth": 6
+        }
+      },
+      "performance": {
+        "test_samples": 200,
+        "train_samples": 800,
+        "features": 10,
+        "models": {
+          "voting_ensemble": {
+            "accuracy": 0.8500,
+            "precision": 0.8485,
+            "recall": 0.8485,
+            "f1_score": 0.8485,
+            "auc_roc": 0.9208,
+            "status": "winner"
+          },
+          "stacking_ensemble": {
+            "accuracy": 0.8450,
+            "precision": 0.8400,
+            "recall": 0.8485,
+            "f1_score": 0.8442,
+            "auc_roc": 0.9206,
+            "status": "runner_up"
+          },
+          "random_forest": {
+            "accuracy": 0.8400,
+            "precision": 0.8317,
+            "recall": 0.8485,
+            "f1_score": 0.8400,
+            "auc_roc": 0.9144
+          },
+          "xgboost": {
+            "accuracy": 0.8400,
+            "precision": 0.8317,
+            "recall": 0.8485,
+            "f1_score": 0.8400,
+            "auc_roc": 0.9146
+          },
+          "lightgbm": {
+            "accuracy": 0.8550,
+            "precision": 0.8646,
+            "recall": 0.8384,
+            "f1_score": 0.8513,
+            "auc_roc": 0.9243,
+            "status": "best_base_model"
+          }
+        },
+        "winner_analysis": {
+          "model": "voting_ensemble",
+          "reason": "Simpler, more robust, 0.02% better AUC than stacking",
+          "advantage": "Less overfitting risk, better generalization"
+        }
+      },
+      "deployment": {
+        "api_url": "https://geoaupredict.onrender.com",
+        "api_status": "live",
+        "api_version": "1.0.0",
+        "endpoints": [
+          "/",
+          "/health",
+          "/predict",
+          "/models/info",
+          "/ensemble-info",
+          "/docs"
+        ],
+        "platform": "Render.com",
+        "docker": true,
+        "ci_cd": false
+      },
+      "infrastructure": {
+        "python_version": "3.12",
+        "key_dependencies": {
+          "scikit-learn": "latest",
+          "xgboost": "latest",
+          "lightgbm": "latest",
+          "fastapi": "latest",
+          "pandas": "2.3.3",
+          "numpy": "2.3.3"
+        }
+      },
+      "contributors": ["Edward Calderón"],
+      "institution": "Universidad Nacional de Colombia",
+      "program": "Maestría en sistemas"
+    }
+  },
+  "metadata": {
+    "project_name": "GeoAuPredict",
+    "full_name": "AI-Driven Gold Exploration in Colombia",
+    "description": "Multi-source geospatial data integration and ensemble machine learning for gold deposit prediction",
+    "repository": "https://github.com/edwardcalderon/GeoAuPredict",
+    "license": "MIT",
+    "versioning_scheme": "semver",
+    "last_updated": "2025-10-13T00:47:00Z"
+  }
+}
+
