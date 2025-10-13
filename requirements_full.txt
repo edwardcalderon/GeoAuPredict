@@ -79,3 +79,6 @@ pyarrow>=10.0.0
 # Optional: For Sentinel-2 processing
 sentinelhub>=3.8.0
 
+# PDF processing for version management and accurate page counting
+PyPDF2>=3.0.0
+

@@ -14,13 +14,13 @@ from pathlib import Path
 # Import LaTeX compilation functionality
 sys.path.append(os.path.dirname(__file__))
 from compile_latex_to_pdf import LaTeXToPDFCompiler
-from convert_latex_to_markdown import LaTeXToMarkdownConverter
+from convert_latex_to_html import LaTeXConverter
 
 class WhitepaperVersionManager:
     """Manages versioning for the whitepaper"""
 
     def __init__(self):
-        self.versions_file = "public/versions/versions.json"
+        self.versions_file = "public/versions/whitepaper-version.json"
         self.versions_dir = "public/versions"
         self.current_pdf = "public/whitepaper-latex.pdf"
 
@@ -68,13 +68,91 @@ class WhitepaperVersionManager:
                 'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
 
+    def extract_version_from_tex(self, tex_file_path):
+        """Extract version number from TeX file"""
+        try:
+            with open(tex_file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Look for version patterns in the TeX file
+            # Pattern 1: \date{... \\ {\small Version X.X.X}}
+            import re
+
+            # Find version in date line
+            date_pattern = r'\\date[^}]*Version\s+([\d.]+)'
+            match = re.search(date_pattern, content, re.IGNORECASE)
+            if match:
+                return match.group(1)
+
+            # Pattern 2: Version X.X.X in text
+            version_pattern = r'Version\s+([\d.]+)'
+            match = re.search(version_pattern, content, re.IGNORECASE)
+            if match:
+                return match.group(1)
+
+            return None
+        except Exception as e:
+            print(f"Warning: Could not extract version from TeX file: {e}")
+            return None
+
+    def get_pdf_metadata(self, pdf_path):
+        """Get PDF file size and page count"""
+        try:
+            # Get file size
+            file_size_bytes = os.path.getsize(pdf_path)
+            # Convert to KB
+            file_size_kb = file_size_bytes / 1024
+            size_str = f"{file_size_kb:.0f}KB"
+
+            # Get page count using PyPDF2
+            try:
+                from PyPDF2 import PdfReader
+                with open(pdf_path, 'rb') as f:
+                    pdf_reader = PdfReader(f)
+                    page_count = len(pdf_reader.pages)
+            except ImportError:
+                print("Warning: PyPDF2 not available, using default page count")
+                page_count = 9  # fallback
+            except Exception as e:
+                print(f"Warning: Could not read PDF pages: {e}")
+                page_count = 9  # fallback
+
+            return {
+                'size': size_str,
+                'pages': page_count
+            }
+        except Exception as e:
+            print(f"Warning: Could not get PDF metadata: {e}")
+            return {
+                'size': "Unknown",
+                'pages': 9
+            }
+
+    def validate_tex_version(self, tex_file_path, expected_version):
+        """Validate that the version in TeX file matches expected version"""
+        actual_version = self.extract_version_from_tex(tex_file_path)
+        if actual_version is None:
+            print(f"❌ Could not extract version from TeX file: {tex_file_path}")
+            print("   Please ensure the version is properly formatted in the TeX file")
+            return False
+
+        if actual_version != expected_version.lstrip('v'):
+            print(f"❌ Version mismatch!")
+            print(f"   Expected version: {expected_version.lstrip('v')}")
+            print(f"   TeX file version: {actual_version}")
+            print("   Please update the version in the TeX file to match the release version")
+            return False
+
+        print(f"✅ Version validation passed: {actual_version}")
+        return True
+
     def load_versions(self):
         """Load existing version data"""
         if os.path.exists(self.versions_file):
             with open(self.versions_file, 'r') as f:
                 return json.load(f)
         return {
-            "currentVersion": "v1.0.1",
+            "currentVersion": "v1.0.3",
             "versions": [],
             "downloadUrl": "/whitepaper-latex.pdf"
         }
@@ -88,6 +166,15 @@ class WhitepaperVersionManager:
     def create_version(self, new_version, changes=""):
         """Create a new version of the whitepaper with full compilation workflow"""
         print(f"🚀 Creating version {new_version}...")
+
+        # Extract expected version number for validation (remove 'v' prefix)
+        expected_version_num = new_version.lstrip('v')
+
+        # Validate TeX file version before proceeding
+        tex_file_path = "docs/whitepaper.tex"
+        if not self.validate_tex_version(tex_file_path, expected_version_num):
+            print("❌ Version validation failed. Please fix the version in the TeX file.")
+            return False
 
         # Get git author information
         git_info = self.get_git_info()
@@ -109,14 +196,14 @@ class WhitepaperVersionManager:
         pdf_compiler.cleanup_auxiliary_files()
         print("✅ PDF compilation completed")
 
-        # Step 2: Convert LaTeX to Markdown
-        print("📝 Step 2: Converting LaTeX to Markdown...")
-        md_converter = LaTeXToMarkdownConverter()
+        # Step 2: Convert LaTeX to Markdown and HTML
+        print("📝 Step 2: Converting LaTeX to Markdown and HTML...")
+        latex_converter = LaTeXConverter()
         markdown_output = "docs/whitepaper.md"
 
         try:
-            md_converter.convert_file("docs/whitepaper.tex", markdown_output)
-            print("✅ Markdown conversion completed")
+            latex_converter.convert_file("docs/whitepaper.tex", markdown_output)
+            print("✅ Markdown and HTML conversion completed")
         except Exception as e:
             print(f"❌ Markdown conversion failed: {e}")
             return False
@@ -140,16 +227,21 @@ class WhitepaperVersionManager:
         shutil.copy2(self.current_pdf, version_path)
         print(f"✅ Created version: {version_path}")
 
+        # Get PDF metadata programmatically
+        pdf_metadata = self.get_pdf_metadata(self.current_pdf)
+
         # Add version info with git author data
         version_info = {
             "version": new_version,
-            "filename": version_filename,
             "date": datetime.now().strftime("%Y-%m-%d"),
             "timestamp": git_info['timestamp'],
             "changes": changes,
             "author": git_info['author'],
             "email": git_info['email'],
-            "commit_hash": git_info['commit_hash']
+            "commit_hash": git_info['commit_hash'],
+            "pdf_url": f"/versions/{version_filename}",
+            "size": pdf_metadata['size'],
+            "pages": pdf_metadata['pages']
         }
 
         versions_data["versions"].append(version_info)
@@ -163,6 +255,7 @@ class WhitepaperVersionManager:
         print(f"   Download URL: {versions_data['downloadUrl']}")
         print(f"   Markdown file: {markdown_output}")
         print(f"   Committed by: @{git_info['author']} on {git_info['timestamp']}")
+        print(f"   PDF size: {pdf_metadata['size']}, Pages: {pdf_metadata['pages']}")
 
         return True
 
@@ -181,11 +274,12 @@ class WhitepaperVersionManager:
             timestamp = version.get('timestamp', version.get('date', 'Unknown'))
             author = version.get('author', 'Unknown')
             changes = version.get('changes', 'No description')
+            pdf_url = version.get('pdf_url', 'Unknown')
 
             print(f"  {version['version']} - {timestamp}")
             print(f"    Last change committed by @{author}")
             print(f"    {changes}")
-            print(f"    File: {version['filename']}")
+            print(f"    File: {pdf_url}")
             print()
 
     def version_key(self, version_item):
@@ -229,10 +323,12 @@ class WhitepaperVersionManager:
 
         # Remove old files and update versions list
         for old_version in versions_to_remove:
-            old_file = os.path.join(self.versions_dir, old_version["filename"])
+            pdf_url = old_version.get("pdf_url", "")
+            old_filename = pdf_url.replace("/versions/", "") if pdf_url else ""
+            old_file = os.path.join(self.versions_dir, old_filename)
             if os.path.exists(old_file):
                 os.remove(old_file)
-                print(f"   🗑️  Removed file: {old_version['filename']}")
+                print(f"   🗑️  Removed file: {old_filename}")
 
         # Update versions list
         versions_data["versions"] = versions_to_keep

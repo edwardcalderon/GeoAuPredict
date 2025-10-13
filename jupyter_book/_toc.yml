@@ -1,0 +1,15 @@
+# Table of contents for GeoAuPredict White Paper
+
+format: jb-book
+root: intro
+chapters:
+  - file: methodology
+    title: Materials and Methods
+  - file: results
+    title: Results
+  - file: discussion
+    title: Discussion
+  - file: conclusion
+    title: Conclusion
+  - file: references
+    title: References

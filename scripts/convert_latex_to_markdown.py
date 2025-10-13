@@ -1,72 +1,76 @@
 #!/usr/bin/env python3
 """
-LaTeX to Markdown Converter for GeoAuPredict White Paper
+LaTeX to HTML/Markdown Converter for GeoAuPredict White Paper
 
-This script converts the LaTeX whitepaper.tex to Markdown format while preserving
-mathematical equations and formatting for web display with MathJax.
+This script converts the LaTeX whitepaper.tex to both HTML (using tex4ht) and Markdown formats
+while preserving mathematical equations and formatting for web display.
 """
 
 import re
 import argparse
 import os
+import subprocess
+import shutil
 from datetime import datetime
 from pathlib import Path
 
-class LaTeXToMarkdownConverter:
-    """Converts LaTeX document to Markdown format"""
+class LaTeXConverter:
+    """Converts LaTeX document to HTML and Markdown formats"""
 
     def __init__(self):
         # LaTeX commands to Markdown conversion mapping (ordered by priority)
         self.conversions = [
             # Document structure (remove)
-            (r'\\documentclass\[[^\]]+\]\{[^}]+\}', ''),
-            (r'\\usepackage\[[^\]]+\]\{[^}]+\}', ''),
-            (r'\\usepackage\{[^}]+\}', ''),
-            (r'\\geometry\{[^}]+\}', ''),
-            (r'\\definecolor\{[^}]+\}\{[^}]+\}\{[^}]+\}', ''),
-            (r'\\title\{([^}]+)\}', r'# \1'),
-            (r'\\author\{([^}]+)\}', r'**Author:** \1  \n'),
-            (r'\\date\{([^}]+)\}', r'**Date:** \1  \n\n---\n'),
-            (r'\\maketitle', ''),
-            (r'\\selectlanguage\{[^}]+\}', ''),
-            (r'\\begin\{document\}', ''),
-            (r'\\end\{document\}', ''),
+            (r'\\\\documentclass\[[^\]]+\]\{[^}]+\}', ''),
+            (r'\\\\usepackage\[[^\]]+\]\{[^}]+\}', ''),
+            (r'\\\\usepackage\s*\{[^}]+\}', ''),
+            (r'\\\\geometry\s*\{[^}]+\}', ''),
+            (r'\\\\definecolor\s*\{[^}]+\}\s*\{[^}]+\}\s*\{[^}]+\}', ''),
+            (r'\\\\title\s*\{([^}]+)\}', r'# \1'),
+            (r'\\\\author\s*\{([^}]+)\}', r'**Author:** \1  \n'),
+            (r'\\\\date\s*\{([^}]+)\}', r'**Date:** \1  \n\n---\n'),
+            (r'\\\\maketitle', ''),
+            (r'\\\\selectlanguage\s*\{[^}]+\}', ''),
+            (r'\\\\begin\s*\{document\}', ''),
+            (r'\\\\end\s*\{document\}', ''),
 
             # Text colors (remove color commands but keep content) - handle nested braces with multiple passes
-            (r'\\textcolor\{([^}]+)\}\{([^}]+)\}', r'\2'),
+            (r'\\\\textcolor\{([^}]+)\}\{([^}]+)\}', r'\2'),
 
             # Sections
-            (r'\\section\*?\{([^}]+)\}', r'# \1'),
-            (r'\\subsection\*?\{([^}]+)\}', r'## \1'),
-            (r'\\subsubsection\*?\{([^}]+)\}', r'### \1'),
+            (r'\\\\section\*?\s*\{([^}]+)\}', r'# \1'),
+            (r'\\\\subsection\*?\s*\{([^}]+)\}', r'## \1'),
+            (r'\\\\subsubsection\*?\s*\{([^}]+)\}', r'### \1'),
 
             # Text formatting
-            (r'\\textbf\{([^}]+)\}', r'**\1**'),
-            (r'\\textit\{([^}]+)\}', r'*\1*'),
-            (r'\\texttt\{([^}]+)\}', r'`\1`'),
+            (r'\\\\textbf\s*\{([^}]+)\}', r'**\1**'),
+            (r'\\\\textit\s*\{([^}]+)\}', r'*\1*'),
+            (r'\\\\texttt\s*\{([^}]+)\}', r'`\1`'),
 
             # URL links (mailto will be handled separately)
-            (r'\\url\{([^}]+)\}', r'<\1>'),
+            (r'\\\\url\s*\{([^}]+)\}', r'<\1>'),
+            # Handle href links (more comprehensive) - handle nested braces
+            (r'\\\\href\s*\{([^}]+)\}\s*\{([^{}]*?(?:\{[^{}]*?\}[^{}]*?)*?)\}', r'[\2](\1)'),
 
             # Math mode (preserve for MathJax)
-            (r'\\\(([^)]+)\\\)', r'$\1$'),  # Inline math
-            (r'\\\[([^]]+)\\\]', r'$$\n\1\n$$'),  # Display math
+            (r'\\\\\s*\(([^)]+)\)', r'$\1$'),  # Inline math
+            (r'\\\\\s*\[([^]]+)\)', r'$$\n\1\n$$'),  # Display math
 
             # Lists
-            (r'\\begin\{itemize\}', ''),
-            (r'\\end\{itemize\}', ''),
-            (r'\\begin\{enumerate\}', ''),
-            (r'\\end\{enumerate\}', ''),
-            (r'\\item', '-'),
+            (r'\\\\begin\{itemize\}', ''),
+            (r'\\\\end\{itemize\}', ''),
+            (r'\\\\begin\{enumerate\}', ''),
+            (r'\\\\end\{enumerate\}', ''),
+            (r'\\\\item\s*', '- '),
 
             # Abstract
-            (r'\\begin\{abstract\}', '## Abstract\n\n'),
-            (r'\\end\{abstract\}', '\n\n'),
+            (r'\\\\begin\s*\{abstract\}', '## Abstract\n\n'),
+            (r'\\\\end\s*\{abstract\}', '\n\n'),
 
             # Special characters
-            (r'\\&', '&'),
-            (r'\\%', '%'),
-            (r'\\\$', '$'),
+            (r'\\\\&', '&'),
+            (r'\\\\%', '%'),
+            (r'\\\\\$', '$'),
             (r'\\#', '#'),
             (r'\\_', '_'),
             (r'\\{', '{'),
@@ -99,27 +103,184 @@ class LaTeXToMarkdownConverter:
             return ''
 
         # Handle multiline \href commands first
-        text = re.sub(r'\\href\{([^}]+)\}\s*\{([^{}]*?(?:\n[^{}]*?)*?)\}', r'[\2](\1)', text, flags=re.DOTALL)
+        text = re.sub(r'\\\\href\{([^}]+)\}\s*\{([^{}]*?(?:\n[^{}]*?)*?)\}', r'[\2](\1)', text, flags=re.DOTALL)
 
         # Handle special thanks with href patterns before general pattern matching
-        text = re.sub(r'[\s]*\\thanks\{\\href\{mailto:([^}]+)\}\{([^}]+)\}\}', r'[*thanks: \2*](mailto:\1)', text)
+        text = re.sub(r'[\s]*\\\\thanks\{\\\\href\{mailto:([^}]+)\}\{([^}]+)\}\}', r'[*thanks: \2*](mailto:\1)', text)
 
         # Handle date and time patterns
         current_datetime = datetime.now()
-        text = re.sub(r'\\today\\ at \\currenttime', f'{current_datetime.strftime("%B %d, %Y")} at {current_datetime.strftime("%H:%M")}', text)
-        text = re.sub(r'\\today', current_datetime.strftime('%B %d, %Y'), text)
-        text = re.sub(r'\\currenttime', current_datetime.strftime('%H:%M'), text)
+        text = re.sub(r'\\\\today\\\\ at \\\\currenttime', f'{current_datetime.strftime("%B %d, %Y")} at {current_datetime.strftime("%H:%M")}', text)
+        text = re.sub(r'\\\\today', current_datetime.strftime('%B %d, %Y'), text)
+        text = re.sub(r'\\\\currenttime', current_datetime.strftime('%H:%M'), text)
 
         for pattern, replacement in self.conversions:
-            text = re.sub(pattern, replacement, text)
+            text = re.sub(pattern, replacement, text, flags=re.DOTALL)
 
         # Clean up backslashes that may remain from LaTeX commands
-        text = re.sub(r'\\([a-zA-Z]+|\\)', r'\1', text)
+        text = re.sub(r'\\\\([a-zA-Z]+|\\\\)', r'\1', text)
         # Additional cleanup for specific patterns
-        text = re.sub(r'\\at', 'at', text)
-        text = re.sub(r'\\([0-9])', r'\1', text)  # Fix version numbers like \1
+        text = re.sub(r'\\\\at', 'at', text)
+        text = re.sub(r'\\\\([0-9])', r'\1', text)  # Fix version numbers like \1
 
         return text
+
+    def convert_table(self, tabular_content):
+        """Convert LaTeX tabular environment to markdown table"""
+        # Remove LaTeX table commands
+        content = re.sub(r'\\\\begin\s*\{tabular\}[^{]*\{[^}]*\}', '', tabular_content)
+        content = re.sub(r'\\\\end\s*\{tabular\}', '', content)
+        content = re.sub(r'\\\\toprule|\\\\midrule|\\\\bottomrule|\\\\hline', '', content)
+        content = re.sub(r'\\\\centering', '', content)
+
+        # Split into rows, handling both \\ and \newline
+        rows = []
+        for row in content.split('\\\\'):
+            row = row.strip()
+            if row and not row.startswith('\\newline'):
+                rows.append(row)
+
+        if not rows:
+            return ''
+
+        # Process each row
+        markdown_rows = []
+        for i, row in enumerate(rows):
+            # Remove LaTeX column specifications and formatting
+            row = re.sub(r'\\\\textbf\{([^}]+)\}', r'**\1**', row)
+            row = re.sub(r'\\\\textit\{([^}]+)\}', r'*\1*', row)
+            row = re.sub(r'\\\\texttt\{([^}]+)\}', r'`\1`', row)
+
+            # Split by & (column separator), but handle nested braces
+            cols = self._split_table_columns(row)
+
+            # Clean up each column
+            clean_cols = []
+            for col in cols:
+                # Remove leading/trailing whitespace and LaTeX commands
+                col = re.sub(r'^\\\\|^\s*|\s*$', '', col)
+                col = re.sub(r'\\\\\s*$', '', col)  # Remove trailing \\
+                # Handle href links in table cells
+                col = re.sub(r'\\\\href\{([^}]+)\}\{([^}]+)\}', r'[\2](\1)', col)
+                clean_cols.append(col)
+
+            if clean_cols and any(clean_cols):  # Only add non-empty rows
+                markdown_rows.append('| ' + ' | '.join(clean_cols) + ' |')
+
+        if not markdown_rows:
+            return ''
+
+        # Add header separator after first row (header)
+        if len(markdown_rows) > 1:
+            num_cols = len(markdown_rows[0].split('|')[1:-1])
+            markdown_rows.insert(1, '|' + '|'.join(['---'] * num_cols) + '|')
+
+        return '\n'.join(markdown_rows)
+
+    def _split_table_columns(self, row):
+        """Split table row by & while respecting nested braces"""
+        cols = []
+        current_col = ""
+        brace_level = 0
+
+        for char in row:
+            if char == '{' or char == '[':
+                brace_level += 1
+                current_col += char
+            elif char == '}' or char == ']':
+                brace_level -= 1
+                current_col += char
+            elif char == '&' and brace_level == 0:
+                cols.append(current_col)
+                current_col = ""
+            else:
+                current_col += char
+
+        if current_col:
+            cols.append(current_col)
+
+        return [col.strip() for col in cols]
+
+    def convert_to_html(self, input_path, output_dir):
+        """Convert LaTeX to HTML using tex4ht"""
+        print("🔄 Converting LaTeX to HTML using tex4ht...")
+
+        # Create a temporary directory for tex4ht processing
+        temp_dir = Path(output_dir) / "temp_html"
+        temp_dir.mkdir(exist_ok=True)
+
+        try:
+            # Copy the LaTeX file to temp directory
+            shutil.copy2(input_path, temp_dir / "whitepaper.tex")
+
+            # Change to temp directory for processing
+            original_cwd = os.getcwd()
+            os.chdir(temp_dir)
+
+            # Run htlatex to convert LaTeX to HTML
+            cmd = [
+                'htlatex',
+                'whitepaper.tex',
+                'html',
+                '',  # No options
+                ' -interaction=nonstopmode'  # Non-interactive mode
+            ]
+
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+
+            if result.returncode != 0:
+                print(f"⚠️  htlatex warning: {result.stderr}")
+                print("Continuing with fallback markdown conversion...")
+
+            # Check if HTML file was created
+            html_file = temp_dir / "whitepaper.html"
+            if html_file.exists():
+                # Read and clean up the HTML
+                with open(html_file, 'r', encoding='utf-8') as f:
+                    html_content = f.read()
+
+                # Clean up the HTML (remove tex4ht specific styling, keep content)
+                html_content = self._clean_html(html_content)
+
+                # Copy to output directory
+                final_html = Path(output_dir) / "whitepaper.html"
+                with open(final_html, 'w', encoding='utf-8') as f:
+                    f.write(html_content)
+
+                print(f"✅ HTML conversion completed: {final_html}")
+                return True
+            else:
+                print("❌ HTML conversion failed - no output file generated")
+                return False
+
+        except subprocess.TimeoutExpired:
+            print("❌ HTML conversion timed out")
+            return False
+        except Exception as e:
+            print(f"❌ HTML conversion error: {e}")
+            return False
+        finally:
+            # Clean up temp directory
+            os.chdir(original_cwd)
+            if temp_dir.exists():
+                shutil.rmtree(temp_dir)
+
+    def _clean_html(self, html_content):
+        """Clean up tex4ht generated HTML to make it more web-friendly"""
+        # Remove tex4ht meta tags and scripts
+        html_content = re.sub(r'<meta[^>]*>', '', html_content)
+        html_content = re.sub(r'<script[^>]*>.*?</script>', '', html_content, flags=re.DOTALL)
+
+        # Remove tex4ht styling but keep content
+        html_content = re.sub(r'<style[^>]*>.*?</style>', '', html_content, flags=re.DOTALL)
+
+        # Fix image paths (if any)
+        html_content = re.sub(r'src="([^"]+)"', r'src="/\1"', html_content)
+
+        # Clean up extra whitespace
+        html_content = re.sub(r'\n\s*\n\s*\n', '\n\n', html_content)
+
+        return html_content
 
     def parse_bibliography(self, bib_file_path):
         """Parse .bib file and return markdown formatted bibliography"""
@@ -284,6 +445,23 @@ class LaTeXToMarkdownConverter:
             # Remove date from content
             content = re.sub(date_pattern, '', content)
 
+        # Handle tables before general conversion
+        # Find all table environments (containing tabular) and convert them
+        table_pattern = r'\\\\begin\s*\{table\}[^{]*\}(.*?)\\\\end\s*\{table\}'
+        def replace_table(match):
+            table_content = match.group(1)
+            # Extract just the tabular part for conversion
+            tabular_match = re.search(r'\\\\begin\s*\{tabular\}[^{]*\{[^}]*\}(.*?)\\\\end\s*\{tabular\}', table_content, re.DOTALL)
+            if tabular_match:
+                tabular_content = tabular_match.group(0)
+                # Extract caption if present
+                caption_match = re.search(r'\\\\caption\s*\{([^}]+)\}', table_content)
+                caption = f"**{caption_match.group(1)}**\n\n" if caption_match else ""
+                return caption + self.convert_table(tabular_content)
+            return ""
+
+        document_content = re.sub(table_pattern, replace_table, document_content, flags=re.DOTALL)
+
         # Convert only the document content through LaTeX conversion
         converted_content = self.convert_text(document_content)
 
@@ -309,8 +487,8 @@ class LaTeXToMarkdownConverter:
 
         # Write output with header warning (as plain text, not processed through LaTeX conversion)
         with open(output_path, 'w', encoding='utf-8') as outfile:
-            outfile.write('> **⚠️ WORK IN PROGRESS** \n')
-            outfile.write('> This is a live document, constanly evolving. \n')
+            outfile.write('> **⚠️ WORK IN PROGRESS ⚠️** \n')
+            outfile.write('> This is a constanly evolving document. \n')
             outfile.write('> To propose a change, please open an PR on GitHub, by editing the original whitepaper.tex file and re-running the version manager script. \n\n')
 
             # Add title if found
@@ -351,8 +529,15 @@ class LaTeXToMarkdownConverter:
 
         print(f"✅ Conversion completed: {output_path}")
 
+        # Also generate HTML version using tex4ht
+        html_output_dir = Path(output_path).parent
+        html_success = converter.convert_to_html(input_path, str(html_output_dir))
+
+        if html_success:
+            print(f"✅ HTML version also created: {html_output_dir}/whitepaper.html")
+
 def main():
-    parser = argparse.ArgumentParser(description='Convert LaTeX whitepaper to Markdown')
+    parser = argparse.ArgumentParser(description='Convert LaTeX whitepaper to HTML and Markdown')
     parser.add_argument('--input', '-i', default='docs/whitepaper.tex',
                        help='Input LaTeX file path')
     parser.add_argument('--output', '-o', default='docs/whitepaper.md',
@@ -360,7 +545,7 @@ def main():
 
     args = parser.parse_args()
 
-    converter = LaTeXToMarkdownConverter()
+    converter = LaTeXConverter()
     converter.convert_file(args.input, args.output)
 
 if __name__ == '__main__':

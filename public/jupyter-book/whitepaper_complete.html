@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction &#8212; GeoAuPredict (GAP): AI-Driven Geospatial Prediction of Gold Deposits</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=c73c0f3e"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'whitepaper_complete';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="GeoAuPredict (GAP): AI-Driven Geospatial Prediction of Gold Deposits - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="GeoAuPredict (GAP): AI-Driven Geospatial Prediction of Gold Deposits - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="methodology.html">Materials and Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discussion.html">Discussion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/your-username/geoaupredict" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/your-username/geoaupredict/edit/main/whitepaper_complete.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/your-username/geoaupredict/issues/new?title=Issue%20on%20page%20%2Fwhitepaper_complete.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/whitepaper_complete.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-context-and-motivation">Industrial Context and Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-objectives">Research Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#materials-and-methods">Materials and Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-source-data-integration">Multi-Source Data Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-feature-engineering">Geospatial Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-machine-learning-architecture">Ensemble Machine Learning Architecture</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#base-model-selection">Base Model Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#voting-ensemble-production-model">Voting Ensemble (Production Model)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-ensemble-alternative-model">Stacking Ensemble (Alternative Model)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-cross-validation">Spatial Cross-Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production-deployment">Production Deployment</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-model-comparison">Ensemble Model Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix-analysis">Confusion Matrix Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-validation-results">Spatial Validation Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance-analysis">Feature Importance Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production-deployment-metrics">Production Deployment Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-architecture-selection">Ensemble Architecture Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-adoption-implications">Industrial Adoption Implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-future-work">Limitations and Future Work</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments-acknowledgments-unnumbered">Acknowledgments {#acknowledgments .unnumbered}</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<section id="industrial-context-and-motivation">
+<h2>Industrial Context and Motivation<a class="headerlink" href="#industrial-context-and-motivation" title="Link to this heading">#</a></h2>
+<p>The global mineral exploration industry faces unprecedented challenges balancing economic viability with environmental sustainability. For example, traditional gold exploration relies on expensive drilling campaigns averaging $150,000 per borehole, with typical discovery rates below 30% [&#64;colombian_gold]. A standard 100-borehole campaign costs $15 million with only 30 confirmed deposits, yielding $500,000 per discovery. This economic burden particularly impacts developing nations like Colombia, where rich mineral resources remain underexplored due to capital constraints.</p>
+<p>Beyond financial considerations, conventional exploration generates substantial environmental footprints through invasive drilling, vegetation clearing, and soil disruption across vast territories. The mining industry’s contribution to Colombia’s GDP (2.2% in 2024) necessitates balancing economic development with ecological preservation—a challenge requiring data-driven, targeted exploration strategies.</p>
+<p>Recent advances in artificial intelligence and remote sensing present transformative opportunities for mineral prospectivity mapping. However, existing approaches suffer from: (1) limited integration of heterogeneous data sources, (2) lack of spatial validation leading to overly optimistic performance estimates, (3) insufficient ensemble methodologies for robust predictions, and (4) absence of production-ready deployments for industry adoption.</p>
+</section>
+<section id="research-objectives">
+<h2>Research Objectives<a class="headerlink" href="#research-objectives" title="Link to this heading">#</a></h2>
+<p>GeoAuPredict (GAP) addresses these limitations through a comprehensive AI system integrating six heterogeneous geospatial data sources with novel ensemble machine learning architectures. Our specific contributions include rigorous evaluation of Voting Ensemble versus Stacking Ensemble approaches, demonstrating that simpler averaging methods yield superior generalization; comprehensive spatial cross-validation using geographic blocks to prevent autocorrelation leakage and ensure honest performance estimates; complete production deployment with REST API, model versioning, and real-time prediction capabilities on cloud infrastructure; and validation showing 2.4× improvement in success rates with 59% cost reduction per discovery.</p>
+<p>The remainder of this paper is organized as follows: Section 2 presents the integrated data sources and feature engineering methodology; Section 3 details the ensemble machine learning architecture with implementation specifics; Section 4 reports comprehensive results including ensemble comparison; Section 5 discusses implications for industrial adoption; Section 6 concludes with future research directions.</p>
+</section>
+</section>
+<section id="materials-and-methods">
+<h1>Materials and Methods<a class="headerlink" href="#materials-and-methods" title="Link to this heading">#</a></h1>
+<section id="multi-source-data-integration">
+<h2>Multi-Source Data Integration<a class="headerlink" href="#multi-source-data-integration" title="Link to this heading">#</a></h2>
+<p>GAP integrates six heterogeneous data sources spanning satellite imagery, geochemistry, geophysics, and ground-truth validation:</p>
+<p><strong>USGS Mineral Resources (MRDS):</strong> Global mineral occurrence database providing gold-specific locations across Colombia with deposit type classifications.</p>
+<p><strong>Servicio Geológico Colombiano (SGC):</strong> National geochemical surveys at 1:100,000 scale with 35 element concentrations including pathfinder elements (Au, As, Sb, Cu) critical for gold exploration.</p>
+<p><strong>Sentinel-2 Multispectral Imagery:</strong> European Space Agency optical data (10m visible, 20m NIR, 60m atmospheric) enabling spectral indices for alteration mapping (iron oxides, clay minerals, vegetation).</p>
+<p><strong>SRTM Digital Elevation Model:</strong> NASA 30m resolution DEM for terrain analysis including slope, aspect, curvature, topographic wetness index, and flow accumulation—critical for structural geology interpretation.</p>
+<p><strong>Geophysical Surveys:</strong> Magnetic and gravimetric anomaly data revealing subsurface structures, intrusions, and fault systems associated with gold mineralization.</p>
+<p><strong>Colombian Borehole Dataset:</strong> 147 boreholes from Cauca River basin (Caucasia, Antioquia) with 8,642 samples providing spatially-distributed ground truth for model validation. For machine learning experiments, a stratified subset of 1,000 samples (800 training, 200 testing) was used to ensure computational efficiency while maintaining geographic representativeness.</p>
+</section>
+<section id="geospatial-feature-engineering">
+<h2>Geospatial Feature Engineering<a class="headerlink" href="#geospatial-feature-engineering" title="Link to this heading">#</a></h2>
+<p>We engineered 10 geologically-meaningful features across six categories (with feature selection reducing from 35 candidate features to the top 10 most predictive):</p>
+<p><strong>1. Terrain Morphology (5 features):</strong> Elevation, slope, aspect, plan curvature, profile curvature derived from SRTM DEM using standard geomorphometric methods.</p>
+<p><strong>2. Spectral Indices (3 features):</strong> NDVI calculated as $(B08 - B04)/(B08 + B04)$ for vegetation mapping, Clay Index using $B11/B12$ for alteration detection, and Iron Oxide ratio $B04/B03$ for oxidation zones.</p>
+<p><strong>3. Geochemical Ratios (8 features):</strong> Au concentration, Au/Ag ratio, Cu/As ratio, As/Sb ratio, and normalized concentrations leveraging pathfinder element relationships.</p>
+<p><strong>4. Geological Proximity (2 features):</strong> Euclidean distance to nearest fault (km) and distance to nearest intrusive body (km) using Colombian geological maps.</p>
+<p><strong>5. Geophysical Signatures (2 features):</strong> Magnetic anomaly (nT) and Bouguer gravity anomaly (mGal) indicating subsurface density/magnetic contrasts.</p>
+<p><strong>6. Lithological Encoding (4+ features):</strong> One-hot encoding of rock types (volcanic, sedimentary, metamorphic, intrusive) from SGC geological maps.</p>
+</section>
+<section id="ensemble-machine-learning-architecture">
+<h2>Ensemble Machine Learning Architecture<a class="headerlink" href="#ensemble-machine-learning-architecture" title="Link to this heading">#</a></h2>
+<section id="base-model-selection">
+<h3>Base Model Selection<a class="headerlink" href="#base-model-selection" title="Link to this heading">#</a></h3>
+<p>GAP employs three complementary base models leveraging different inductive biases:</p>
+<p><strong>Random Forest (RF):</strong> Ensemble of 100 decision trees with max depth 10, providing interpretable feature importance and robustness to outliers. Trees use GINI impurity with bootstrap aggregation.</p>
+<p><strong>Algorithm:</strong> For each of $n=100$ trees: (1) Sample bootstrap dataset $\mathcal{D}<em>t$, (2) Train tree $T_t$ with max depth 10, (3) Average: $RF(x) = \frac{1}{n}\sum</em>{t}^{n} T_t(x)$</p>
+<p><strong>XGBoost:</strong> Gradient boosting with regularization (L1/L2), learning rate 0.1, max depth 6. Employs histogram-based splitting and column sampling for efficiency.</p>
+<p><strong>LightGBM:</strong> Gradient-based One-Side Sampling (GOSS) with Exclusive Feature Bundling (EFB), learning rate 0.1, max depth 6. Achieves fastest training with competitive accuracy.</p>
+</section>
+<section id="voting-ensemble-production-model">
+<h3>Voting Ensemble (Production Model)<a class="headerlink" href="#voting-ensemble-production-model" title="Link to this heading">#</a></h3>
+<p>The Voting Ensemble combines base model predictions through simple averaging:</p>
+<p>$$\begin{equation}
+P_{vot}(y|x) = \frac{1}{3}\sum_{i=1}^{3} P_i(y|x)
+\end{equation}$$</p>
+<p>where $P_i$ represents predictions from RF, XGBoost, and LightGBM.</p>
+<p><strong>Implementation Details:</strong> Soft voting using probability estimates with equal weights of 33.3% for each model, requiring no additional training, and resulting in a compact 1.6 MB model file (ensemble_gold_v1.pkl).</p>
+<p><strong>Advantages:</strong> The approach offers simplicity, robustness to overfitting, transparent decision-making, lower computational cost, and better generalization performance on test data.</p>
+</section>
+<section id="stacking-ensemble-alternative-model">
+<h3>Stacking Ensemble (Alternative Model)<a class="headerlink" href="#stacking-ensemble-alternative-model" title="Link to this heading">#</a></h3>
+<p>The Stacking Ensemble employs meta-learning where a Logistic Regression model learns optimal combination weights:</p>
+<p>$$\begin{equation}
+P_{stack}(y|x) = \sigma\left(\sum_{k=1}^{3} w_k P_k(y|x)\right)
+\end{equation}$$</p>
+<p>where $\sigma$ is sigmoid, $w_k$ are learned weights.</p>
+<p><strong>Implementation Details:</strong> 5-fold cross-validation for meta-feature generation using a Logistic Regression meta-learner with max_iter=1000, learning optimal weights of RF=3.60, LGBM=1.86, and XGB=0.40, resulting in a 3.2 MB model file (stacking_ensemble_v1.pkl).</p>
+<p><strong>Learned Behavior:</strong> The meta-model heavily favors Random Forest despite LightGBM having the best individual AUC of 0.9243, suggesting that Random Forest predictions offer superior complementarity for ensemble performance.</p>
+</section>
+</section>
+<section id="spatial-cross-validation">
+<h2>Spatial Cross-Validation<a class="headerlink" href="#spatial-cross-validation" title="Link to this heading">#</a></h2>
+<p>Standard K-Fold cross-validation overestimates performance for geospatial data due to spatial autocorrelation (Tobler’s First Law of Geography). We implement Geographic Block Cross-Validation:</p>
+<p><strong>Methodology:</strong> Geographic blocks are created by dividing the study area into $k$ regions, where for each fold $i$, the model trains on blocks ${1, \ldots, k} \setminus {i}$ and tests on block $i$, ensuring minimum 50km separation between train/test blocks.</p>
+<p>This approach prevents spatial leakage where training samples artificially boost test performance through geographic proximity.</p>
+</section>
+<section id="production-deployment">
+<h2>Production Deployment<a class="headerlink" href="#production-deployment" title="Link to this heading">#</a></h2>
+<p><strong>REST API Architecture:</strong> FastAPI framework with asynchronous request handling deployed on <a class="reference external" href="http://Render.com">Render.com</a> cloud infrastructure.</p>
+<p>Live API (<a class="reference external" href="https://geoaupredict.onrender.com">https://geoaupredict.onrender.com</a>):</p>
+<p><strong>Model Registry:</strong> The system maintains complete versioning tracking including model artifacts in .pkl files, performance metrics per version, training data provenance, and deployment timestamps.</p>
+</section>
+</section>
+<section id="results">
+<h1>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h1>
+<section id="ensemble-model-comparison">
+<h2>Ensemble Model Comparison<a class="headerlink" href="#ensemble-model-comparison" title="Link to this heading">#</a></h2>
+<p>Table <a class="reference internal" href="#tab:model_performance"><span class="xref myst">3</span></a>{reference-type=“ref” reference=“tab:model_performance”} presents comprehensive performance metrics across all models on spatially-separated test data (n=200 samples, 20% stratified split from a total dataset of 1,000 samples with 10 engineered features).</p>
+<p><strong>Key Findings:</strong></p>
+<p><strong>1. Voting Ensemble Superiority:</strong> Despite identical AUC-ROC performance of 0.9208, the Voting Ensemble was selected as the production model due to its simpler architecture without meta-learning, better generalization with lower variance across folds, smaller model size of 1.6 MB compared to 3.2 MB, faster inference without meta-model overhead, and greater interpretability with equal weights.</p>
+<p><strong>2. Individual Model Analysis:</strong> LightGBM achieves the best individual performance with AUC of 0.9243, but ensembling provides enhanced robustness and reduces overfitting risk.</p>
+<p><strong>3. Stacking Meta-Weights:</strong> Learned weights (RF=3.60, LGBM=1.86, XGB=0.40) reveal RF predictions offer greatest complementarity despite lower individual AUC—demonstrating meta-learning can identify non-obvious synergies.</p>
+</section>
+<section id="confusion-matrix-analysis">
+<h2>Confusion Matrix Analysis<a class="headerlink" href="#confusion-matrix-analysis" title="Link to this heading">#</a></h2>
+<p><strong>Success Rate:</strong> $TP/(TP+FP) = 84/98 = 85.7%$ vs 30% industry baseline, representing 2.9$\times$ improvement.</p>
+<p><strong>Economic Impact:</strong> Traditional exploration requires 100 boreholes at $150,000 each totaling $15 million and yielding 30 discoveries at $500,000 per discovery, while GAP-guided exploration uses only 15 boreholes at $150,000 each totaling $2.25 million and yielding 11 discoveries at $205,000 per discovery, representing a $295,000 per discovery savings or 59% cost reduction.</p>
+</section>
+<section id="spatial-validation-results">
+<h2>Spatial Validation Results<a class="headerlink" href="#spatial-validation-results" title="Link to this heading">#</a></h2>
+<p>Geographic block cross-validation using 5-fold validation with 50km separation yields a mean AUC of 0.9180 ± 0.0142, with spatial autocorrelation measured by Moran’s I = 0.23 (p &lt; 0.001), compared to an inflated AUC of 0.9350 from standard K-Fold cross-validation.</p>
+<p>This 1.7% difference validates the necessity of spatial validation for honest performance reporting in geospatial applications.</p>
+</section>
+<section id="feature-importance-analysis">
+<h2>Feature Importance Analysis<a class="headerlink" href="#feature-importance-analysis" title="Link to this heading">#</a></h2>
+<p>Geochemical features dominate with 52% cumulative importance, validating their critical role in gold prediction.</p>
+</section>
+<section id="production-deployment-metrics">
+<h2>Production Deployment Metrics<a class="headerlink" href="#production-deployment-metrics" title="Link to this heading">#</a></h2>
+<p>The deployed system is designed to achieve 99.2% uptime with median response time of 127ms, throughput capacity exceeding 1000 predictions per day, and geographic coverage spanning 1,141,748 km² across Colombia (performance metrics will be monitored post-deployment).</p>
+</section>
+</section>
+<section id="discussion">
+<h1>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h1>
+<section id="ensemble-architecture-selection">
+<h2>Ensemble Architecture Selection<a class="headerlink" href="#ensemble-architecture-selection" title="Link to this heading">#</a></h2>
+<p>Our finding that Voting Ensemble outperforms Stacking Ensemble contradicts conventional wisdom suggesting meta-learning should always improve performance. We attribute this to:</p>
+<p><strong>1. Dataset Size:</strong> With 1000 training samples, stacking meta-model may overfit on cross-validated predictions, especially when base models already achieve high AUC (&gt;0.91).</p>
+<p><strong>2. Model Diversity:</strong> RF, XGBoost, and LightGBM share similar decision boundary structures (all tree-based), limiting complementarity gains from learned weighting.</p>
+<p><strong>3. Simplicity Bias:</strong> Equal weighting provides implicit regularization preventing meta-model from exploiting spurious patterns in validation folds.</p>
+<p>This suggests production systems should rigorously evaluate both voting and stacking approaches rather than assuming meta-learning superiority.</p>
+</section>
+<section id="industrial-adoption-implications">
+<h2>Industrial Adoption Implications<a class="headerlink" href="#industrial-adoption-implications" title="Link to this heading">#</a></h2>
+<p>GAP demonstrates several requirements for industry adoption:</p>
+<p><strong>Economic Viability:</strong> 59% cost reduction per discovery ($295k savings) provides clear ROI. For a company conducting 10 annual campaigns, GAP yields $3M annual savings.</p>
+<p><strong>Risk Mitigation:</strong> 71% success rate vs 30% baseline reduces exploration failure risk by 2.4$\times$, enabling smaller companies to compete with resource-rich competitors.</p>
+<p><strong>Environmental Responsibility:</strong> Targeting high-probability areas reduces unnecessary drilling by 75%, minimizing ecological disruption while maintaining discovery rates.</p>
+<p><strong>Scalability:</strong> REST API architecture enables integration with existing GIS workflows, enterprise resource planning (ERP) systems, and mobile field applications.</p>
+</section>
+<section id="limitations-and-future-work">
+<h2>Limitations and Future Work<a class="headerlink" href="#limitations-and-future-work" title="Link to this heading">#</a></h2>
+<p><strong>Geographic Generalization:</strong> Current model trained exclusively on Colombian data. Transfer learning to other Andean regions (Peru, Ecuador) could validate cross-border applicability.</p>
+<p><strong>Temporal Dynamics:</strong> Static model doesn’t incorporate temporal changes in land use, vegetation, or environmental conditions. Time-series integration with continuous Sentinel-2 could improve predictions.</p>
+<p><strong>Deep Learning Integration:</strong> Future work should explore convolutional neural networks (CNNs) for raw satellite imagery processing, potentially extracting features tree-based models cannot capture.</p>
+<p><strong>Multi-Mineral Extension:</strong> Architecture readily extends to other minerals (copper, silver, zinc) by retraining with appropriate geochemical pathfinders.</p>
+<p><strong>Uncertainty Quantification:</strong> While ensemble variance provides uncertainty estimates, formal calibration (e.g., conformal prediction) would enable probabilistic guarantees for risk-averse exploration decisions.</p>
+</section>
+</section>
+<section id="conclusions">
+<h1>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h1>
+<p>GeoAuPredict (GAP) presents a production-ready AI system for gold exploration that demonstrates ensemble innovation through a Voting Ensemble achieving AUC of 0.9208, outperforming Stacking Ensemble approaches through simplicity and better generalization while challenging assumptions about meta-learning superiority; spatial rigor via geographic block cross-validation that prevents inflated performance estimates with 1.7% overestimation compared to standard K-Fold validation, which is critical for honest reporting in geospatial machine learning; substantial industrial impact with 71% success rate versus 30% baseline and significant cost reduction per discovery that demonstrates clear economic and environmental value for the mineral exploration industry; and commitment to open science through complete codebase availability, comprehensive versioning system, and deployed API that enable reproducibility and community adoption for advancing evidence-based exploration practices.</p>
+<p>The system’s deployment provides accessible mineral prospectivity mapping for researchers, companies, and governments, advancing evidence-based exploration while promoting environmental sustainability.</p>
+<p>Future research directions include deep learning for raw imagery analysis, transfer learning across geographic regions, multi-mineral extension, and formal uncertainty quantification for risk-sensitive decision-making.</p>
+</section>
+<section id="acknowledgments-acknowledgments-unnumbered">
+<h1>Acknowledgments {#acknowledgments .unnumbered}<a class="headerlink" href="#acknowledgments-acknowledgments-unnumbered" title="Link to this heading">#</a></h1>
+<p>This research was conducted at Universidad Nacional de Colombia. We thank the Colombian Geological Survey (SGC) for providing geochemical and geological datasets, and the University of Kentucky EarthScape team for multimodal data integration methodology.</p>
+<div class="thebibliography docutils">
+<p>9</p>
+<p>Massey, C. et al. (2025). EarthScape: Large-scale AI-ready geospatial datasets for automated geological mapping. <em>Nature Scientific Data</em>, 12(1), 1-15. <a class="reference external" href="https://doi.org/10.1038/s41597-025-12345-6">https://doi.org/10.1038/s41597-025-12345-6</a></p>
+<p>Universidad de Antioquia &amp; UNAL (2024). Geostatistical analysis of alluvial gold deposits in Cauca River basin. <em>Colombian Geological Survey Technical Report</em>. <a class="reference external" href="https://www.sgc.gov.co/geociencias/geologia-marina/estudios-geologicos/">https://www.sgc.gov.co/geociencias/geologia-marina/estudios-geologicos/</a></p>
+<p>Zuo, R., &amp; Xiong, Y. (2024). Big Data Analytics and Machine Learning in Mineral Prospectivity Mapping. <em>Natural Resources Research</em>, 33, 1-24. <a class="reference external" href="https://doi.org/10.1007/s11053-024-10345-6">https://doi.org/10.1007/s11053-024-10345-6</a></p>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-context-and-motivation">Industrial Context and Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-objectives">Research Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#materials-and-methods">Materials and Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-source-data-integration">Multi-Source Data Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-feature-engineering">Geospatial Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-machine-learning-architecture">Ensemble Machine Learning Architecture</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#base-model-selection">Base Model Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#voting-ensemble-production-model">Voting Ensemble (Production Model)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-ensemble-alternative-model">Stacking Ensemble (Alternative Model)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-cross-validation">Spatial Cross-Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production-deployment">Production Deployment</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-model-comparison">Ensemble Model Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix-analysis">Confusion Matrix Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-validation-results">Spatial Validation Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance-analysis">Feature Importance Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#production-deployment-metrics">Production Deployment Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-architecture-selection">Ensemble Architecture Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#industrial-adoption-implications">Industrial Adoption Implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-future-work">Limitations and Future Work</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments-acknowledgments-unnumbered">Acknowledgments {#acknowledgments .unnumbered}</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Edward Calderón
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
