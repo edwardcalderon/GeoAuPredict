@@ -10,8 +10,6 @@ services:
     envVars:
       - key: PYTHONUNBUFFERED
         value: 1
-    disk:
-      name: models
-      mountPath: /app/outputs/models
-      sizeGB: 1
+    # Model is now included in git repository (ensemble_gold_v1.pkl)
+    # No persistent disk needed
 
