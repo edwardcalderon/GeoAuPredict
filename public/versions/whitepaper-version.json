@@ -1,5 +1,5 @@
 {
-  "currentVersion": "v1.0.9",
+  "currentVersion": "v1.1.0",
   "versions": [
     {
       "version": "v1.0.9",
@@ -12,7 +12,19 @@
       "pdf_url": "/versions/whitepaper-v1.0.9.pdf",
       "size": "174KB",
       "pages": 8
+    },
+    {
+      "version": "v1.1.0",
+      "date": "2025-10-13",
+      "timestamp": "2025-10-13 07:20:25",
+      "changes": "Release v1.1.0: table conversion and links refinements",
+      "author": "Unknown",
+      "email": "edwardca12@hotmail.com",
+      "commit_hash": "bf56937748db35b1a69ada63069e9210144489ea",
+      "pdf_url": "/versions/whitepaper-v1.1.0.pdf",
+      "size": "174KB",
+      "pages": 8
     }
   ],
-  "downloadUrl": "/versions/whitepaper-v1.0.9.pdf"
+  "downloadUrl": "/versions/whitepaper-v1.1.0.pdf"
 }

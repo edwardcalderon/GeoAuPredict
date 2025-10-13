@@ -11,7 +11,7 @@
 **Affiliations:**
 - Universidad Nacional de Colombia, Facultad de Minas
 
-**Last Modified:** \today\  Version 1.0.9
+**Last Modified:** \today\  Version 1.1.0
 
 ---
 
@@ -24,7 +24,7 @@
 \vspace{0.3cm}
 \noindent\fbox{%
 \parbox{\textwidth}{%
-\textbf{Version 1.0.9 - Enhanced Release}
+\textbf{Version 1.1.0 - Enhanced Release}
 
 \textit{Release Date: October 13, 2025}
 

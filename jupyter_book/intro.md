@@ -16,7 +16,7 @@ The remainder of this paper is organized as follows: Section 2 presents the inte
 
 ---
 
-```{admonition} Version 1.0.9
+```{admonition} Version 1.1.0
 :class: tip
 Built: October 13, 2025
 ```
