@@ -1,15 +1,15 @@
-name: Keep Render Service Awake
+name: Keep Services Awake
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # Every 15 minutes (UTC)
+    - cron: '0 6 */3 * *'  # Every 3 days at 06:00 UTC
   workflow_dispatch: {}
 
 permissions:
   contents: read
 
 concurrency:
-  group: keep-alive-render
+  group: keep-alive-services
   cancel-in-progress: false
 
 jobs:
@@ -17,17 +17,56 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Ping health endpoint
+      - name: Ping Render health endpoint (temporarily disabled)
+        if: ${{ false }} # disable Render ping for now
+        continue-on-error: true
         run: |
           set -euo pipefail
           URL="https://geoaupredict.onrender.com/health"
-          echo "Pinging $URL"
+          echo "Pinging Render at $URL"
           for i in 1 2 3; do
             if curl -fsS --max-time 10 "$URL" > /dev/null; then
-              echo "Service responded (attempt $i)"; exit 0
+              echo "Render responded (attempt $i)"; exit 0
             fi
             sleep 10
           done
-          echo "Service did not respond after retries" >&2
+          echo "Render did not respond after retries" >&2
           exit 1
 
+      - name: Keep Supabase database awake
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SUPABASE_URL:-}" ]; then
+            echo "SUPABASE_URL is not set; skipping Supabase keep-alive."
+            exit 0
+          fi
+
+          SUPABASE_URL="${SUPABASE_URL%/}"
+          ENDPOINT="${SUPABASE_URL}/auth/v1/health"
+
+          # Prefer the service role key, then fall back to the anon key.
+          KEY="${SUPABASE_SERVICE_ROLE_KEY:-${SUPABASE_ANON_KEY:-}}"
+
+          echo "Pinging Supabase at ${ENDPOINT}"
+          for i in 1 2 3; do
+            if [ -n "$KEY" ]; then
+              if curl -fsS --max-time 10 \
+                -H "apikey: $KEY" \
+                -H "Authorization: Bearer $KEY" \
+                "$ENDPOINT" > /dev/null; then
+                echo "Supabase responded (attempt $i)"; exit 0
+              fi
+            else
+              if curl -fsS --max-time 10 "$ENDPOINT" > /dev/null; then
+                echo "Supabase responded (attempt $i)"; exit 0
+              fi
+            fi
+            sleep 10
+          done
+          echo "Supabase did not respond after retries" >&2
+          exit 1
